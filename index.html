@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenador Élite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header id="app-header">
+            <h1 id="header-title">Hoy</h1>
+        </header>
+
+        <main id="app-main-content">
+            <section id="hoy-section" class="tab-content active-tab">
+                <h2>¡Hola, <span id="user-name-display">Usuario</span>!</h2>
+                <div id="entrenamiento-hoy-container" class="card">
+                    </div>
+                <div id="resumen-semanal-container" class="card">
+                    <h3>Progreso Semanal</h3>
+                    <p>Entrenamientos completados esta semana: <span id="entrenamientos-completados-semana">0</span>/<span id="dias-meta-semana">6</span></p>
+                </div>
+                <div class="quick-actions">
+                    <button id="btn-ver-rutinas-desde-hoy" class="btn btn-secondary">Ver Mis Rutinas</button>
+                </div>
+            </section>
+
+            <section id="rutinas-section" class="tab-content">
+                <div class="plan-selector">
+                    <button id="btn-select-plan-casa" data-plan="casa" class="btn btn-plan active">Plan en Casa</button>
+                    <button id="btn-select-plan-gimnasio" data-plan="gimnasio" class="btn btn-plan">Plan de Gimnasio</button>
+                </div>
+                <h3 id="rutinas-plan-title">Plan de Entrenamiento en Casa (6 días)</h3>
+                <div id="calendario-rutinas-container" class="card-container">
+                    </div>
+            </section>
+
+            <section id="detalles-entrenamiento-dia-section" class="tab-content">
+                <button id="btn-volver-a-rutinas" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Volver a Rutinas</button>
+                <h2 id="detalle-dia-nombre-rutina">Nombre de la Rutina</h2>
+                <p id="detalle-dia-tipo-plan">Plan: </p>
+                <p class="info-text">Puedes modificar los ejercicios para esta sesión. <br>¡No olvides guardar los cambios si quieres que persistan para futuras sesiones!</p>
+                
+                <div class="acciones-rutina-dia">
+                    <button id="btn-guardar-cambios-rutina" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Guardar Cambios en esta Rutina</button>
+                    <button id="btn-restablecer-rutina-default" class="btn btn-warning btn-sm" style="display:none;"><i class="fas fa-undo"></i> Restablecer a Predeterminada</button>
+                </div>
+
+                <div id="lista-ejercicios-dia-container">
+                    </div>
+                <button id="btn-comenzar-entrenamiento-dia" class="btn btn-start-workout"><i class="fas fa-play"></i> Comenzar Entrenamiento con estos Ejercicios</button>
+            </section>
+
+            <section id="entrenamiento-en-progreso-section" class="tab-content">
+                <div class="cronometros-container">
+                    <div id="cronometro-entrenamiento-general" class="cronometro-display">Total: 00:00:00</div>
+                    <div id="cronometro-ejercicio-actual" class="cronometro-display">Ejercicio: 00:00</div> </div>
+                <h2 id="ejercicio-actual-nombre">Nombre del Ejercicio</h2>
+                <div class="ejercicio-media">
+                    <img id="ejercicio-actual-imagen" src="https://placehold.co/300x200/2c3e50/ecf0f1?text=Ejercicio" alt="Imagen del ejercicio">
+                </div>
+                <div id="ejercicio-actual-descripcion" class="ejercicio-descripcion">
+                    <p>Descripción detallada del ejercicio...</p>
+                </div>
+                <p id="ejercicio-actual-series-reps">Serie X/Y, Z repeticiones</p>
+                
+                <div id="temporizador-descanso-container" style="display: none;">
+                    <h3>Descanso</h3>
+                    <p id="temporizador-display">00:00</p>
+                    <button id="btn-saltar-descanso" class="btn btn-secondary btn-sm">Saltar Descanso</button>
+                </div>
+
+                <div class="controles-entrenamiento">
+                    <button id="btn-ejercicio-anterior" class="btn btn-secondary"><i class="fas fa-backward"></i> Anterior</button>
+                    <button id="btn-marcar-serie-completada" class="btn">Marcar Serie</button>
+                    <button id="btn-siguiente-ejercicio" class="btn btn-secondary">Siguiente <i class="fas fa-forward"></i></button>
+                </div>
+                <button id="btn-finalizar-entrenamiento" class="btn btn-danger">Finalizar Entrenamiento</button>
+            </section>
+
+            <section id="biblioteca-section" class="tab-content">
+                <input type="text" id="input-buscar-biblioteca" placeholder="Buscar ejercicio..." class="search-input">
+                <div class="filtros-biblioteca">
+                    <select id="select-filtro-grupo-muscular">
+                        <option value="">Grupo Muscular</option>
+                    </select>
+                    <select id="select-filtro-equipamiento">
+                        <option value="">Equipamiento</option>
+                    </select>
+                </div>
+                <div id="lista-biblioteca-ejercicios-container" class="card-container">
+                    </div>
+            </section>
+            
+            <div id="detalle-ejercicio-biblioteca-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="btn-cerrar-modal-biblioteca">&times;</span>
+                    <h3 id="modal-ejercicio-nombre"></h3>
+                    <img id="modal-ejercicio-imagen" src="https://placehold.co/300x200/2c3e50/ecf0f1?text=Ejercicio" alt="Imagen del ejercicio">
+                    <p><strong>Músculos:</strong> <span id="modal-ejercicio-musculos"></span></p>
+                    <p><strong>Equipamiento:</strong> <span id="modal-ejercicio-equipamiento"></span></p>
+                    <p><strong>Descripción:</strong></p>
+                    <div id="modal-ejercicio-descripcion" class="ejercicio-descripcion-modal"></div>
+                    <button id="btn-seleccionar-ejercicio-modal" class="btn btn-primary" style="display:none;">Seleccionar este Ejercicio</button>
+                </div>
+            </div>
+
+            <section id="ajustes-section" class="tab-content">
+                <h2>Ajustes</h2>
+                <div class="form-group">
+                    <label for="input-nombre-app">Nombre de la Aplicación:</label>
+                    <input type="text" id="input-nombre-app">
+                </div>
+                 <div class="form-group">
+                    <label for="input-user-name">Tu Nombre:</label>
+                    <input type="text" id="input-user-name">
+                </div>
+                <div class="form-group">
+                    <label for="select-dias-entrenamiento">Días de Entrenamiento/Semana:</label>
+                    <select id="select-dias-entrenamiento">
+                        <option value="6">6 días</option>
+                        <option value="5">5 días</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-unidades-peso">Unidades de Peso:</label>
+                    <select id="select-unidades-peso">
+                        <option value="kg">Kilogramos (kg)</option>
+                        <option value="lbs">Libras (lbs)</option>
+                    </select>
+                </div>
+                <button id="btn-guardar-ajustes" class="btn">Guardar Ajustes</button>
+                <button id="btn-restablecer-progreso-total" class="btn btn-danger">Restablecer Progreso</button>
+            </section>
+        </main>
+
+        <nav id="app-tab-bar">
+            <button data-tab="hoy-section" class="tab-button active"><i class="fas fa-sun"></i><span>Hoy</span></button>
+            <button data-tab="rutinas-section" class="tab-button"><i class="fas fa-calendar-alt"></i><span>Rutinas</span></button>
+            <button data-tab="biblioteca-section" class="tab-button"><i class="fas fa-book-open"></i><span>Biblioteca</span></button>
+            <button data-tab="ajustes-section" class="tab-button"><i class="fas fa-cog"></i><span>Ajustes</span></button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
