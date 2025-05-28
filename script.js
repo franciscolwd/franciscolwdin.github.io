@@ -1,16 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     let appState = {
-        nombreUsuario: "Atleta Pro",
-        appName: "Entrenador Élite",
+        nombreUsuario: "Atleta Hipertrofia",
+        appName: "Proyecto Hipertrofia",
         unidadesPeso: "kg",
-        planActivoGeneral: "casa",
+        planActivoGeneral: "gimnasio", // Por defecto gimnasio para hipertrofia
         diasEntrenamiento: 6,
         entrenamientosCompletados: {},
-        rutinasPersonalizadas: {}, // NUEVO: para guardar rutinas modificadas
-        // Estado del entrenamiento en progreso
+        rutinasPersonalizadas: {},
         entrenamientoActual: null, 
-        entrenamientoActualOriginalId: null, // ID de la rutina original (casa_lun, gym_mar, etc.)
-        componentesEnEdicion: [], // Para modificar en la pantalla de detalles antes de guardar o iniciar
+        entrenamientoActualOriginalId: null,
+        componentesEnEdicion: [], 
         indiceComponenteActual: 0,
         indiceEjercicioActualEnComponente: 0,
         serieActual: 1,
@@ -28,353 +27,370 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- BIBLIOTECA DE EJERCICIOS (LA MISMA EXTENSA DE ANTES) ---
+    // --- BIBLIOTECA DE EJERCICIOS (ENFOQUE HIPERTROFIA) ---
     const bibliotecaEjercicios = [
         // Pecho
         {
-            id: "ej_P_001", nombre: "Flexiones (Push-ups)",
+            id: "ej_P_001", nombre: "Flexiones (Push-ups) - Hipertrofia",
             musculosTrabajados: ["Pecho", "Hombros", "Tríceps"], equipamiento: ["Peso Corporal", "Colchoneta"],
-            descripcion: "1. Posición inicial: Manos al ancho de los hombros, cuerpo recto desde la cabeza hasta los talones.\n2. Movimiento: Baja el cuerpo doblando los codos hasta que el pecho casi toque el suelo. Mantén el core apretado.\n3. Retorno: Empuja hacia arriba hasta la posición inicial extendiendo los brazos.\n4. Respiración: Inhala al bajar, exhala al subir.\n5. Errores comunes: Dejar caer la cadera, no bajar lo suficiente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Flexiones", series: 3, repeticiones: "AMRAP", descanso: 60
+            descripcion: "1. Posición: Manos ligeramente más anchas que los hombros. Cuerpo recto.\n2. Movimiento: Baja controladamente (2-3 seg) hasta que el pecho casi toque el suelo. Siente la tensión en el pecho.\n3. Retorno: Empuja explosivamente hacia arriba.\n4. Respiración: Inhala al bajar, exhala al subir.\n5. Clave Hipertrofia: Concéntrate en la contracción del pectoral. Considera añadir lastre si se vuelven muy fáciles para el rango de 8-15 reps.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Flexiones+Hipertrofia", series: 3, repeticiones: "8-15 (al fallo o RIR 1-2)", descanso: 60 // RIR = Reps In Reserve
         },
         {
-            id: "ej_P_002", nombre: "Press de Banca con Barra",
+            id: "ej_P_002", nombre: "Press de Banca con Barra - Hipertrofia",
             musculosTrabajados: ["Pecho", "Hombros", "Tríceps"], equipamiento: ["Barra", "Discos", "Banco Plano"],
-            descripcion: "1. Posición inicial: Acostado en el banco, pies firmes en el suelo, agarra la barra un poco más ancha que los hombros.\n2. Movimiento: Baja la barra controladamente hasta tocar el pecho medio-bajo. Codos a 45-75° del torso.\n3. Retorno: Empuja la barra hacia arriba de forma explosiva.\n4. Respiración: Inhala al bajar, exhala al empujar.\n5. Puntos clave: Hombros hacia atrás y abajo (retracción escapular).",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Press+Banca+Barra", series: 4, repeticiones: "6-10", descanso: 90
+            descripcion: "1. Setup: Pies firmes, escápulas retraídas y deprimidas, ligero arco lumbar.\n2. Agarre: Un poco más ancho que los hombros.\n3. Movimiento: Baja la barra controladamente (2 seg) hasta el pecho medio-bajo. Codos a 45-75°.\n4. Retorno: Empuja la barra explosivamente. Contrae el pecho en la cima.\n5. Clave Hipertrofia: Mantén la tensión constante en el pecho. No rebotes la barra.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Press+Banca+Hipertrofia", series: 3, repeticiones: "6-10", descanso: 90
         },
         {
-            id: "ej_P_003", nombre: "Press Inclinado con Mancuernas",
+            id: "ej_P_003", nombre: "Press Inclinado con Mancuernas - Hipertrofia",
             musculosTrabajados: ["Pecho Superior", "Hombros", "Tríceps"], equipamiento: ["Mancuernas", "Banco Inclinado"],
-            descripcion: "1. Posición inicial: Sentado en banco inclinado (30-45°), mancuernas a la altura del pecho, palmas hacia adelante.\n2. Movimiento: Empuja las mancuernas hacia arriba y ligeramente hacia adentro hasta que los brazos estén extendidos.\n3. Retorno: Baja las mancuernas controladamente.\n4. Respiración: Inhala al bajar, exhala al subir.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Press+Inclinado+Manc", series: 3, repeticiones: "8-12", descanso: 75
+            descripcion: "1. Banco: Inclinación de 30-45°.\n2. Movimiento: Baja las mancuernas lentamente hasta los lados del pecho superior, sintiendo el estiramiento.\n3. Retorno: Empuja hacia arriba y ligeramente hacia adentro, contrayendo el pectoral superior.\n4. Clave Hipertrofia: Rango de movimiento completo y control.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Press+Inclinado+Manc+H", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_P_004", nombre: "Aperturas con Mancuernas (Flyes)",
+            id: "ej_P_004", nombre: "Aperturas con Mancuernas (Flyes) - Hipertrofia",
             musculosTrabajados: ["Pecho"], equipamiento: ["Mancuernas", "Banco Plano"],
-            descripcion: "1. Posición inicial: Acostado en banco plano, mancuernas sobre el pecho, brazos casi extendidos, palmas enfrentadas.\n2. Movimiento: Baja las mancuernas hacia los lados describiendo un arco amplio, manteniendo una ligera flexión en los codos. Siente el estiramiento en el pecho.\n3. Retorno: Vuelve a la posición inicial contrayendo el pecho.\n4. Respiración: Inhala al abrir, exhala al cerrar.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Aperturas+Mancuernas", series: 3, repeticiones: "10-15", descanso: 60
+            descripcion: "1. Movimiento: Baja las mancuernas en un arco amplio, manteniendo una ligera flexión en los codos. Enfócate en el estiramiento del pecho.\n2. Retorno: Contrae el pecho para juntar las mancuernas, sin que se toquen arriba para mantener tensión.\n3. Clave Hipertrofia: Movimiento controlado, no uses pesos excesivos que comprometan la forma.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Aperturas+Manc+H", series: 3, repeticiones: "10-15", descanso: 60
+        },
+        {
+            id: "ej_P_005", nombre: "Fondos en Paralelas (Pecho) - Hipertrofia", // Enfasis pecho
+            musculosTrabajados: ["Pecho Inferior", "Tríceps", "Hombros"], equipamiento: ["Barras Paralelas"],
+            descripcion: "1. Agarre: Ancho, inclina el torso ligeramente hacia adelante.\n2. Movimiento: Baja lentamente hasta sentir un buen estiramiento en el pecho. Codos ligeramente hacia afuera.\n3. Retorno: Empuja hacia arriba contrayendo el pecho.\n4. Clave Hipertrofia: Si es muy fácil, añade lastre. Rango de movimiento completo.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Fondos+Pecho+H", series: 3, repeticiones: "8-12 (o AMRAP si es con peso corporal)", descanso: 75
         },
         // Espalda
         {
-            id: "ej_E_001", nombre: "Dominadas (Pull-ups)",
-            musculosTrabajados: ["Espalda (Dorsales)", "Bíceps"], equipamiento: ["Barra de Dominadas", "Peso Corporal"],
-            descripcion: "1. Posición inicial: Agarra la barra con las palmas hacia afuera (pronación), un poco más anchas que los hombros. Cuelga con los brazos extendidos.\n2. Movimiento: Tira de tu cuerpo hacia arriba hasta que la barbilla sobrepase la barra. Enfócate en usar los músculos de la espalda.\n3. Retorno: Baja de forma controlada.\n4. Variación: Usar agarre supino (palmas hacia adentro) para más énfasis en bíceps (Chin-ups).",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Dominadas", series: 3, repeticiones: "AMRAP", descanso: 90
+            id: "ej_E_001", nombre: "Dominadas (Pull-ups) - Hipertrofia",
+            musculosTrabajados: ["Espalda (Dorsales)", "Bíceps"], equipamiento: ["Barra de Dominadas", "Peso Corporal", "Lastre (opcional)"],
+            descripcion: "1. Agarre: Prono, un poco más ancho que los hombros.\n2. Movimiento: Tira explosivamente hasta que la barbilla sobrepase la barra. Contrae la espalda.\n3. Retorno: Baja controladamente (2-3 seg), sintiendo el estiramiento en los dorsales.\n4. Clave Hipertrofia: Rango completo. Si puedes hacer más de 12, considera añadir lastre.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Dominadas+Hipertrofia", series: 3, repeticiones: "6-12 (o AMRAP)", descanso: 90
         },
         {
-            id: "ej_E_002", nombre: "Remo con Barra",
+            id: "ej_E_002", nombre: "Remo con Barra - Hipertrofia",
             musculosTrabajados: ["Espalda (Dorsales, Romboides, Trapecio)", "Bíceps"], equipamiento: ["Barra", "Discos"],
-            descripcion: "1. Posición inicial: De pie, rodillas ligeramente flexionadas, inclina el torso hacia adelante (45-90°), espalda recta. Agarra la barra con agarre prono o supino.\n2. Movimiento: Tira de la barra hacia tu abdomen bajo o pecho, contrayendo los músculos de la espalda.\n3. Retorno: Baja la barra controladamente.\n4. Puntos clave: Mantén la espalda recta y el core activado.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Remo+con+Barra", series: 4, repeticiones: "8-12", descanso: 75
+            descripcion: "1. Postura: Torso inclinado (casi paralelo al suelo para remo Pendlay, o 45° para remo Yates), espalda recta.\n2. Movimiento: Tira de la barra hacia el abdomen/pecho bajo, retrayendo las escápulas fuertemente.\n3. Retorno: Baja la barra controladamente, manteniendo la tensión.\n4. Clave Hipertrofia: Conexión mente-músculo con la espalda, no solo tirar con los brazos.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Remo+Barra+H", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_E_003", nombre: "Jalón al Pecho (Lat Pulldown)",
+            id: "ej_E_003", nombre: "Jalón al Pecho (Lat Pulldown) - Hipertrofia",
             musculosTrabajados: ["Espalda (Dorsales)", "Bíceps"], equipamiento: ["Máquina de Jalones"],
-            descripcion: "1. Posición inicial: Sentado en la máquina, ajusta el rodillo sobre los muslos. Agarra la barra ancha con agarre prono.\n2. Movimiento: Tira de la barra hacia la parte superior del pecho, inclinándote ligeramente hacia atrás. Contrae los omóplatos.\n3. Retorno: Sube la barra controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Jalon+al+Pecho", series: 3, repeticiones: "10-12", descanso: 75
+            descripcion: "1. Agarre: Ancho y prono.\n2. Movimiento: Tira de la barra hacia la parte superior del pecho. Enfócate en llevar los codos hacia abajo y atrás, contrayendo los dorsales.\n3. Retorno: Controla la subida, sintiendo el estiramiento.\n4. Clave Hipertrofia: Evita el balanceo excesivo. Siente el 'apretón' en la espalda.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Jalon+Pecho+H", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_E_004", nombre: "Remo Sentado en Polea (Cable Row)",
-            musculosTrabajados: ["Espalda (Dorsales, Romboides)", "Bíceps"], equipamiento: ["Máquina de Remo en Polea", "Agarre V o Barra Recta"],
-            descripcion: "1. Posición inicial: Sentado con los pies apoyados, espalda recta. Agarra el maneral.\n2. Movimiento: Tira del maneral hacia tu abdomen, manteniendo el torso erguido y contrayendo la espalda.\n3. Retorno: Extiende los brazos controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Remo+Sentado+Polea", series: 3, repeticiones: "10-15", descanso: 60
+            id: "ej_E_004", nombre: "Remo Sentado en Polea (Agarre Estrecho) - Hipertrofia",
+            musculosTrabajados: ["Espalda (Densidad, Romboides)", "Bíceps"], equipamiento: ["Máquina de Remo en Polea", "Agarre V"],
+            descripcion: "1. Movimiento: Tira del agarre V hacia tu abdomen, manteniendo el torso erguido. Aprieta los omóplatos juntos en la contracción máxima.\n2. Retorno: Permite un estiramiento completo de los omóplatos hacia adelante sin encorvar la lumbar.\n3. Clave Hipertrofia: Contracción máxima y estiramiento controlado.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Remo+Polea+Estrecho+H", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_E_005", nombre: "Remo Invertido con TRX (o barra baja)",
-            musculosTrabajados: ["Espalda", "Bíceps", "Core"], equipamiento: ["TRX", "Barra baja", "Peso Corporal"],
-            descripcion: "1. Posición: Cuerpo recto, colgado del TRX o barra. Cuanto más horizontal, más difícil.\n2. Movimiento: Tira del pecho hacia las manos, contrayendo la espalda.\n3. Retorno: Baja controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Remo+TRX", series: 3, repeticiones: "10-15", descanso: 60
+            id: "ej_E_005", nombre: "Remo con Mancuerna a un Brazo - Hipertrofia",
+            musculosTrabajados: ["Espalda (Dorsales)", "Bíceps", "Core"], equipamiento: ["Mancuerna", "Banco Plano"],
+            descripcion: "1. Posición: Apoya una rodilla y mano en el banco, espalda paralela al suelo.\n2. Movimiento: Tira de la mancuerna hacia tu cadera, manteniendo el codo cerca del cuerpo. Contrae el dorsal.\n3. Retorno: Baja la mancuerna lentamente, sintiendo el estiramiento.\n4. Clave Hipertrofia: Rango de movimiento completo y evita rotar el torso excesivamente.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Remo+Mancuerna+1B+H", series: 3, repeticiones: "8-12 c/brazo", descanso: 60 // Descanso entre brazos, luego descanso completo
         },
         // Piernas
         {
-            id: "ej_PI_001", nombre: "Sentadilla con Barra (Back Squat)",
+            id: "ej_PI_001", nombre: "Sentadilla con Barra (Back Squat) - Hipertrofia",
             musculosTrabajados: ["Cuádriceps", "Glúteos", "Isquiotibiales", "Core"], equipamiento: ["Barra", "Discos", "Rack"],
-            descripcion: "1. Posición inicial: Barra apoyada sobre los trapecios (o deltoides posteriores). Pies al ancho de hombros, puntas ligeramente hacia afuera.\n2. Movimiento: Baja la cadera como si te sentaras, manteniendo la espalda recta y el pecho erguido. Baja hasta que los muslos estén paralelos al suelo o más.\n3. Retorno: Empuja con los talones para subir.\n4. Respiración: Inhala al bajar, exhala al subir.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Sentadilla+Barra", series: 4, repeticiones: "8-12", descanso: 90
+            descripcion: "1. Barra: Alta (sobre trapecios) o baja (sobre deltoides posteriores).\n2. Movimiento: Desciende controladamente (2-3 seg) hasta romper la paralela (cadera por debajo de rodillas) si tu movilidad lo permite. Mantén la espalda neutra.\n3. Retorno: Sube potentemente, empujando desde los talones y contrayendo los glúteos.\n4. Clave Hipertrofia: Profundidad y control.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Sentadilla+Barra+H", series: 4, repeticiones: "8-12", descanso: 90-120
         },
         {
-            id: "ej_PI_002", nombre: "Peso Muerto Rumano (RDL)",
+            id: "ej_PI_002", nombre: "Peso Muerto Rumano (RDL) - Hipertrofia",
             musculosTrabajados: ["Isquiotibiales", "Glúteos", "Espalda Baja"], equipamiento: ["Barra", "Mancuernas"],
-            descripcion: "1. Posición inicial: De pie, barra o mancuernas al frente, rodillas ligeramente flexionadas.\n2. Movimiento: Inclina el torso hacia adelante desde las caderas, manteniendo la espalda recta y la barra/mancuernas cerca de las piernas. Siente el estiramiento en los isquios.\n3. Retorno: Vuelve a la posición inicial extendiendo las caderas y contrayendo los glúteos.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Peso+Muerto+Rumano", series: 3, repeticiones: "10-15", descanso: 75
+            descripcion: "1. Movimiento: Empuja las caderas hacia atrás, manteniendo una ligera flexión en las rodillas y la espalda recta. Baja el peso sintiendo el estiramiento profundo en los isquios.\n2. Retorno: Contrae los glúteos e isquios para volver a la vertical.\n3. Clave Hipertrofia: No es necesario tocar el suelo, enfócate en la tensión de los isquiotibiales.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=RDL+H", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_PI_003", nombre: "Prensa de Piernas (Leg Press)",
+            id: "ej_PI_003", nombre: "Prensa de Piernas (Leg Press) - Hipertrofia",
             musculosTrabajados: ["Cuádriceps", "Glúteos", "Isquiotibiales"], equipamiento: ["Máquina de Prensa de Piernas"],
-            descripcion: "1. Posición inicial: Sentado en la máquina, pies en la plataforma al ancho de los hombros.\n2. Movimiento: Baja la plataforma doblando las rodillas hasta un ángulo de 90° o más (según movilidad).\n3. Retorno: Empuja la plataforma sin bloquear completamente las rodillas.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Prensa+Piernas", series: 4, repeticiones: "10-15", descanso: 75
+            descripcion: "1. Posición Pies: Varía para enfocar diferentes áreas (más altos para glúteos/isquios, más bajos para cuádriceps).\n2. Movimiento: Baja controladamente hasta un buen rango de movimiento. No dejes que la lumbar se despegue del asiento.\n3. Retorno: Empuja sin bloquear las rodillas.\n4. Clave Hipertrofia: Tiempo bajo tensión, especialmente en la fase excéntrica.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Prensa+Piernas+H", series: 4, repeticiones: "10-15", descanso: 75
         },
         {
-            id: "ej_PI_004", nombre: "Zancadas con Mancuernas (Dumbbell Lunges)",
-            musculosTrabajados: ["Cuádriceps", "Glúteos"], equipamiento: ["Mancuernas", "Peso Corporal"],
-            descripcion: "1. Posición inicial: De pie, sosteniendo una mancuerna en cada mano.\n2. Movimiento: Da un paso largo hacia adelante y baja la cadera hasta que ambas rodillas formen un ángulo de 90°. La rodilla trasera casi toca el suelo.\n3. Retorno: Empuja con el pie delantero para volver a la posición inicial. Alterna piernas.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Zancadas+Mancuernas", series: 3, repeticiones: "10-12 c/pierna", descanso: 60
+            id: "ej_PI_004", nombre: "Zancadas (Lunges) - Hipertrofia",
+            musculosTrabajados: ["Cuádriceps", "Glúteos"], equipamiento: ["Mancuernas", "Peso Corporal", "Barra"],
+            descripcion: "1. Movimiento: Da un paso largo y baja la cadera. Ambas rodillas a 90°.\n2. Variaciones: Caminando, estáticas, búlgaras (pie trasero elevado para mayor dificultad).\n3. Clave Hipertrofia: Mantén el torso erguido y empuja con el talón del pie delantero.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Zancadas+H", series: 3, repeticiones: "8-12 c/pierna", descanso: 60
         },
         {
-            id: "ej_PI_005", nombre: "Extensiones de Cuádriceps (Leg Extensions)",
+            id: "ej_PI_005", nombre: "Extensiones de Cuádriceps - Hipertrofia",
             musculosTrabajados: ["Cuádriceps"], equipamiento: ["Máquina de Extensiones"],
-            descripcion: "1. Posición inicial: Sentado en la máquina, tobillos debajo del rodillo acolchado.\n2. Movimiento: Extiende las piernas hasta que estén rectas, contrayendo los cuádriceps.\n3. Retorno: Baja el peso controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Extensiones+Cuads", series: 3, repeticiones: "12-15", descanso: 60
+            descripcion: "1. Movimiento: Extiende las piernas completamente, apretando los cuádriceps en la cima por 1-2 segundos.\n2. Retorno: Baja lentamente, controlando el peso.\n3. Clave Hipertrofia: Contracción máxima y control. Buen ejercicio de aislamiento.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Extensiones+Cuads+H", series: 3, repeticiones: "12-15", descanso: 60
         },
         {
-            id: "ej_PI_006", nombre: "Curl Femoral Tumbado (Lying Leg Curls)",
+            id: "ej_PI_006", nombre: "Curl Femoral (Tumbado o Sentado) - Hipertrofia",
             musculosTrabajados: ["Isquiotibiales"], equipamiento: ["Máquina de Curl Femoral"],
-            descripcion: "1. Posición inicial: Acostado boca abajo en la máquina, rodillos justo encima de los tobillos.\n2. Movimiento: Flexiona las rodillas llevando los talones hacia los glúteos.\n3. Retorno: Baja el peso controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Curl+Femoral+Tumbado", series: 3, repeticiones: "12-15", descanso: 60
+            descripcion: "1. Movimiento: Flexiona las rodillas llevando los talones hacia los glúteos. Contrae los isquios.\n2. Retorno: Extiende las piernas lentamente.\n3. Clave Hipertrofia: Evita usar impulso de la cadera. Concéntrate en los isquiotibiales.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Curl+Femoral+H", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_PI_007", nombre: "Elevaciones de Gemelos (Calf Raises)",
-            musculosTrabajados: ["Gemelos"], equipamiento: ["Peso Corporal", "Mancuernas", "Máquina de Gemelos"],
-            descripcion: "1. Posición inicial: De pie, con las puntas de los pies sobre un escalón o plataforma (opcional para mayor rango).\n2. Movimiento: Elévate sobre las puntas de los pies lo más alto posible.\n3. Retorno: Baja los talones lentamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Elevaciones+Gemelos", series: 4, repeticiones: "15-25", descanso: 45
+            id: "ej_PI_007", nombre: "Elevaciones de Gemelos (De pie o Sentado) - Hipertrofia",
+            musculosTrabajados: ["Gemelos (Gastrocnemio, Sóleo)"], equipamiento: ["Peso Corporal", "Mancuernas", "Máquina de Gemelos"],
+            descripcion: "1. Movimiento: Elévate sobre las puntas de los pies lo más alto posible, apretando los gemelos. Mantén 1 segundo arriba.\n2. Retorno: Baja lentamente, sintiendo el estiramiento.\n3. Clave Hipertrofia: Rango completo y pausas en la contracción/estiramiento.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Gemelos+H", series: 4, repeticiones: "12-20", descanso: 45
         },
         {
-            id: "ej_PI_008", nombre: "Sentadilla Goblet",
+            id: "ej_PI_008", nombre: "Sentadilla Goblet - Hipertrofia",
             musculosTrabajados: ["Cuádriceps", "Glúteos", "Core"], equipamiento: ["Mancuerna", "Kettlebell"],
-            descripcion: "1. Posición: Sostén una mancuerna o kettlebell verticalmente contra tu pecho.\n2. Movimiento: Realiza una sentadilla profunda, manteniendo el torso erguido.\n3. Puntos clave: Excelente para aprender la forma de la sentadilla y trabajar el core.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Sentadilla+Goblet", series: 3, repeticiones: "10-15", descanso: 60
+            descripcion: "1. Movimiento: Sentadilla profunda manteniendo el torso erguido y la pesa pegada al pecho.\n2. Clave Hipertrofia: Excelente para mantener la forma y trabajar el core. Desciende lentamente.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Sentadilla+Goblet+H", series: 3, repeticiones: "10-15", descanso: 60
         },
         // Hombros
         {
-            id: "ej_H_001", nombre: "Press Militar con Barra (Overhead Press)",
+            id: "ej_H_001", nombre: "Press Militar con Barra (De pie) - Hipertrofia",
             musculosTrabajados: ["Hombros (Deltoides)", "Tríceps"], equipamiento: ["Barra", "Discos"],
-            descripcion: "1. Posición inicial: De pie, barra a la altura de los hombros/clavícula, agarre prono un poco más ancho que los hombros.\n2. Movimiento: Empuja la barra verticalmente hacia arriba hasta extender los brazos. Pasa la cabeza ligeramente hacia adelante una vez que la barra supera la frente.\n3. Retorno: Baja la barra controladamente.\n4. Puntos clave: Core apretado, glúteos contraídos para estabilidad.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Press+Militar+Barra", series: 4, repeticiones: "6-10", descanso: 90
+            descripcion: "1. Movimiento: Empuja la barra verticalmente desde la parte alta del pecho hasta la extensión completa sobre la cabeza. Core apretado.\n2. Retorno: Baja la barra controladamente hasta la clavícula/hombros.\n3. Clave Hipertrofia: Movimiento estricto, sin impulso de piernas (a menos que sea Push Press, que es diferente).",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Press+Militar+H", series: 3, repeticiones: "6-10", descanso: 90
         },
         {
-            id: "ej_H_002", nombre: "Press de Hombros con Mancuernas (Sentado o De pie)",
-            musculosTrabajados: ["Hombros (Deltoides)", "Tríceps"], equipamiento: ["Mancuernas", "Banco (opcional)"],
-            descripcion: "1. Posición inicial: Sentado o de pie, mancuernas a la altura de los hombros, palmas hacia adelante.\n2. Movimiento: Empuja las mancuernas hacia arriba hasta extender los brazos.\n3. Retorno: Baja controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Press+Hombro+Manc", series: 3, repeticiones: "8-12", descanso: 75
+            id: "ej_H_002", nombre: "Press de Hombros con Mancuernas (Sentado) - Hipertrofia",
+            musculosTrabajados: ["Hombros (Deltoides)", "Tríceps"], equipamiento: ["Mancuernas", "Banco con Respaldo"],
+            descripcion: "1. Movimiento: Empuja las mancuernas hacia arriba y ligeramente hacia adentro. Controla la bajada.\n2. Clave Hipertrofia: Permite un gran rango de movimiento y es bueno para la estabilidad del hombro.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Press+Hombro+Manc+H", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_H_003", nombre: "Elevaciones Laterales con Mancuernas",
+            id: "ej_H_003", nombre: "Elevaciones Laterales con Mancuernas - Hipertrofia",
             musculosTrabajados: ["Hombros (Deltoides Lateral)"], equipamiento: ["Mancuernas"],
-            descripcion: "1. Posición inicial: De pie, mancuernas a los lados, ligera flexión en los codos.\n2. Movimiento: Eleva los brazos hacia los lados hasta que estén paralelos al suelo. No uses impulso.\n3. Retorno: Baja controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Elevaciones+Laterales", series: 3, repeticiones: "12-15", descanso: 60
+            descripcion: "1. Movimiento: Eleva los brazos hacia los lados hasta la altura de los hombros, con una ligera flexión en codos. Imagina que viertes jarras de agua.\n2. Retorno: Baja lentamente, resistiendo la gravedad.\n3. Clave Hipertrofia: No uses impulso. Enfócate en el deltoides medio.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Elevaciones+Laterales+H", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_H_004", nombre: "Elevaciones Frontales con Mancuernas",
+            id: "ej_H_004", nombre: "Elevaciones Frontales con Mancuernas/Disco - Hipertrofia",
             musculosTrabajados: ["Hombros (Deltoides Anterior)"], equipamiento: ["Mancuernas", "Disco"],
-            descripcion: "1. Posición inicial: De pie, mancuernas o disco al frente de los muslos.\n2. Movimiento: Eleva los brazos rectos hacia el frente hasta la altura de los hombros.\n3. Retorno: Baja controladamente. Puedes alternar brazos.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Elevaciones+Frontales", series: 3, repeticiones: "10-15", descanso: 60
+            descripcion: "1. Movimiento: Eleva el peso hacia el frente hasta la altura de los hombros, manteniendo el brazo casi recto.\n2. Clave Hipertrofia: Controla el movimiento, especialmente la bajada. Puedes alternar brazos.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Elevaciones+Frontales+H", series: 3, repeticiones: "10-15", descanso: 60
+        },
+        {
+            id: "ej_H_005", nombre: "Pájaros (Bent-Over Dumbbell Raise) - Hipertrofia",
+            musculosTrabajados: ["Hombros (Deltoides Posterior)", "Trapecio"], equipamiento: ["Mancuernas"],
+            descripcion: "1. Posición: Inclina el torso hacia adelante, espalda recta, rodillas ligeramente flexionadas.\n2. Movimiento: Eleva las mancuernas hacia los lados, manteniendo una ligera flexión en los codos. Contrae los deltoides posteriores y los omóplatos.\n3. Clave Hipertrofia: Movimiento controlado, no uses impulso.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Pajaros+Hombro+H", series: 3, repeticiones: "12-15", descanso: 60
         },
         // Brazos (Bíceps y Tríceps)
         {
-            id: "ej_B_001", nombre: "Curl de Bíceps con Barra",
+            id: "ej_B_001", nombre: "Curl de Bíceps con Barra - Hipertrofia",
             musculosTrabajados: ["Bíceps"], equipamiento: ["Barra Recta", "Barra EZ"],
-            descripcion: "1. Posición inicial: De pie, agarra la barra con las palmas hacia arriba (supinación), al ancho de los hombros.\n2. Movimiento: Flexiona los codos llevando la barra hacia tus hombros. Mantén los codos pegados al cuerpo.\n3. Retorno: Baja la barra controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Curl+Biceps+Barra", series: 3, repeticiones: "8-12", descanso: 60
+            descripcion: "1. Movimiento: Flexiona los codos llevando la barra hacia los hombros. Aprieta los bíceps en la cima.\n2. Retorno: Baja la barra lentamente (2-3 seg), extendiendo completamente los brazos.\n3. Clave Hipertrofia: Evita el balanceo. Rango completo de movimiento.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Curl+Biceps+Barra+H", series: 3, repeticiones: "8-12", descanso: 60-75
         },
         {
-            id: "ej_B_002", nombre: "Curl de Bíceps con Mancuernas (Alterno o Simultáneo)",
+            id: "ej_B_002", nombre: "Curl de Bíceps con Mancuernas (Supinación) - Hipertrofia",
             musculosTrabajados: ["Bíceps"], equipamiento: ["Mancuernas"],
-            descripcion: "1. Posición inicial: De pie o sentado, mancuernas a los lados, palmas hacia adelante o neutras (martillo).\n2. Movimiento: Flexiona los codos, llevando las mancuernas hacia los hombros. Puedes supinar la muñeca durante el movimiento si empiezas con agarre neutro.\n3. Retorno: Baja controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Curl+Biceps+Manc", series: 3, repeticiones: "10-15 c/brazo", descanso: 60
+            descripcion: "1. Movimiento: Comienza con agarre neutro (palmas enfrentadas) y supina (gira las palmas hacia arriba) mientras subes la mancuerna. Contrae el bíceps.\n2. Retorno: Baja lentamente, revirtiendo el movimiento.\n3. Clave Hipertrofia: La supinación activa más el pico del bíceps.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Curl+Biceps+Manc+Sup+H", series: 3, repeticiones: "8-12 c/brazo", descanso: 60
         },
         {
-            id: "ej_T_001", nombre: "Press Francés (Skullcrushers)",
+            id: "ej_B_003", nombre: "Curl Martillo con Mancuernas - Hipertrofia",
+            musculosTrabajados: ["Bíceps (Braquial)", "Antebrazo (Braquiorradial)"], equipamiento: ["Mancuernas"],
+            descripcion: "1. Agarre: Neutro (palmas enfrentadas) durante todo el movimiento.\n2. Clave Hipertrofia: Desarrolla el grosor del brazo.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Curl+Martillo+H", series: 3, repeticiones: "8-12 c/brazo", descanso: 60
+        },
+        {
+            id: "ej_T_001", nombre: "Press Francés (Skullcrushers) - Hipertrofia",
             musculosTrabajados: ["Tríceps"], equipamiento: ["Barra EZ", "Mancuernas", "Banco Plano"],
-            descripcion: "1. Posición inicial: Acostado en banco plano, sostén la barra EZ o mancuernas sobre tu pecho con los brazos extendidos.\n2. Movimiento: Baja el peso hacia tu frente o detrás de la cabeza doblando los codos. Mantén los codos apuntando hacia arriba.\n3. Retorno: Extiende los brazos.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Press+Frances", series: 3, repeticiones: "10-12", descanso: 60
+            descripcion: "1. Movimiento: Baja el peso hacia la frente o ligeramente detrás de la cabeza, manteniendo los codos relativamente fijos y apuntando hacia el techo.\n2. Retorno: Extiende los brazos usando la fuerza del tríceps.\n3. Clave Hipertrofia: Controla la fase excéntrica para proteger los codos y maximizar la tensión.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Press+Frances+H", series: 3, repeticiones: "8-12", descanso: 60-75
         },
         {
-            id: "ej_T_002", nombre: "Extensiones de Tríceps en Polea Alta (Pushdowns)",
-            musculosTrabajados: ["Tríceps"], equipamiento: ["Máquina de Poleas", "Cuerda", "Barra V"],
-            descripcion: "1. Posición inicial: De pie frente a la polea alta, agarra el accesorio.\n2. Movimiento: Extiende los brazos hacia abajo hasta que estén completamente rectos. Mantén los codos pegados al cuerpo.\n3. Retorno: Sube controladamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Extension+Triceps+Polea", series: 3, repeticiones: "12-15", descanso: 60
+            id: "ej_T_002", nombre: "Extensiones de Tríceps en Polea Alta (Cuerda) - Hipertrofia",
+            musculosTrabajados: ["Tríceps"], equipamiento: ["Máquina de Poleas", "Cuerda"],
+            descripcion: "1. Movimiento: Extiende los brazos hacia abajo y separa ligeramente las manos al final del movimiento para una mayor contracción del tríceps.\n2. Retorno: Sube controladamente.\n3. Clave Hipertrofia: Aprieta los tríceps en la posición de máxima extensión.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Extension+Triceps+Cuerda+H", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_T_003", nombre: "Fondos en Paralelas (Dips)",
-            musculosTrabajados: ["Tríceps", "Pecho", "Hombros"], equipamiento: ["Barras Paralelas", "Máquina de Fondos Asistidos"],
-            descripcion: "1. Posición inicial: Sostente en las barras paralelas con los brazos extendidos.\n2. Movimiento: Baja el cuerpo doblando los codos hasta que los hombros estén por debajo de los codos o sientas un buen estiramiento. Inclínate ligeramente hacia adelante para más énfasis en pecho, más vertical para tríceps.\n3. Retorno: Empuja hacia arriba.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Fondos+Paralelas", series: 3, repeticiones: "AMRAP", descanso: 75
+            id: "ej_T_003", nombre: "Fondos entre Bancos (o silla) - Hipertrofia", // Adaptación de Dips
+            musculosTrabajados: ["Tríceps", "Pecho"], equipamiento: ["Bancos", "Sillas"],
+            descripcion: "1. Posición: Manos en un banco, talones en otro (o suelo para más fácil).\n2. Movimiento: Baja el cuerpo doblando los codos hasta que los brazos superiores estén paralelos al suelo. Codos hacia atrás.\n3. Clave Hipertrofia: Si es fácil, coloca peso sobre los muslos.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Fondos+Bancos+H", series: 3, repeticiones: "10-15 (o AMRAP)", descanso: 60
         },
         // Abdominales y Core
         {
-            id: "ej_A_001", nombre: "Plancha Abdominal (Plank)",
-            musculosTrabajados: ["Abdominales", "Core", "Espalda Baja"], equipamiento: ["Peso Corporal", "Colchoneta"],
-            descripcion: "1. Posición inicial: Apoya los antebrazos y las puntas de los pies en el suelo. Cuerpo recto desde la cabeza hasta los talones.\n2. Mantenimiento: Contrae los abdominales y glúteos. Evita que la cadera se caiga o se eleve demasiado.\n3. Duración: Mantén la posición por el tiempo especificado.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Plancha+Abdominal", series: 3, repeticiones: "30-60s", descanso: 45
+            id: "ej_A_001", nombre: "Plancha Abdominal (con peso opcional) - Hipertrofia",
+            musculosTrabajados: ["Abdominales", "Core"], equipamiento: ["Peso Corporal", "Colchoneta", "Disco (opcional)"],
+            descripcion: "1. Mantenimiento: Contrae fuertemente abdominales y glúteos. Para hipertrofia, considera añadir un disco en la espalda baja o reducir el tiempo y aumentar la intensidad de la contracción.\n2. Clave Hipertrofia: Si 60s es fácil, añade peso o haz variaciones más difíciles.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Plancha+Peso+H", series: 3, repeticiones: "30-60s (o hasta fallo técnico)", descanso: 45
         },
         {
-            id: "ej_A_002", nombre: "Crunches (Encogimientos Abdominales)",
-            musculosTrabajados: ["Abdominales (Recto Abdominal)"], equipamiento: ["Peso Corporal", "Colchoneta"],
-            descripcion: "1. Posición inicial: Acostado boca arriba, rodillas flexionadas, pies en el suelo. Manos detrás de la cabeza o cruzadas en el pecho.\n2. Movimiento: Levanta la cabeza y los hombros del suelo contrayendo los abdominales. La espalda baja debe permanecer en contacto con el suelo.\n3. Retorno: Baja lentamente.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Crunches", series: 3, repeticiones: "15-25", descanso: 45
+            id: "ej_A_002", nombre: "Crunches en Polea Alta (Cable Crunches) - Hipertrofia",
+            musculosTrabajados: ["Abdominales (Recto Abdominal)"], equipamiento: ["Máquina de Poleas", "Cuerda"],
+            descripcion: "1. Posición: De rodillas frente a la polea alta, sosteniendo la cuerda a los lados de la cabeza.\n2. Movimiento: Flexiona el torso llevando los codos hacia las rodillas, contrayendo los abdominales. Mantén la cadera fija.\n3. Clave Hipertrofia: Permite añadir carga progresiva.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Crunches+H", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_A_003", nombre: "Elevaciones de Piernas (Leg Raises)",
-            musculosTrabajados: ["Abdominales Inferiores", "Flexores de Cadera"], equipamiento: ["Peso Corporal", "Colchoneta"],
-            descripcion: "1. Posición inicial: Acostado boca arriba, piernas extendidas. Manos debajo de los glúteos o a los lados para apoyo.\n2. Movimiento: Levanta las piernas rectas hasta que formen un ángulo de 90° con el torso. Mantén la espalda baja pegada al suelo.\n3. Retorno: Baja las piernas lentamente sin que toquen el suelo.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Elevaciones+Piernas", series: 3, repeticiones: "12-20", descanso: 60
+            id: "ej_A_003", nombre: "Elevaciones de Piernas Colgado (Hanging Leg Raises) - Hipertrofia",
+            musculosTrabajados: ["Abdominales Inferiores", "Flexores de Cadera"], equipamiento: ["Barra de Dominadas"],
+            descripcion: "1. Movimiento: Colgado de la barra, levanta las piernas (rectas o flexionadas para más fácil) lo más alto posible sin usar impulso. Controla la bajada.\n2. Clave Hipertrofia: Uno de los mejores para abdominales inferiores si se hace correctamente.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Hanging+Leg+Raises+H", series: 3, repeticiones: "8-15 (o AMRAP)", descanso: 60
         },
-        // Cardio y Calentamiento/Enfriamiento General
+        // Cardio y Calentamiento/Enfriamiento General (sin cambios significativos para hipertrofia, su propósito es diferente)
         {
-            id: "ej_C_001", nombre: "Salto de Comba (Jumping Rope)",
+            id: "ej_C_001", nombre: "Salto de Comba",
             musculosTrabajados: ["Cardio", "Piernas", "Coordinación"], equipamiento: ["Comba"],
             descripcion: "Mantén un ritmo constante. Variaciones: pies juntos, alternando pies, rodillas altas, saltos dobles.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Salto+Comba", series: 1, repeticiones: "3-10 min", descanso: 0
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Salto+Comba", series: 1, repeticiones: "3-10 min", descanso: 0
         },
         {
             id: "ej_C_002", nombre: "Jumping Jacks",
             musculosTrabajados: ["Cardio", "Cuerpo Completo"], equipamiento: ["Peso Corporal"],
             descripcion: "Un ejercicio clásico de calentamiento para elevar la frecuencia cardíaca.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Jumping+Jacks", series: 1, repeticiones: "20-30 reps o 1-2 min", descanso: 0
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Jumping+Jacks", series: 1, repeticiones: "20-30 reps o 1-2 min", descanso: 0
         },
         {
             id: "ej_C_003", nombre: "Estiramientos Dinámicos (General)",
             musculosTrabajados: ["Movilidad Articular"], equipamiento: ["Peso Corporal"],
             descripcion: "Incluye círculos de brazos, balanceos de piernas, rotaciones de torso. Prepara el cuerpo para el movimiento.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Estiramientos+Dinamicos", series: 1, repeticiones: "5-10 min", descanso: 0
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Estiramientos+Dinamicos", series: 1, repeticiones: "5-10 min", descanso: 0
         },
         {
             id: "ej_C_004", nombre: "Estiramientos Estáticos (General)",
             musculosTrabajados: ["Flexibilidad"], equipamiento: ["Peso Corporal", "Colchoneta"],
             descripcion: "Mantén cada estiramiento por 20-30 segundos. Enfócate en los músculos trabajados durante la sesión.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Estiramientos+Estaticos", series: 1, repeticiones: "5-10 min", descanso: 0
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Estiramientos+Estaticos", series: 1, repeticiones: "5-10 min", descanso: 0
         },
         {
             id: "ej_C_005", nombre: "Bicicleta Estática (Cardio Ligero)",
             musculosTrabajados: ["Cardio", "Piernas"], equipamiento: ["Bicicleta Estática"],
             descripcion: "Mantén un ritmo constante y moderado. Ideal para calentamiento o enfriamiento.",
-            imagenUrl: "https://placehold.co/300x200/2c3e50/ecf0f1?text=Bicicleta+Estatica", series: 1, repeticiones: "10-15 min", descanso: 0
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Bicicleta+Estatica", series: 1, repeticiones: "10-15 min", descanso: 0
         },
     ];
 
-    // --- PLANES DE ENTRENAMIENTO (Corregidos y con calentamiento de bici en gym) ---
-    const planesEntrenamiento = { // Contendrá las rutinas PREDETERMINADAS
-        casa: { 
-            lunes: { id: "casa_lun", nombre: "Empuje (Pecho, Hombros, Tríceps)", diaSemanaComparable: 1, componentes: [
+    // --- PLANES DE ENTRENAMIENTO (ENFOQUE HIPERTROFIA) ---
+    const planesEntrenamiento = {
+        casa: { // Rutinas de casa adaptadas para hipertrofia (más series/reps donde sea posible)
+            lunes: { id: "casa_lun", nombre: "Empuje Casa (Pecho, Hombros, Tríceps)", diaSemanaComparable: 1, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_002", reps: "1 min"}, { id_ejercicio: "ej_C_003", reps: "4 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_P_001", series: 3, reps: "AMRAP" },
-                    { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (adaptado casa)" },
-                    { id_ejercicio: "ej_T_003", series: 3, reps: "AMRAP (fondos en sillas)" }
+                    { id_ejercicio: "ej_P_001", series: 4, reps: "8-15 (al fallo)" }, // Flexiones
+                    { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (con peso improvisado)" }, // Press Hombro Manc.
+                    { id_ejercicio: "ej_T_003", series: 3, reps: "8-15 (fondos en sillas, añadir peso si es posible)" } // Fondos
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
-            martes: { id: "casa_mar", nombre: "Tirón (Espalda, Bíceps)", diaSemanaComparable: 2, componentes: [
+            martes: { id: "casa_mar", nombre: "Tirón Casa (Espalda, Bíceps)", diaSemanaComparable: 2, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_001", reps: "3 min"}, { id_ejercicio: "ej_C_003", reps: "3 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_E_005", series: 4, reps: "10-15" }, 
-                    { id_ejercicio: "ej_B_002", series: 3, reps: "10-15 c/brazo" }
+                    { id_ejercicio: "ej_E_005", series: 4, reps: "8-12 (TRX o remo bajo mesa)" }, 
+                    { id_ejercicio: "ej_B_002", series: 3, reps: "10-15 c/brazo (con peso improvisado)" }
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
-            miercoles: { id: "casa_mie", nombre: "Piernas (Isquios, Glúteos)", diaSemanaComparable: 3, componentes: [
-                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_002", reps: "1 min"}, { id_ejercicio: "ej_PI_008", reps: "10-12 (sin peso)"}, { id_ejercicio: "ej_C_003", reps: "3 min"}] },
+            miercoles: { id: "casa_mie", nombre: "Piernas Casa (Énfasis Cuádriceps y Glúteos)", diaSemanaComparable: 3, componentes: [
+                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_002", reps: "1 min"}, { id_ejercicio: "ej_PI_008", reps: "12-15 (sin peso)"}, { id_ejercicio: "ej_C_003", reps: "3 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_PI_008", series: 4, reps: "12-15" }, 
-                    { id_ejercicio: "ej_PI_002", series: 3, reps: "12-15 (con peso improvisado)" }, 
-                    { id_ejercicio: "ej_PI_004", series: 3, reps: "10-12 c/pierna" } 
+                    { id_ejercicio: "ej_PI_008", series: 4, reps: "10-15 (con peso)" }, // Sentadilla Goblet
+                    { id_ejercicio: "ej_PI_004", series: 3, reps: "10-12 c/pierna (con peso)" }, // Zancadas
+                    { id_ejercicio: "ej_PI_007", series: 3, reps: "15-20 (elevaciones de gemelos con peso)" } 
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
-            jueves: { id: "casa_jue", nombre: "Hombros y Abdominales", diaSemanaComparable: 4, componentes: [
+            jueves: { id: "casa_jue", nombre: "Hombros y Tríceps Casa", diaSemanaComparable: 4, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_001", reps: "3 min"}, { id_ejercicio: "ej_C_003", reps: "3 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_H_003", series: 3, reps: "12-15" }, 
-                    { id_ejercicio: "ej_H_004", series: 3, reps: "12-15" }, 
-                    { id_ejercicio: "ej_A_001", series: 3, reps: "45-60s" }, 
-                    { id_ejercicio: "ej_A_002", series: 3, reps: "15-20" }  
+                    { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (press hombro con peso improvisado)" }, 
+                    { id_ejercicio: "ej_H_003", series: 3, reps: "12-15 (elevaciones laterales)" }, 
+                    { id_ejercicio: "ej_T_003", series: 3, reps: "10-15 (fondos en silla, pies elevados para más dificultad)" }, 
+                    { id_ejercicio: "ej_A_001", series: 3, reps: "45-60s" }  // Plancha
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
-            viernes: { id: "casa_vie", nombre: "Full Body Ligero", diaSemanaComparable: 5, componentes: [ 
+            viernes: { id: "casa_vie", nombre: "Espalda y Bíceps Casa (Volumen)", diaSemanaComparable: 5, componentes: [ 
                  { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_002", reps: "1 min"}, { id_ejercicio: "ej_C_003", reps: "4 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_P_001", series: 2, reps: "AMRAP" }, 
-                    { id_ejercicio: "ej_E_005", series: 2, reps: "10-12" }, 
-                    { id_ejercicio: "ej_PI_008", series: 2, reps: "10-12" }, 
-                    { id_ejercicio: "ej_B_002", series: 2, reps: "10-12 c/brazo" } 
+                    { id_ejercicio: "ej_E_005", series: 4, reps: "10-15 (variar agarre si es TRX)" }, 
+                    { id_ejercicio: "ej_B_002", series: 4, reps: "10-12 c/brazo (curl concentrado o martillo)" }
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
-            sabado: { id: "casa_sab", nombre: "Piernas (Cuádriceps, Gemelos) y Core", diaSemanaComparable: 6, componentes: [
+            sabado: { id: "casa_sab", nombre: "Piernas Casa (Énfasis Isquios y Glúteos) y Core", diaSemanaComparable: 6, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_001", reps: "3 min"}, { id_ejercicio: "ej_PI_008", reps: "10 (sin peso)"}, { id_ejercicio: "ej_C_003", reps: "3 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_PI_004", series: 4, reps: "12-15 c/pierna" }, 
-                    { id_ejercicio: "ej_PI_007", series: 4, reps: "20-25" }, 
-                    { id_ejercicio: "ej_A_003", series: 3, reps: "15-20" }  
+                    { id_ejercicio: "ej_PI_002", series: 4, reps: "10-15 (RDL con peso improvisado)" }, 
+                    { id_ejercicio: "ej_PI_004", series: 3, reps: "12-15 c/pierna (zancadas búlgaras si es posible)" }, 
+                    { id_ejercicio: "ej_A_003", series: 3, reps: "12-15" }  // Elevaciones de Piernas
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
         },
-        gimnasio: { 
-            lunes: { id: "gym_lun", nombre: "Empuje (Pecho, Hombros, Tríceps)", diaSemanaComparable: 1, componentes: [
+        gimnasio: { // Rutinas de gimnasio con enfoque hipertrofia
+            lunes: { id: "gym_lun", nombre: "Pecho y Tríceps (Hipertrofia)", diaSemanaComparable: 1, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_P_002", series: 4, reps: "6-10" },    
-                    { id_ejercicio: "ej_P_003", series: 3, reps: "8-12" },    
-                    { id_ejercicio: "ej_H_002", series: 3, reps: "8-12" },    
-                    { id_ejercicio: "ej_P_004", series: 3, reps: "10-15" }, 
-                    { id_ejercicio: "ej_T_002", series: 3, reps: "10-15" },
-                    { id_ejercicio: "ej_T_001", series: 3, reps: "10-12" } 
+                    { id_ejercicio: "ej_P_002", series: 4, reps: "6-10" },    // Press Banca Barra
+                    { id_ejercicio: "ej_P_003", series: 3, reps: "8-12" },    // Press Inclinado Manc.
+                    { id_ejercicio: "ej_P_004", series: 3, reps: "10-15" },   // Aperturas Manc.
+                    { id_ejercicio: "ej_T_001", series: 3, reps: "8-12" },    // Press Francés
+                    { id_ejercicio: "ej_T_002", series: 3, reps: "10-15 (cuerda)" } // Ext. Tríceps Polea
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            martes: { id: "gym_mar", nombre: "Tirón (Espalda, Bíceps)", diaSemanaComparable: 2, componentes: [
+            martes: { id: "gym_mar", nombre: "Espalda y Bíceps (Hipertrofia)", diaSemanaComparable: 2, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_E_001", series: 4, reps: "AMRAP o 6-10" }, 
-                    { id_ejercicio: "ej_E_002", series: 3, reps: "8-10" },    
-                    { id_ejercicio: "ej_E_003", series: 3, reps: "10-12" },   
-                    { id_ejercicio: "ej_E_004", series: 3, reps: "10-12" }, 
-                    { id_ejercicio: "ej_B_001", series: 3, reps: "8-12" },
-                    { id_ejercicio: "ej_B_002", series: 3, reps: "10-12 c/brazo (martillo)" }
+                    { id_ejercicio: "ej_E_001", series: 4, reps: "6-10 (con lastre si es posible)" }, // Dominadas
+                    { id_ejercicio: "ej_E_002", series: 3, reps: "8-10 (pesado)" },    // Remo con Barra
+                    { id_ejercicio: "ej_E_003", series: 3, reps: "10-12" },   // Jalón al Pecho
+                    { id_ejercicio: "ej_E_004", series: 3, reps: "10-12 (agarre estrecho)" }, // Remo Sentado Polea
+                    { id_ejercicio: "ej_B_001", series: 3, reps: "8-10" },     // Curl Bíceps Barra
+                    { id_ejercicio: "ej_B_002", series: 3, reps: "10-12 c/brazo (supinando)" } // Curl Manc.
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            miercoles: { id: "gym_mie", nombre: "Piernas (Isquios, Glúteos)", diaSemanaComparable: 3, componentes: [
+            miercoles: { id: "gym_mie", nombre: "Piernas (Énfasis Cuádriceps y Glúteos) - Hipertrofia", diaSemanaComparable: 3, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_PI_008", reps: "10-12 (ligero)"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_PI_001", series: 4, reps: "8-10" }, 
-                    { id_ejercicio: "ej_PI_002", series: 3, reps: "10-12" },   
-                    { id_ejercicio: "ej_PI_006", series: 3, reps: "12-15" },   
-                    { id_ejercicio: "ej_PI_003", series: 3, reps: "12-15" },
-                    { id_ejercicio: "ej_PI_007", series: 3, reps: "15-20" } 
+                    { id_ejercicio: "ej_PI_001", series: 4, reps: "8-10" }, // Sentadilla Barra
+                    { id_ejercicio: "ej_PI_003", series: 4, reps: "10-12" },   // Prensa de Piernas
+                    { id_ejercicio: "ej_PI_004", series: 3, reps: "10-12 c/pierna (zancadas con barra o mancuernas)" },
+                    { id_ejercicio: "ej_PI_005", series: 3, reps: "12-15" },   // Ext. Cuádriceps
+                    { id_ejercicio: "ej_PI_007", series: 4, reps: "12-15 (de pie)" } // Gemelos
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            jueves: { id: "gym_jue", nombre: "Hombros y Trapecios", diaSemanaComparable: 4, componentes: [ 
+            jueves: { id: "gym_jue", nombre: "Hombros (Completo) - Hipertrofia", diaSemanaComparable: 4, componentes: [ 
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_H_001", series: 4, reps: "6-10" },    
-                    { id_ejercicio: "ej_H_003", series: 3, reps: "12-15" },   
-                    { id_ejercicio: "ej_H_004", series: 3, reps: "12-15" }, 
-                    { id_ejercicio: "ej_E_002", series: 3, reps: "10-12 (remo al mentón para trapecio)" }, 
+                    { id_ejercicio: "ej_H_001", series: 4, reps: "6-10" },    // Press Militar Barra
+                    { id_ejercicio: "ej_H_002", series: 3, reps: "8-12 (sentado con mancuernas)" },   
+                    { id_ejercicio: "ej_H_003", series: 4, reps: "10-15" },   // Elev. Laterales
+                    { id_ejercicio: "ej_H_005", series: 3, reps: "12-15" }, // Pájaros (Deltoides Posterior)
+                    // { id_ejercicio: "ej_E_002", series: 3, reps: "10-12 (remo al mentón para trapecio)" }, // Opcional Trapecio
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            viernes: { id: "gym_vie", nombre: "Espalda (Ancho y Densidad) y Bíceps (Volumen)", diaSemanaComparable: 5, componentes: [ // CORREGIDO
+            viernes: { id: "gym_vie", nombre: "Piernas (Énfasis Isquios y Glúteos) - Hipertrofia", diaSemanaComparable: 5, componentes: [ // Cambiado de Espalda/Bíceps a Piernas para un split más común
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_E_003", series: 4, reps: "8-12 (agarre ancho)" }, 
-                    { id_ejercicio: "ej_E_004", series: 3, reps: "10-12 (agarre V)" }, 
-                    { id_ejercicio: "ej_E_002", series: 3, reps: "10-12 (agarre supino)" }, 
-                    { id_ejercicio: "ej_B_001", series: 3, reps: "10-15 (barra EZ)" },
-                    { id_ejercicio: "ej_B_002", series: 3, reps: "12-15 c/brazo (curl martillo)" } 
+                    { id_ejercicio: "ej_PI_002", series: 4, reps: "8-12 (RDL con barra)" }, 
+                    { id_ejercicio: "ej_PI_006", series: 3, reps: "10-15 (Curl femoral tumbado)" }, 
+                    { id_ejercicio: "ej_PI_003", series: 3, reps: "10-15 (Prensa, pies altos para isquios/glúteos)" }, 
+                    { id_ejercicio: "ej_PI_004", series: 3, reps: "10-12 c/pierna (Zancadas búlgaras)" },
+                    { id_ejercicio: "ej_PI_007", series: 4, reps: "12-15 (gemelos sentado)" } 
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            sabado: { id: "gym_sab", nombre: "Piernas (Énfasis Cuádriceps) y Core", diaSemanaComparable: 6, componentes: [
-                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_PI_008", reps: "10-12 (ligero)"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
+            sabado: { id: "gym_sab", nombre: "Brazos (Bíceps y Tríceps) y Core - Hipertrofia", diaSemanaComparable: 6, componentes: [
+                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_PI_001", series: 3, reps: "10-12 (Front squat o Zercher Squat)" }, 
-                    { id_ejercicio: "ej_PI_005", series: 4, reps: "12-15" },   
-                    { id_ejercicio: "ej_PI_004", series: 3, reps: "10-12 c/pierna (zancadas caminando con mancuernas)" },
-                    { id_ejercicio: "ej_PI_007", series: 4, reps: "15-20 (en máquina o con barra)" }, 
-                    { id_ejercicio: "ej_A_003", series: 3, reps: "15-20 (colgado si es posible)" },
-                    { id_ejercicio: "ej_A_001", series: 3, reps: "60s (con peso en la espalda si es posible)" } 
+                    { id_ejercicio: "ej_B_001", series: 3, reps: "8-10 (Barra EZ)" }, 
+                    { id_ejercicio: "ej_B_002", series: 3, reps: "10-12 c/brazo (Curl inclinado con mancuernas)" },   
+                    { id_ejercicio: "ej_B_003", series: 3, reps: "10-12 c/brazo (Curl martillo)" },
+                    { id_ejercicio: "ej_T_001", series: 3, reps: "8-10 (Press francés)" }, 
+                    { id_ejercicio: "ej_T_002", series: 3, reps: "10-12 (Extensión en polea con cuerda)" },
+                    { id_ejercicio: "ej_A_002", series: 3, reps: "12-15 (Cable crunches)" },
+                    { id_ejercicio: "ej_A_003", series: 3, reps: "AMRAP (Elevaciones de piernas colgado)" } 
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
         }
     };
 
-    // --- ELEMENTOS DEL DOM ---
+    // --- ELEMENTOS DEL DOM (sin cambios respecto a la versión anterior) ---
     const cronometroEntrenamientoGeneralDisplay = document.getElementById('cronometro-entrenamiento-general');
     const cronometroEjercicioActualDisplay = document.getElementById('cronometro-ejercicio-actual');
     const selectDiasEntrenamiento = document.getElementById('select-dias-entrenamiento');
@@ -400,8 +416,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const detalleDiaTipoPlan = document.getElementById('detalle-dia-tipo-plan');
     const listaEjerciciosDiaContainer = document.getElementById('lista-ejercicios-dia-container');
     const btnComenzarEntrenamientoDia = document.getElementById('btn-comenzar-entrenamiento-dia');
-    const btnGuardarCambiosRutina = document.getElementById('btn-guardar-cambios-rutina'); // NUEVO
-    const btnRestablecerRutinaDefault = document.getElementById('btn-restablecer-rutina-default'); // NUEVO
+    const btnGuardarCambiosRutina = document.getElementById('btn-guardar-cambios-rutina');
+    const btnRestablecerRutinaDefault = document.getElementById('btn-restablecer-rutina-default');
     const entrenamientoEnProgresoSection = document.getElementById('entrenamiento-en-progreso-section');
     const ejercicioActualNombre = document.getElementById('ejercicio-actual-nombre');
     const ejercicioActualImagen = document.getElementById('ejercicio-actual-imagen');
@@ -428,17 +444,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardarAjustes = document.getElementById('btn-guardar-ajustes');
     const btnRestablecerProgresoTotal = document.getElementById('btn-restablecer-progreso-total');
 
+
     // --- FUNCIONES ---
     function guardarEstado() {
-        localStorage.setItem('entrenadorFitnessAppState_v5', JSON.stringify(appState)); // Nueva versión
+        localStorage.setItem('entrenadorFitnessAppState_v6_hipertrofia', JSON.stringify(appState)); // Nueva versión
     }
 
     function cargarEstado() {
-        const estadoGuardado = localStorage.getItem('entrenadorFitnessAppState_v5');
+        const estadoGuardado = localStorage.getItem('entrenadorFitnessAppState_v6_hipertrofia');
         const estadoPorDefecto = {
-            nombreUsuario: "Atleta Pro", appName: "Entrenador Élite", unidadesPeso: "kg",
-            planActivoGeneral: "casa", diasEntrenamiento: 6, entrenamientosCompletados: {},
-            rutinasPersonalizadas: {}, // Inicializar
+            nombreUsuario: "Atleta Hipertrofia", appName: "Proyecto Hipertrofia", unidadesPeso: "kg",
+            planActivoGeneral: "gimnasio", diasEntrenamiento: 6, entrenamientosCompletados: {},
+            rutinasPersonalizadas: {}, 
             entrenamientoActual: null, entrenamientoActualOriginalId: null,
             componentesEnEdicion: [], indiceComponenteActual: 0,
             indiceEjercicioActualEnComponente: 0, serieActual: 1, timerDescansoActivo: null,
@@ -451,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const estadoParseado = JSON.parse(estadoGuardado);
             appState = { ...estadoPorDefecto, ...estadoParseado };
             appState.entrenamientosCompletados = estadoParseado.entrenamientosCompletados || {};
-            appState.rutinasPersonalizadas = estadoParseado.rutinasPersonalizadas || {}; // Cargar rutinas personalizadas
+            appState.rutinasPersonalizadas = estadoParseado.rutinasPersonalizadas || {};
             appState.diasEntrenamiento = parseInt(appState.diasEntrenamiento) || 6;
         } else {
             appState = estadoPorDefecto;
@@ -549,11 +566,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let planDelDia = appState.rutinasPersonalizadas[rutinaDelDiaId] || planesEntrenamiento[appState.planActivoGeneral]?.[hoyNombre];
         
         if (appState.diasEntrenamiento === 5 && hoyNombre === "sabado") {
-            planDelDia = { nombre: "Descanso", id: "descanso_sab" }; // id para consistencia, aunque no se guarda progreso de descanso
+            planDelDia = { nombre: "Descanso", id: "descanso_sab" };
         }
 
         if (planDelDia && planDelDia.componentes && planDelDia.componentes.length > 0 && planDelDia.nombre !== "Descanso") {
-            const completado = appState.entrenamientosCompletados[planDelDia.id];
+            const completado = appState.entrenamientosCompletados[planDelDia.id]; // Usa el ID original para completado
             entrenamientoHoyContainer.innerHTML = `
                 <h3>Tu Entrenamiento: ${planDelDia.nombre} (${appState.planActivoGeneral === 'casa' ? 'Casa' : 'Gym'})</h3>
                 <p>${completado ? "¡Completado! 🎉" : "Pendiente"}</p>
@@ -583,10 +600,8 @@ document.addEventListener('DOMContentLoaded', () => {
             : ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
         
         diasConsiderados.forEach(dia => {
-            const rutinaId = `${appState.planActivoGeneral}_${dia.substring(0,3)}`;
-            // const planDia = appState.rutinasPersonalizadas[rutinaId] || planesEntrenamiento[appState.planActivoGeneral]?.[dia];
-            // if (planDia && appState.entrenamientosCompletados[planDia.id]) {
-            if (appState.entrenamientosCompletados[rutinaId]) { // Usar el ID original para marcar completado
+            const rutinaIdOriginal = planesEntrenamiento[appState.planActivoGeneral]?.[dia]?.id; // Siempre el ID original
+            if (rutinaIdOriginal && appState.entrenamientosCompletados[rutinaIdOriginal]) {
                 completados++;
             }
         });
@@ -612,27 +627,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 calendarioRutinasContainer.appendChild(diaDiv);
                 continue; 
             }
+            // Si son 5 días y es viernes, y el plan de gimnasio tiene una rutina específica para viernes (no la de full body), se muestra.
+            // La lógica de "Full Body para 5 días" se manejaba en la estructura de datos, ahora es más directo.
 
-            if (rutinaDia && rutinaDia.nombre && rutinaDia.componentes) { // Asegurar que la rutina exista
-                const completado = appState.entrenamientosCompletados[rutinaDia.id]; // El id debe ser el original del plan
+            if (rutinaDia && rutinaDia.nombre && rutinaDia.componentes) {
+                const idOriginalParaCompletado = rutinaPredeterminada.id; // Usar siempre el ID original para el estado de completado
+                const completado = appState.entrenamientosCompletados[idOriginalParaCompletado];
                 const diaDiv = document.createElement('div');
                 diaDiv.classList.add('card', 'rutina-dia-item');
                 
-                if (rutinaDia.nombre === "Descanso" && appState.diasEntrenamiento === 6) { // Mostrar días de descanso si son parte del plan de 6 días
+                // Si el nombre de la rutina actual (personalizada o default) es "Descanso", tratarlo como tal
+                if (rutinaDia.nombre === "Descanso") { 
                     diaDiv.innerHTML = `<h4>${diaNombre.charAt(0).toUpperCase() + diaNombre.slice(1)}</h4> <p>Descanso</p>`;
                     diaDiv.classList.add('rutina-descanso');
-                } else if (rutinaDia.nombre !== "Descanso") {
+                } else {
                      diaDiv.innerHTML = `
                         <h4>${diaNombre.charAt(0).toUpperCase() + diaNombre.slice(1)}</h4>
-                        <p>${rutinaDia.nombre}</p>
+                        <p>${rutinaDia.nombre} ${appState.rutinasPersonalizadas[rutinaId] ? '<i class="fas fa-edit" title="Rutina Personalizada"></i>' : ''}</p>
                         <p style="color: ${completado ? 'var(--success-color)' : 'var(--secondary-color)'}; font-weight: bold;">
                             ${completado ? 'Completado <i class="fas fa-check-circle"></i>' : 'Pendiente'}
                         </p>
                     `;
                     diaDiv.addEventListener('click', () => renderDetallesEntrenamientoDia(appState.planActivoGeneral, diaNombre));
-                } else {
-                    // No renderizar si es un día de descanso implícito por ser 5 días y no es sábado (ya manejado)
-                    continue;
                 }
                 calendarioRutinasContainer.appendChild(diaDiv);
             }
@@ -654,12 +670,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         appState.componentesEnEdicion = JSON.parse(JSON.stringify(rutinaAVisualizar.componentes));
-        // Guardar referencia a la rutina original (o personalizada si existe) para el botón "Comenzar" y "Guardar"
         appState.entrenamientoActual = { ...rutinaAVisualizar, plan: plan, dia: dia, id: rutinaId }; 
-        appState.entrenamientoActualOriginalId = rutinaPredeterminada.id; // Siempre el ID del plan original
+        appState.entrenamientoActualOriginalId = rutinaPredeterminada.id;
 
         detalleDiaNombreRutina.textContent = rutinaAVisualizar.nombre;
-        detalleDiaTipoPlan.textContent = `Plan: ${plan === 'casa' ? 'En Casa' : 'De Gimnasio'}`;
+        detalleDiaTipoPlan.textContent = `Plan: ${plan === 'casa' ? 'En Casa' : 'De Gimnasio'} ${rutinaPersonalizada ? '(Personalizada)' : ''}`;
         listaEjerciciosDiaContainer.innerHTML = '';
 
         appState.componentesEnEdicion.forEach((componente, indexComp) => {
@@ -719,11 +734,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Mostrar botón de restablecer si es una rutina personalizada
         btnRestablecerRutinaDefault.style.display = rutinaPersonalizada ? 'inline-block' : 'none';
-        
-        const completado = appState.entrenamientosCompletados[rutinaPredeterminada.id]; // Usar ID original para completado
-        btnComenzarEntrenamientoDia.textContent = completado ? 'Repetir Entrenamiento' : 'Comenzar Entrenamiento con estos Ejercicios';
+        const completado = appState.entrenamientosCompletados[rutinaPredeterminada.id];
+        btnComenzarEntrenamientoDia.textContent = completado ? 'Repetir Entrenamiento' : 'Comenzar con estos Ejercicios';
         btnComenzarEntrenamientoDia.className = completado ? 'btn btn-secondary' : 'btn btn-start-workout';
         cambiarPestana('detalles-entrenamiento-dia-section');
     }
@@ -731,8 +744,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function quitarEjercicioDeComponentesEnEdicion(compIndex, ejIndex) {
         if (appState.componentesEnEdicion?.[compIndex]?.ejercicios) {
             appState.componentesEnEdicion[compIndex].ejercicios.splice(ejIndex, 1);
-            // Re-renderizar solo la lista de ejercicios, no toda la pantalla de detalles
-            // para evitar perder el estado de appState.entrenamientoActual si no es necesario
             actualizarVistaListaEjerciciosDia(); 
         }
     }
@@ -742,31 +753,34 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("No hay una rutina activa para guardar.");
             return;
         }
-        const rutinaId = appState.entrenamientoActual.id; // Este es el ID único como 'casa_lun'
-        // Guardar los componentesEnEdicion en rutinasPersonalizadas
-        appState.rutinasPersonalizadas[rutinaId] = JSON.parse(JSON.stringify(appState.componentesEnEdicion));
+        const rutinaId = appState.entrenamientoActual.id;
+        // Crear una copia de la rutina con los componentes modificados
+        const rutinaModificadaParaGuardar = {
+            ...appState.entrenamientoActual, // Copia otras propiedades como nombre, id, etc.
+            componentes: JSON.parse(JSON.stringify(appState.componentesEnEdicion)) // Copia profunda de los componentes
+        };
+        appState.rutinasPersonalizadas[rutinaId] = rutinaModificadaParaGuardar;
         guardarEstado();
-        alert("Cambios en la rutina guardados persistentemente.");
-        btnRestablecerRutinaDefault.style.display = 'inline-block'; // Mostrar botón de restablecer ahora
+        alert("Cambios en la rutina guardados.");
+        btnRestablecerRutinaDefault.style.display = 'inline-block';
     }
 
     function restablecerRutinaActualADefault() {
         if (!appState.entrenamientoActual || !appState.entrenamientoActual.id) return;
         const rutinaId = appState.entrenamientoActual.id;
         if (appState.rutinasPersonalizadas[rutinaId]) {
-            if (confirm("¿Seguro que quieres restablecer esta rutina a su versión predeterminada? Se perderán tus cambios guardados.")) {
+            if (confirm("¿Restablecer esta rutina a su versión predeterminada?")) {
                 delete appState.rutinasPersonalizadas[rutinaId];
                 guardarEstado();
-                // Volver a renderizar la pantalla de detalles con la rutina predeterminada
                 renderDetallesEntrenamientoDia(appState.entrenamientoActual.plan, appState.entrenamientoActual.dia);
-                alert("Rutina restablecida a la predeterminada.");
+                alert("Rutina restablecida.");
             }
         }
     }
     
-    function actualizarVistaListaEjerciciosDia() { // Función auxiliar para re-renderizar solo la lista
-        if (!appState.entrenamientoActual) return; // Necesitamos el contexto de la rutina actual
-        listaEjerciciosDiaContainer.innerHTML = ''; // Limpiar contenedor
+    function actualizarVistaListaEjerciciosDia() { 
+        if (!appState.entrenamientoActual) return; 
+        listaEjerciciosDiaContainer.innerHTML = ''; 
         appState.componentesEnEdicion.forEach((componente, indexComp) => {
             const compDiv = document.createElement('div');
             compDiv.classList.add('componente-dia');
@@ -801,7 +815,6 @@ document.addEventListener('DOMContentLoaded', () => {
             compDiv.appendChild(ul);
             listaEjerciciosDiaContainer.appendChild(compDiv);
         });
-        // Re-asignar listeners a los nuevos botones
         listaEjerciciosDiaContainer.querySelectorAll('.btn-quitar-ej').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const compIndex = parseInt(e.currentTarget.dataset.compIndex);
@@ -824,8 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    function abrirModalBibliotecaParaModificar(compIndex, ejIndex) { // ejIndex es null si se añade
+    function abrirModalBibliotecaParaModificar(compIndex, ejIndex) { 
         appState.modificandoEjercicio.activo = true;
         appState.modificandoEjercicio.compIndex = compIndex;
         appState.modificandoEjercicio.ejIndex = ejIndex;
@@ -838,11 +850,11 @@ document.addEventListener('DOMContentLoaded', () => {
         modalEjercicioImagen.style.display = 'none'; 
         modalEjercicioMusculos.parentElement.style.display = 'none';
         modalEjercicioEquipamiento.parentElement.style.display = 'none';
-        modalEjercicioDescripcion.parentElement.style.display = 'block'; // Mostrar el div para la lista
-        modalEjercicioDescripcion.innerHTML = ''; // Limpiar para la lista
-        modalEjercicioDescripcion.style.maxHeight = 'calc(100vh - 400px)'; // Más espacio para la lista
+        modalEjercicioDescripcion.parentElement.style.display = 'block'; 
+        modalEjercicioDescripcion.innerHTML = ''; 
+        modalEjercicioDescripcion.style.maxHeight = 'calc(100vh - 400px)'; 
         modalEjercicioDescripcion.style.overflowY = 'auto';
-        // La lista se renderizará aquí por `filtrarYRenderizarBiblioteca(true)`
+        filtrarYRenderizarBiblioteca(true); 
     }
     
     function seleccionarEjercicioDesdeModal(ejercicioIdSeleccionado) {
@@ -861,19 +873,29 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { 
                 appState.componentesEnEdicion[compIndex].ejercicios.push(nuevoEjercicioDef);
             }
-            actualizarVistaListaEjerciciosDia(); // Re-renderizar solo la lista
+            actualizarVistaListaEjerciciosDia(); 
         }
         cerrarModalBiblioteca();
     }
 
     function iniciarEntrenamiento(plan, dia) {
         const rutinaId = `${plan}_${dia.substring(0,3)}`;
-        // Para iniciar, siempre usamos los componentesEnEdicion, que reflejan la última vista del usuario.
-        // Si el usuario guardó, componentesEnEdicion ya es igual a rutinasPersonalizadas[rutinaId].
-        // Si no guardó, entrena con los cambios temporales.
-        const componentesParaEntrenamiento = appState.componentesEnEdicion && appState.componentesEnEdicion.length > 0
-                                           ? appState.componentesEnEdicion
-                                           : (appState.rutinasPersonalizadas[rutinaId]?.componentes || planesEntrenamiento[plan]?.[dia]?.componentes);
+        const rutinaOriginalPredeterminada = planesEntrenamiento[plan]?.[dia]; // Para el ID original
+        if (!rutinaOriginalPredeterminada) {
+            alert("Error: No se encontró la rutina base para iniciar.");
+            return;
+        }
+        appState.entrenamientoActualOriginalId = rutinaOriginalPredeterminada.id;
+
+        // Usar componentesEnEdicion si existen y tienen contenido, sino la personalizada, sino la default
+        let componentesParaEntrenamiento;
+        if (appState.componentesEnEdicion && appState.componentesEnEdicion.length > 0 && appState.componentesEnEdicion.some(c => c.ejercicios && c.ejercicios.length > 0)) {
+            componentesParaEntrenamiento = appState.componentesEnEdicion;
+        } else if (appState.rutinasPersonalizadas[rutinaId] && appState.rutinasPersonalizadas[rutinaId].componentes.some(c => c.ejercicios && c.ejercicios.length > 0)) {
+            componentesParaEntrenamiento = appState.rutinasPersonalizadas[rutinaId].componentes;
+        } else {
+            componentesParaEntrenamiento = rutinaOriginalPredeterminada.componentes;
+        }
 
 
         if (!componentesParaEntrenamiento || componentesParaEntrenamiento.length === 0 || componentesParaEntrenamiento.every(c => !c.ejercicios || c.ejercicios.length === 0)) {
@@ -881,12 +903,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        const rutinaOriginal = planesEntrenamiento[plan]?.[dia];
-        appState.entrenamientoActualOriginalId = rutinaOriginal.id; // Importante para marcar completado
-
         appState.entrenamientoActual = { 
-            ...(rutinaOriginal || {}), // Base para nombre, etc.
-            id: rutinaId, // Usar el ID consistente para la sesión
+            ...(appState.rutinasPersonalizadas[rutinaId] || rutinaOriginalPredeterminada), // Base para nombre, etc.
+            id: rutinaId, 
             componentes: JSON.parse(JSON.stringify(componentesParaEntrenamiento)), 
             plan: plan, 
             dia: dia, 
@@ -927,7 +946,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const componente = appState.entrenamientoActual.componentes[appState.indiceComponenteActual];
-        // Asegurar que el índice de ejercicio es válido para el componente actual
         if (appState.indiceEjercicioActualEnComponente >= componente.ejercicios.length) {
             appState.indiceEjercicioActualEnComponente = 0; 
             if (componente.ejercicios.length === 0) {
@@ -1006,9 +1024,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { 
                 if (appState.indiceComponenteActual > 0) {
                     appState.indiceComponenteActual--;
-                    while(appState.indiceComponenteActual > 0 &&
+                    while(appState.indiceComponenteActual >= 0 && // Corrección: >= 0
                           (!appState.entrenamientoActual.componentes[appState.indiceComponenteActual].ejercicios ||
                            appState.entrenamientoActual.componentes[appState.indiceComponenteActual].ejercicios.length === 0)) {
+                        if (appState.indiceComponenteActual === 0) break; // Evitar bucle infinito si el primer componente está vacío
                         appState.indiceComponenteActual--;
                     }
                     const compAnterior = appState.entrenamientoActual.componentes[appState.indiceComponenteActual];
@@ -1016,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             const prevComp = appState.entrenamientoActual.componentes[appState.indiceComponenteActual];
-            if (prevComp && prevComp.ejercicios && prevComp.ejercicios.length > 0) {
+            if (prevComp && prevComp.ejercicios && prevComp.ejercicios.length > 0 && appState.indiceEjercicioActualEnComponente < prevComp.ejercicios.length) { // Añadida verificación de índice
                 const prevEjDef = prevComp.ejercicios[appState.indiceEjercicioActualEnComponente];
                  if (prevEjDef && prevComp.tipo === "Principal") {
                     const prevEjData = getEjercicioById(prevEjDef.id_ejercicio);
@@ -1089,14 +1108,14 @@ document.addEventListener('DOMContentLoaded', () => {
         cronometroEjercicioActualDisplay.style.display = 'none';
 
         if (appState.entrenamientoActual && completado && !appState.entrenamientoActual.esRepeticion) {
-            const idRutinaOriginal = appState.entrenamientoActualOriginalId; // Usar el ID original guardado
+            const idRutinaOriginal = appState.entrenamientoActualOriginalId; 
             if (idRutinaOriginal) {
                  appState.entrenamientosCompletados[idRutinaOriginal] = true;
             }
         }
         const tiempoTotalFormateado = formatTiempoGeneral(appState.tiempoTotalEntrenamientoSegundos);
         appState.entrenamientoActual = null;
-        appState.componentesEnEdicion = []; // Limpiar componentes en edición
+        appState.componentesEnEdicion = [];
         appState.entrenamientoActualOriginalId = null; 
         guardarEstado();
         alert(completado ? `¡Entrenamiento finalizado!\nTiempo total: ${tiempoTotalFormateado}` : "Entrenamiento abandonado.");
@@ -1106,20 +1125,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPantallaBiblioteca(paraSeleccion = false) {
         const targetContainer = paraSeleccion ? modalEjercicioDescripcion : listaBibliotecaEjerciciosContainer;
 
-        if (!paraSeleccion) { // Configuración para vista normal de biblioteca
+        if (!paraSeleccion) { 
             btnSeleccionarEjercicioModal.style.display = 'none';
             modalEjercicioMusculos.parentElement.style.display = 'block';
             modalEjercicioEquipamiento.parentElement.style.display = 'block';
             modalEjercicioDescripcion.parentElement.style.display = 'block';
             modalEjercicioImagen.style.display = 'block';
-            targetContainer.style.display = 'grid'; // O el display que uses para la lista principal
+            targetContainer.style.display = 'grid'; 
             modalEjercicioDescripcion.style.maxHeight = '150px';
             modalEjercicioDescripcion.style.overflowY = 'auto';
-        } else { // Configuración para modo selección dentro del modal
-            btnSeleccionarEjercicioModal.style.display = 'none'; // El botón general del modal no se usa para seleccionar items individuales
+        } else { 
+            btnSeleccionarEjercicioModal.style.display = 'none'; // El botón general no se usa, la selección es por item
             modalEjercicioMusculos.parentElement.style.display = 'none';
             modalEjercicioEquipamiento.parentElement.style.display = 'none';
             modalEjercicioImagen.style.display = 'none';
+            modalEjercicioDescripcion.parentElement.style.display = 'block'; 
             modalEjercicioDescripcion.innerHTML = ''; 
             modalEjercicioDescripcion.style.maxHeight = 'calc(100vh - 400px)'; 
             modalEjercicioDescripcion.style.overflowY = 'auto';
@@ -1195,7 +1215,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modalEjercicioEquipamiento.parentElement.style.display = 'block';
         modalEjercicioDescripcion.parentElement.style.display = 'block';
         modalEjercicioImagen.style.display = 'block';
-        //listaBibliotecaEjerciciosContainer.style.display = 'grid'; // Esto no debe estar aquí, es para la pestaña
         
         modalEjercicioNombre.textContent = ejercicio.nombre;
         modalEjercicioImagen.src = ejercicio.imagenUrl;
@@ -1218,7 +1237,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // selectFiltroGrupoMuscular.value = ""; 
         // selectFiltroEquipamiento.value = "";
         
-        // Restaurar el contenedor de descripción del modal y re-renderizar biblioteca si es necesario
         modalEjercicioDescripcion.style.maxHeight = '150px';
         modalEjercicioDescripcion.style.overflowY = 'auto';
         if(document.getElementById('biblioteca-section').classList.contains('active-tab')){
@@ -1242,7 +1260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSelectPlanGimnasio.addEventListener('click', () => { appState.planActivoGeneral = 'gimnasio'; renderPantallaRutinas(); guardarEstado(); });
     btnVolverARutinas.addEventListener('click', () => cambiarPestana('rutinas-section'));
     btnComenzarEntrenamientoDia.addEventListener('click', () => {
-        if (appState.entrenamientoActual) { // entrenamientoActual se setea en renderDetalles
+        if (appState.entrenamientoActual) {
             iniciarEntrenamiento(appState.entrenamientoActual.plan, appState.entrenamientoActual.dia);
         }
     });
@@ -1270,8 +1288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCerrarModalBiblioteca.addEventListener('click', cerrarModalBiblioteca);
     
     btnSeleccionarEjercicioModal.addEventListener('click', () => {
-        // Este botón es más un "Hecho" o "Cerrar" si la selección ocurre al hacer clic en el item de la lista
-        // La lógica de selección real está en el event listener de los items de la biblioteca en modo selección
+        // Este botón ahora es más un "Hecho" o "Cerrar" si la selección ocurre al hacer clic en el item de la lista
         cerrarModalBiblioteca(); 
     });
     
