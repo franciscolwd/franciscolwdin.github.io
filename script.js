@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- BIBLIOTECA DE EJERCICIOS AMPLIADA (MÁQUINAS Y ENFOQUE HIPERTROFIA) ---
+    // --- BIBLIOTECA DE EJERCICIOS (LA MISMA EXTENSA DE ANTES) ---
     const bibliotecaEjercicios = [
         // Pecho Máquinas
         {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- PLANES DE ENTRENAMIENTO (HIPERTROFIA - ENFOQUE MÁQUINAS PARA GYM) ---
     const planesEntrenamiento = {
-        casa: { // Rutinas de casa adaptadas para hipertrofia
+        casa: { // Rutinas de casa (iguales a la versión anterior, ya que no se especificó cambio)
             lunes: { id: "casa_lun", nombre: "Empuje Casa (Pecho, Hombros, Tríceps)", diaSemanaComparable: 1, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_002", reps: "1 min"}, { id_ejercicio: "ej_C_003", reps: "4 min"}] },
                 { tipo: "Principal", ejercicios: [ { id_ejercicio: "ej_P_001_H", series: 4, reps: "8-15" }, { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (con peso improvisado)" }, { id_ejercicio: "ej_T_003", series: 3, reps: "8-15 (fondos sillas)" } ]},
@@ -227,71 +227,69 @@ document.addEventListener('DOMContentLoaded', () => {
             ]},
         },
         gimnasio: { 
-            lunes: { id: "gym_lun", nombre: "Pecho y Hombro (Anterior/Medial)", diaSemanaComparable: 1, componentes: [
+            lunes: { id: "gym_lun", nombre: "Pecho y Hombro (Anterior/Medial) - Máquinas", diaSemanaComparable: 1, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_P_001", series: 4, reps: "8-12" },    // Press Pecho Máquina
-                    { id_ejercicio: "ej_M_P_003", series: 3, reps: "10-12" },   // Press Inclinado Máquina
-                    { id_ejercicio: "ej_M_P_002", series: 3, reps: "10-15" },   // Peck Deck
-                    { id_ejercicio: "ej_M_H_001", series: 3, reps: "8-12" },   // Press Hombros Máquina
-                    { id_ejercicio: "ej_M_H_002", series: 4, reps: "12-15" }    // Elev. Laterales Máquina/Polea
+                    { id_ejercicio: "ej_M_P_001", series: 4, reps: "8-12" },    
+                    { id_ejercicio: "ej_M_P_003", series: 3, reps: "10-12" },   
+                    { id_ejercicio: "ej_M_P_002", series: 3, reps: "10-15" },   
+                    { id_ejercicio: "ej_M_H_001", series: 3, reps: "8-12" },   
+                    { id_ejercicio: "ej_M_H_002", series: 4, reps: "12-15" }    
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            martes: { id: "gym_mar", nombre: "Espalda (Ancho y Densidad)", diaSemanaComparable: 2, componentes: [
+            martes: { id: "gym_mar", nombre: "Espalda (Ancho y Densidad) - Máquinas", diaSemanaComparable: 2, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_E_001", series: 4, reps: "8-12 (agarre ancho)" }, // Jalón Dorsal
-                    { id_ejercicio: "ej_E_002", series: 3, reps: "6-10 (Remo con Barra, pesado)" }, // Remo con Barra
-                    { id_ejercicio: "ej_M_E_002", series: 3, reps: "10-12 (agarre neutro o prono)" }, // Remo Sentado Máquina
-                    { id_ejercicio: "ej_M_E_003", series: 3, reps: "12-15" }    // Pullover Máquina/Polea
+                    { id_ejercicio: "ej_M_E_001", series: 4, reps: "8-12 (variar agarre)" }, 
+                    { id_ejercicio: "ej_E_002", series: 3, reps: "6-10 (si hay barra T o normal)" }, 
+                    { id_ejercicio: "ej_M_E_002", series: 3, reps: "10-12 (agarre neutro o prono)" }, 
+                    { id_ejercicio: "ej_M_E_003", series: 3, reps: "12-15" }    
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            miercoles: { id: "gym_mie", nombre: "Piernas (Completo con Máquinas)", diaSemanaComparable: 3, componentes: [
+            miercoles: { id: "gym_mie", nombre: "Piernas (Completo) - Máquinas", diaSemanaComparable: 3, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_PI_008", reps: "10-12 (ligero)"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_PI_001", series: 4, reps: "8-12 (pesado)" }, // Prensa
-                    { id_ejercicio: "ej_M_PI_005", series: 3, reps: "10-12" }, // Hack Squat
-                    { id_ejercicio: "ej_M_PI_002", series: 3, reps: "12-15" }, // Ext. Cuádriceps
-                    { id_ejercicio: "ej_M_PI_003", series: 3, reps: "10-15" }, // Curl Femoral
-                    { id_ejercicio: "ej_M_PI_004", series: 4, reps: "12-20" }  // Gemelos Máquina
+                    { id_ejercicio: "ej_M_PI_001", series: 4, reps: "8-12 (pesado)" }, 
+                    { id_ejercicio: "ej_M_PI_005", series: 3, reps: "10-12" }, 
+                    { id_ejercicio: "ej_M_PI_002", series: 3, reps: "12-15" }, 
+                    { id_ejercicio: "ej_M_PI_003", series: 3, reps: "10-15" }, 
+                    { id_ejercicio: "ej_M_PI_004", series: 4, reps: "12-20" }  
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            jueves: { id: "gym_jue", nombre: "Brazos (Bíceps y Tríceps con Poleas/Máquinas)", diaSemanaComparable: 4, componentes: [ 
+            jueves: { id: "gym_jue", nombre: "Brazos (Bíceps y Tríceps) - Poleas/Máquinas", diaSemanaComparable: 4, componentes: [ 
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min (enfocar brazos)"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_B_001", series: 3, reps: "8-12" },   // Curl Bíceps Máquina
-                    { id_ejercicio: "ej_M_B_002", series: 3, reps: "10-12 (con barra recta)" }, // Curl Bíceps Polea Baja
-                    { id_ejercicio: "ej_B_002_H", series: 3, reps: "10-12 c/b (curl mancuerna inclinado)"}, // Para variedad
-                    { id_ejercicio: "ej_M_T_001", series: 4, reps: "8-12 (con barra V)" },    // Ext. Tríceps Polea
+                    { id_ejercicio: "ej_M_B_001", series: 3, reps: "8-12" },   
+                    { id_ejercicio: "ej_M_B_002", series: 3, reps: "10-12 (con barra recta)" }, 
+                    { id_ejercicio: "ej_B_002_H", series: 3, reps: "10-12 c/b (curl inclinado mancuernas)"}, 
+                    { id_ejercicio: "ej_M_T_001", series: 4, reps: "8-12 (con barra V)" },    
                     { id_ejercicio: "ej_M_T_002", series: 3, reps: "10-15 (ext. sobre cabeza con cuerda)" }, 
-                    { id_ejercicio: "ej_T_001", series: 3, reps: "10-12 (press francés con mancuernas)"} // Si hay mancuernas disponibles
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            viernes: { id: "gym_vie", nombre: "Hombro (Completo) y Abdominales - Máquinas", diaSemanaComparable: 5, componentes: [ 
+            viernes: { id: "gym_vie", nombre: "Hombros (Completo) y Abdominales - Máquinas", diaSemanaComparable: 5, componentes: [ 
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min (enfocar hombros)"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_H_001", series: 4, reps: "8-10" },    // Press Hombros Máquina
-                    { id_ejercicio: "ej_M_H_002", series: 3, reps: "12-15" },   // Elev. Laterales Máquina/Polea
-                    { id_ejercicio: "ej_M_H_003", series: 3, reps: "12-15" },   // Reverse Peck Deck
-                    { id_ejercicio: "ej_H_004", series: 2, reps: "10-12 (elev. frontales con disco)" }, // Opcional si se siente poca fatiga anterior
-                    { id_ejercicio: "ej_M_A_001", series: 3, reps: "12-15" },   // Crunches Máquina
-                    { id_ejercicio: "ej_M_A_002", series: 3, reps: "10-12 c/lado" } // Rotary Torso
+                    { id_ejercicio: "ej_M_H_001", series: 4, reps: "8-10" },    
+                    { id_ejercicio: "ej_M_H_002", series: 3, reps: "12-15" },   
+                    { id_ejercicio: "ej_M_H_003", series: 3, reps: "12-15" },   
+                    { id_ejercicio: "ej_H_004", series: 3, reps: "10-12 (elev. frontales con disco o mancuerna)" }, 
+                    { id_ejercicio: "ej_M_A_001", series: 3, reps: "12-15" },   
+                    { id_ejercicio: "ej_M_A_002", series: 3, reps: "10-12 c/lado" } 
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            sabado: { id: "gym_sab", nombre: "Full Body con Máquinas (Volumen Moderado)", diaSemanaComparable: 6, componentes: [
+            sabado: { id: "gym_sab", nombre: "Full Body Ligero o Descanso Activo - Máquinas", diaSemanaComparable: 6, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
-                { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_PI_001", series: 3, reps: "10-12" }, // Prensa
-                    { id_ejercicio: "ej_M_P_001", series: 3, reps: "10-12" },  // Press Pecho Máquina
-                    { id_ejercicio: "ej_M_E_001", series: 3, reps: "10-12" },  // Jalón Dorsal
-                    { id_ejercicio: "ej_M_H_001", series: 2, reps: "12-15" },  // Press Hombros Máquina
-                    { id_ejercicio: "ej_M_B_002", series: 2, reps: "12-15" },  // Curl Bíceps Polea
-                    { id_ejercicio: "ej_M_T_001", series: 2, reps: "12-15" }   // Ext. Tríceps Polea
+                { tipo: "Principal", ejercicios: [ // Menor volumen, más repeticiones, o cardio
+                    { id_ejercicio: "ej_M_PI_001", series: 2, reps: "15-20" }, 
+                    { id_ejercicio: "ej_M_P_001", series: 2, reps: "15-20" },  
+                    { id_ejercicio: "ej_M_E_001", series: 2, reps: "15-20" },  
+                    { id_ejercicio: "ej_M_H_001", series: 2, reps: "15-20" },  
+                    { id_ejercicio: "ej_A_001", series: 3, reps: "AMRAP" }   
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
@@ -305,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputUserName = document.getElementById('input-user-name');
     const diasMetaSemanaDisplay = document.getElementById('dias-meta-semana');
     const btnCerrarModalBiblioteca = document.getElementById('btn-cerrar-modal-biblioteca');
-    // const btnSeleccionarEjercicioModal = document.getElementById('btn-seleccionar-ejercicio-modal'); // Ya no se usa este botón, la selección es directa
+    // const btnSeleccionarEjercicioModal = document.getElementById('btn-seleccionar-ejercicio-modal'); // Se elimina, la selección es por item
     const headerTitle = document.getElementById('header-title');
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -354,11 +352,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FUNCIONES ---
     function guardarEstado() {
-        localStorage.setItem('entrenadorFitnessAppState_v7_hipertrofiaMaquinas', JSON.stringify(appState));
+        localStorage.setItem('entrenadorFitnessAppState_v8_hipertrofiaMaquinas', JSON.stringify(appState));
     }
 
     function cargarEstado() {
-        const estadoGuardado = localStorage.getItem('entrenadorFitnessAppState_v7_hipertrofiaMaquinas');
+        const estadoGuardado = localStorage.getItem('entrenadorFitnessAppState_v8_hipertrofiaMaquinas');
         const estadoPorDefecto = {
             nombreUsuario: "Atleta Máquina", appName: "Gym Máster Pro", unidadesPeso: "kg",
             planActivoGeneral: "gimnasio", diasEntrenamiento: 6, entrenamientosCompletados: {},
@@ -474,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let planDelDia = appState.rutinasPersonalizadas[rutinaDelDiaId] || planDelDiaPredeterminado;
         
         if (appState.diasEntrenamiento === 5 && hoyNombre === "sabado") {
-            planDelDia = { nombre: "Descanso", id: "descanso_sab" }; // id para consistencia, aunque no se guarda progreso de descanso
+            planDelDia = { nombre: "Descanso", id: "descanso_sab" };
         }
 
         if (planDelDia && planDelDia.componentes && planDelDia.componentes.length > 0 && planDelDia.nombre !== "Descanso") {
@@ -525,7 +523,6 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < diasOrdenadosNombres.length; i++) {
             const diaNombre = diasOrdenadosNombres[i];
             
-            // Lógica para mostrar Sábado como descanso si son 5 días
             if (appState.diasEntrenamiento === 5 && diaNombre === 'sabado') {
                 const diaDiv = document.createElement('div');
                 diaDiv.classList.add('card', 'rutina-dia-item', 'rutina-descanso');
@@ -533,10 +530,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 calendarioRutinasContainer.appendChild(diaDiv);
                 continue; 
             }
-            // Si son menos de 6 días y ya pasamos el número de días a entrenar, no mostrar más
-            if (i >= appState.diasEntrenamiento && diaNombre !== 'sabado') { // sábado ya se manejó arriba
-                continue;
+            if (i >= appState.diasEntrenamiento) { // Si ya mostramos los días de entrenamiento configurados, no mostrar más
+                 continue;
             }
+
 
             const rutinaId = `${appState.planActivoGeneral}_${diaNombre.substring(0,3)}`;
             const rutinaPredeterminada = planesEntrenamiento[appState.planActivoGeneral]?.[diaNombre];
@@ -600,9 +597,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ejercicioData) {
                     const li = document.createElement('li');
                     li.classList.add('ejercicio-item');
+                    // Hacer el nombre del ejercicio clickeable
                     li.innerHTML = `
                         <div class="ejercicio-item-info">
-                            <strong>${ejercicioData.nombre}</strong>
+                            <strong class="ejercicio-nombre-link" data-ejercicio-id="${ejercicioData.id}" title="Ver detalles del ejercicio">${ejercicioData.nombre}</strong>
                             <span>Series: ${ejDef.series || ejercicioData.series}, Reps: ${ejDef.reps || ejercicioData.repeticiones}</span>
                         </div>
                         <div class="ejercicio-item-acciones">
@@ -625,8 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
             listaEjerciciosDiaContainer.appendChild(compDiv);
         });
         
-        // Re-asignar listeners después de re-renderizar la lista de ejercicios
-        asignarListenersBotonesEdicion();
+        asignarListenersBotonesEdicionYVista(); // Asignar todos los listeners necesarios
         
         btnRestablecerRutinaDefault.style.display = rutinaPersonalizada ? 'inline-block' : 'none';
         const completado = appState.entrenamientosCompletados[rutinaPredeterminada.id];
@@ -634,8 +631,17 @@ document.addEventListener('DOMContentLoaded', () => {
         btnComenzarEntrenamientoDia.className = completado ? 'btn btn-secondary' : 'btn btn-start-workout';
         cambiarPestana('detalles-entrenamiento-dia-section');
     }
+    
+    function asignarListenersBotonesEdicionYVista() {
+        listaEjerciciosDiaContainer.querySelectorAll('.ejercicio-nombre-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const ejercicioId = e.currentTarget.dataset.ejercicioId;
+                appState.modificandoEjercicio.activo = false; // No estamos en modo edición para este click
+                appState.modificandoEjercicio.idEjercicioAbiertoEnModal = ejercicioId;
+                mostrarDetalleEjercicioBiblioteca(ejercicioId);
+            });
+        });
 
-    function asignarListenersBotonesEdicion() {
         listaEjerciciosDiaContainer.querySelectorAll('.btn-quitar-ej').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const compIndex = parseInt(e.currentTarget.dataset.compIndex);
@@ -674,17 +680,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function reemplazarEjercicioAutomaticamente(compIndex, ejIndex) {
+        if (!appState.componentesEnEdicion?.[compIndex]?.ejercicios?.[ejIndex]) return;
+        
         const ejercicioActualDef = appState.componentesEnEdicion[compIndex].ejercicios[ejIndex];
         const ejercicioActualData = getEjercicioById(ejercicioActualDef.id_ejercicio);
         if (!ejercicioActualData) return;
 
         const musculosTarget = ejercicioActualData.musculosTrabajados;
-        const equipamientoActual = ejercicioActualData.equipamiento;
+        const equipamientoActualArray = Array.isArray(ejercicioActualData.equipamiento) ? ejercicioActualData.equipamiento : [ejercicioActualData.equipamiento];
 
         let alternativas = bibliotecaEjercicios.filter(ej => {
             return ej.id !== ejercicioActualData.id && 
                    musculosTarget.some(m => ej.musculosTrabajados.includes(m)) &&
-                   !equipamientoActual.every(eq => (ej.equipamiento || []).includes(eq)); 
+                   !equipamientoActualArray.every(eq => (ej.equipamiento || []).includes(eq)); 
         });
 
         if (alternativas.length === 0) { 
@@ -696,7 +704,15 @@ document.addEventListener('DOMContentLoaded', () => {
         alternativas.sort((a,b) => {
             const commonA = a.musculosTrabajados.filter(m => musculosTarget.includes(m)).length;
             const commonB = b.musculosTrabajados.filter(m => musculosTarget.includes(m)).length;
-            return commonB - commonA; 
+            if (commonB !== commonA) return commonB - commonA;
+            // Como desempate, preferir los que tienen equipamiento (no solo peso corporal) si el original no era peso corporal
+            if (!equipamientoActualArray.includes("Peso Corporal")) {
+                const aHasNonBodyweight = (a.equipamiento || []).some(e => e !== "Peso Corporal");
+                const bHasNonBodyweight = (b.equipamiento || []).some(e => e !== "Peso Corporal");
+                if (aHasNonBodyweight && !bHasNonBodyweight) return -1;
+                if (!aHasNonBodyweight && bHasNonBodyweight) return 1;
+            }
+            return 0;
         });
 
 
@@ -704,13 +720,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const nuevoEjercicioData = alternativas[0]; 
             appState.componentesEnEdicion[compIndex].ejercicios[ejIndex] = {
                 id_ejercicio: nuevoEjercicioData.id,
-                series: nuevoEjercicioData.series, // Usar los parámetros del nuevo ejercicio
+                series: nuevoEjercicioData.series, 
                 reps: nuevoEjercicioData.repeticiones
             };
             actualizarVistaListaEjerciciosDia();
-            alert(`Ejercicio "${ejercicioActualData.nombre}" reemplazado por "${nuevoEjercicioData.nombre}".\nNo olvides guardar los cambios en la rutina si deseas que persistan.`);
+            alert(`Ejercicio "${ejercicioActualData.nombre}" reemplazado por "${nuevoEjercicioData.nombre}".\nGuarda los cambios en la rutina si deseas que este cambio sea permanente.`);
         } else {
-            alert("No se encontraron alternativas adecuadas para reemplazar el ejercicio.");
+            alert("No se encontraron alternativas adecuadas con diferente equipamiento para el mismo grupo muscular.");
         }
     }
     
@@ -721,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const rutinaId = appState.entrenamientoActual.id;
         const rutinaModificadaParaGuardar = {
-            ...appState.entrenamientoActual, 
+            ...appState.entrenamientoActual, // Mantiene nombre, id, plan, dia del original (o personalizado previo)
             componentes: JSON.parse(JSON.stringify(appState.componentesEnEdicion)) 
         };
         
@@ -730,6 +746,9 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Cambios en la rutina guardados.");
         btnRestablecerRutinaDefault.style.display = 'inline-block';
         renderPantallaRutinas(); 
+        // Actualizar detalle por si el nombre de la rutina personalizada necesita el tag (Personalizada)
+        detalleDiaTipoPlan.textContent = `Plan: ${appState.entrenamientoActual.plan === 'casa' ? 'En Casa' : 'De Gimnasio'} (Personalizada)`;
+
     }
 
     function restablecerRutinaActualADefault() {
@@ -763,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     li.classList.add('ejercicio-item');
                     li.innerHTML = `
                         <div class="ejercicio-item-info">
-                            <strong>${ejercicioData.nombre}</strong>
+                            <strong class="ejercicio-nombre-link" data-ejercicio-id="${ejercicioData.id}" title="Ver detalles del ejercicio">${ejercicioData.nombre}</strong>
                             <span>Series: ${ejDef.series || ejercicioData.series}, Reps: ${ejDef.reps || ejercicioData.repeticiones}</span>
                         </div>
                         <div class="ejercicio-item-acciones">
@@ -784,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
             compDiv.appendChild(ul);
             listaEjerciciosDiaContainer.appendChild(compDiv);
         });
-        asignarListenersBotonesEdicion(); // Re-asignar listeners a los nuevos botones
+        asignarListenersBotonesEdicionYVista(); // Re-asignar todos los listeners
     }
 
     function abrirModalBibliotecaParaModificar(compIndex, ejIndex) { 
@@ -794,7 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderPantallaBiblioteca(true); 
         detalleEjercicioModal.style.display = 'block';
-        // btnSeleccionarEjercicioModal ya no se usa, la selección es directa desde la lista
+        // btnSeleccionarEjercicioModal no se usa, la selección es directa en los items
         
         modalEjercicioNombre.textContent = ejIndex === null ? "Añadir Ejercicio al Componente" : "Cambiar Ejercicio";
         modalEjercicioImagen.style.display = 'none'; 
@@ -838,14 +857,12 @@ document.addEventListener('DOMContentLoaded', () => {
         appState.entrenamientoActualOriginalId = rutinaOriginalPredeterminada.id;
 
         let componentesParaEntrenamiento;
-        // Usar componentesEnEdicion si estamos en la misma rutina que se estaba editando,
-        // sino, usar la personalizada (si existe) o la predeterminada.
-        if (appState.entrenamientoActual && appState.entrenamientoActual.id === rutinaId && appState.componentesEnEdicion.length > 0) {
+        if (appState.componentesEnEdicion && appState.componentesEnEdicion.length > 0 &&
+            appState.entrenamientoActual && appState.entrenamientoActual.id === rutinaId) { // Asegurar que los componentes en edición son para la rutina actual
             componentesParaEntrenamiento = appState.componentesEnEdicion;
         } else {
             componentesParaEntrenamiento = appState.rutinasPersonalizadas[rutinaId]?.componentes || rutinaOriginalPredeterminada.componentes;
         }
-
 
         if (!componentesParaEntrenamiento || componentesParaEntrenamiento.length === 0 || componentesParaEntrenamiento.every(c => !c.ejercicios || c.ejercicios.length === 0)) {
             alert("No se puede iniciar: no hay ejercicios definidos o todos fueron quitados.");
@@ -979,7 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (appState.indiceComponenteActual === 0 && (!appState.entrenamientoActual.componentes[0].ejercicios || appState.entrenamientoActual.componentes[0].ejercicios.length === 0) ) break; 
                         appState.indiceComponenteActual--;
                     }
-                    if (appState.indiceComponenteActual < 0) appState.indiceComponenteActual = 0; // Fallback
+                    if (appState.indiceComponenteActual < 0) appState.indiceComponenteActual = 0; 
 
                     const compAnterior = appState.entrenamientoActual.componentes[appState.indiceComponenteActual];
                     appState.indiceEjercicioActualEnComponente = (compAnterior && compAnterior.ejercicios) ? compAnterior.ejercicios.length - 1 : 0;
@@ -1077,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetContainer = paraSeleccion ? modalEjercicioDescripcion : listaBibliotecaEjerciciosContainer;
 
         if (!paraSeleccion) { 
-            //btnSeleccionarEjercicioModal.style.display = 'none'; // No existe este botón
+            //btnSeleccionarEjercicioModal.style.display = 'none'; 
             modalEjercicioMusculos.parentElement.style.display = 'block';
             modalEjercicioEquipamiento.parentElement.style.display = 'block';
             modalEjercicioDescripcion.parentElement.style.display = 'block';
@@ -1158,7 +1175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ejercicio) return;
 
         appState.modificandoEjercicio.activo = false; 
-        //btnSeleccionarEjercicioModal.style.display = 'none'; // No existe este botón
+        // btnSeleccionarEjercicioModal.style.display = 'none'; // No existe
         modalEjercicioMusculos.parentElement.style.display = 'block';
         modalEjercicioEquipamiento.parentElement.style.display = 'block';
         modalEjercicioDescripcion.parentElement.style.display = 'block';
@@ -1204,6 +1221,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!rutinaOmitidaOriginal || !rutinaOmitidaOriginal.componentes) return;
 
+        // Crear una copia profunda de las rutinas personalizadas para no modificar el estado directamente hasta el final
+        let rutinasPersonalizadasCopia = JSON.parse(JSON.stringify(appState.rutinasPersonalizadas));
+
         const ejerciciosPrincipalesOmitidos = rutinaOmitidaOriginal.componentes
             .filter(c => c.tipo === "Principal")
             .flatMap(c => c.ejercicios);
@@ -1212,76 +1232,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const diasRestantes = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
         let ejerciciosAnadidosCount = 0;
-        const MAX_EJERCICIOS_A_DISTRIBUIR_POR_GRUPO = 1; // Para no sobrecargar mucho cada día
+        const MAX_EJERCICIOS_A_DISTRIBUIR_POR_GRUPO_POR_DIA = 1; 
 
-        // Agrupar ejercicios omitidos por músculo principal para intentar distribuirlos
-        const ejerciciosOmitidosPorMusculo = {};
-        ejerciciosPrincipalesOmitidos.forEach(ejDef => {
-            const ejData = getEjercicioById(ejDef.id_ejercicio);
-            if (ejData && ejData.musculosTrabajados.length > 0) {
-                const musculoPrincipal = ejData.musculosTrabajados[0]; // Tomar el primer músculo como principal
-                if (!ejerciciosOmitidosPorMusculo[musculoPrincipal]) {
-                    ejerciciosOmitidosPorMusculo[musculoPrincipal] = [];
+        for (const ejDefOmitido of ejerciciosPrincipalesOmitidos) {
+            const ejercicioDataOmitido = getEjercicioById(ejDefOmitido.id_ejercicio);
+            if (!ejercicioDataOmitido) continue;
+
+            let añadidoEsteEjercicio = false;
+            for (const diaDestinoNombre of diasRestantes) {
+                if (añadidoEsteEjercicio) break;
+
+                const rutinaIdDestino = `${plan}_${diaDestinoNombre.substring(0,3)}`;
+                const rutinaDestinoPredeterminada = planesEntrenamiento[plan]?.[diaDestinoNombre];
+                
+                // Obtener o inicializar la rutina personalizada para el día destino
+                if (!rutinasPersonalizadasCopia[rutinaIdDestino]) {
+                     if (rutinaDestinoPredeterminada) {
+                        rutinasPersonalizadasCopia[rutinaIdDestino] = JSON.parse(JSON.stringify(rutinaDestinoPredeterminada));
+                    } else {
+                        continue; // No hay rutina base para este día
+                    }
                 }
-                // Añadir solo si no excede el límite por grupo muscular
-                if (ejerciciosOmitidosPorMusculo[musculoPrincipal].length < MAX_EJERCICIOS_A_DISTRIBUIR_POR_GRUPO) {
-                    ejerciciosOmitidosPorMusculo[musculoPrincipal].push(ejDef);
+                let componentesDestino = rutinasPersonalizadasCopia[rutinaIdDestino].componentes;
+                
+                let componentePrincipalDestino = componentesDestino.find(c => c.tipo === "Principal");
+                if (!componentePrincipalDestino) {
+                    componentePrincipalDestino = { tipo: "Principal", ejercicios: [] };
+                    componentesDestino.push(componentePrincipalDestino);
+                }
+
+                // Lógica para no sobrecargar: si el día ya tiene muchos ejercicios o ya se añadió uno de este grupo muscular
+                let conteoMuscularActual = 0;
+                componentePrincipalDestino.ejercicios.forEach(ejExistente => {
+                    const ejDataExistente = getEjercicioById(ejExistente.id_ejercicio);
+                    if (ejDataExistente && ejDataExistente.musculosTrabajados.some(m => ejercicioDataOmitido.musculosTrabajados.includes(m))) {
+                        conteoMuscularActual++;
+                    }
+                });
+
+                if (componentePrincipalDestino.ejercicios.length < 6 && // Límite de ejercicios totales por bloque
+                    conteoMuscularActual < MAX_EJERCICIOS_A_DISTRIBUIR_POR_GRUPO_POR_DIA &&
+                    !componentePrincipalDestino.ejercicios.find(e => e.id_ejercicio === ejDefOmitido.id_ejercicio)) {
+                    
+                    componentePrincipalDestino.ejercicios.push({ ...ejDefOmitido }); 
+                    ejerciciosAnadidosCount++;
+                    añadidoEsteEjercicio = true; 
+                    console.log(`Ejercicio ${ejercicioDataOmitido.nombre} del sábado añadido al ${diaDestinoNombre}.`);
                 }
             }
-        });
-
-        Object.keys(ejerciciosOmitidosPorMusculo).forEach(musculo => {
-            ejerciciosOmitidosPorMusculo[musculo].forEach(ejDefOmitido => {
-                // Intentar añadir a un día que ya trabaje ese músculo o a uno menos cargado
-                let añadido = false;
-                for (const diaDestinoNombre of diasRestantes) {
-                    const rutinaIdDestino = `${plan}_${diaDestinoNombre.substring(0,3)}`;
-                    // Cargar la rutina personalizada si existe, o la predeterminada para modificarla
-                    const rutinaDestinoOriginal = planesEntrenamiento[plan]?.[diaDestinoNombre];
-                    let componentesDestino = JSON.parse(JSON.stringify(
-                        appState.rutinasPersonalizadas[rutinaIdDestino]?.componentes || 
-                        rutinaDestinoOriginal?.componentes || 
-                        []
-                    ));
-                    
-                    let componentePrincipalDestino = componentesDestino.find(c => c.tipo === "Principal");
-                    if (!componentePrincipalDestino) {
-                        componentePrincipalDestino = { tipo: "Principal", ejercicios: [] };
-                        componentesDestino.push(componentePrincipalDestino);
-                    }
-
-                    // Evitar añadir el mismo ejercicio si ya está o si el día ya está muy lleno
-                    if (componentePrincipalDestino.ejercicios.length < 5 && // Límite arbitrario de ejercicios
-                        !componentePrincipalDestino.ejercicios.find(e => e.id_ejercicio === ejDefOmitido.id_ejercicio)) {
-                        
-                        componentePrincipalDestino.ejercicios.push({ ...ejDefOmitido }); 
-                        
-                        appState.rutinasPersonalizadas[rutinaIdDestino] = {
-                            ...(appState.rutinasPersonalizadas[rutinaIdDestino] || rutinaDestinoOriginal),
-                            id: rutinaIdDestino, 
-                            componentes: componentesDestino
-                        };
-                        ejerciciosAnadidosCount++;
-                        console.log(`Ejercicio ${getEjercicioById(ejDefOmitido.id_ejercicio)?.nombre} del sábado añadido al ${diaDestinoNombre}.`);
-                        añadido = true;
-                        break; 
-                    }
-                }
-            });
-        });
-
-        if (ejerciciosAnadidosCount > 0) {
-            alert(`${ejerciciosAnadidosCount} ejercicio(s) del sábado se han intentado distribuir. Revisa y ajusta tus rutinas personalizadas.`);
         }
+
         // Marcar el sábado como descanso en las rutinas personalizadas si se pasa a 5 días
         const rutinaIdSabado = `${plan}_sab`;
-        appState.rutinasPersonalizadas[rutinaIdSabado] = {
-            ...(planesEntrenamiento[plan]?.sabado || {}), // Mantener ID y otros datos
-            id: rutinaIdSabado,
+        const sabadoPredeterminado = planesEntrenamiento[plan]?.sabado;
+        rutinasPersonalizadasCopia[rutinaIdSabado] = {
+            ...(sabadoPredeterminado || { id: rutinaIdSabado, diaSemanaComparable: 6 }), // Mantener ID y otros datos
             nombre: "Descanso",
             componentes: []
         };
+        
+        appState.rutinasPersonalizadas = rutinasPersonalizadasCopia; // Aplicar todos los cambios al estado
 
+        if (ejerciciosAnadidosCount > 0) {
+            alert(`${ejerciciosAnadidosCount} ejercicio(s) del sábado se han intentado distribuir. Revisa y ajusta tus rutinas.`);
+        }
         guardarEstado();
     }
 
@@ -1318,7 +1332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     selectFiltroGrupoMuscular.addEventListener('change', () => filtrarYRenderizarBiblioteca(appState.modificandoEjercicio.activo));
     selectFiltroEquipamiento.addEventListener('change', () => filtrarYRenderizarBiblioteca(appState.modificandoEjercicio.activo));
     btnCerrarModalBiblioteca.addEventListener('click', cerrarModalBiblioteca);
-    
+        
     // Ajustes
     btnGuardarAjustes.addEventListener('click', () => {
         const diasEntrenamientoAnteriores = appState.diasEntrenamiento;
@@ -1332,9 +1346,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (diasEntrenamientoAnteriores === 6 && appState.diasEntrenamiento === 5) {
             adaptarRutinasDe6a5Dias();
         } else if (diasEntrenamientoAnteriores === 5 && appState.diasEntrenamiento === 6) {
-            // Al volver a 6, si el sábado estaba personalizado como "Descanso", se elimina esa personalización
-            // para que se tome el plan original del sábado de 6 días.
-            const rutinaIdSabado = `${appState.planActivoGeneral}_sab`;
+            const plan = appState.planActivoGeneral;
+            const rutinaIdSabado = `${plan}_sab`;
+            // Si el sábado estaba personalizado como "Descanso", eliminar esa personalización
+            // para que se cargue la rutina predeterminada del sábado.
             if (appState.rutinasPersonalizadas[rutinaIdSabado] && appState.rutinasPersonalizadas[rutinaIdSabado].nombre === "Descanso") {
                 delete appState.rutinasPersonalizadas[rutinaIdSabado];
             }
@@ -1362,5 +1377,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INICIALIZACIÓN ---
     cargarEstado();
-    cambiarPestana('hoy-section');
+    cambiarPestana('hoy-section'); // Pestaña inicial
 });

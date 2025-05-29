@@ -391,3 +391,16 @@ main#app-main-content::-webkit-scrollbar-thumb { background-color: var(--seconda
     list-style: none;
     padding-left: 0;
 }
+/* ... (todos tus estilos anteriores) ... */
+
+#lista-ejercicios-dia-container .ejercicio-item-info strong.ejercicio-nombre-link {
+    cursor: pointer;
+    color: var(--light-color); /* Mantener el color claro */
+    text-decoration: none; /* Quitar subrayado por defecto si fuera un <a> */
+    transition: color 0.2s ease;
+}
+
+#lista-ejercicios-dia-container .ejercicio-item-info strong.ejercicio-nombre-link:hover {
+    color: var(--primary-color); /* Cambiar a color primario en hover */
+    text-decoration: underline; /* Subrayar en hover para claridad */
+}
