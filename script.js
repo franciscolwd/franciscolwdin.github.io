@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- BIBLIOTECA DE EJERCICIOS (LA MISMA EXTENSA DE ANTES) ---
+    // --- BIBLIOTECA DE EJERCICIOS AMPLIADA (MÁQUINAS Y ENFOQUE HIPERTROFIA) ---
     const bibliotecaEjercicios = [
         // Pecho Máquinas
         {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- PLANES DE ENTRENAMIENTO (HIPERTROFIA - ENFOQUE MÁQUINAS PARA GYM) ---
     const planesEntrenamiento = {
-        casa: { // Rutinas de casa (iguales a la versión anterior, ya que no se especificó cambio)
+        casa: { // Rutinas de casa adaptadas para hipertrofia
             lunes: { id: "casa_lun", nombre: "Empuje Casa (Pecho, Hombros, Tríceps)", diaSemanaComparable: 1, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_002", reps: "1 min"}, { id_ejercicio: "ej_C_003", reps: "4 min"}] },
                 { tipo: "Principal", ejercicios: [ { id_ejercicio: "ej_P_001_H", series: 4, reps: "8-15" }, { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (con peso improvisado)" }, { id_ejercicio: "ej_T_003", series: 3, reps: "8-15 (fondos sillas)" } ]},
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { tipo: "Principal", ejercicios: [
                     { id_ejercicio: "ej_M_B_001", series: 3, reps: "8-12" },   
                     { id_ejercicio: "ej_M_B_002", series: 3, reps: "10-12 (con barra recta)" }, 
-                    { id_ejercicio: "ej_B_002_H", series: 3, reps: "10-12 c/b (curl inclinado mancuernas)"}, 
+                    { id_ejercicio: "ej_B_002_H", series: 3, reps: "10-12 c/b (curl mancuerna inclinado)"}, 
                     { id_ejercicio: "ej_M_T_001", series: 4, reps: "8-12 (con barra V)" },    
                     { id_ejercicio: "ej_M_T_002", series: 3, reps: "10-15 (ext. sobre cabeza con cuerda)" }, 
                 ]},
@@ -282,14 +282,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            sabado: { id: "gym_sab", nombre: "Full Body Ligero o Descanso Activo - Máquinas", diaSemanaComparable: 6, componentes: [
+            sabado: { id: "gym_sab", nombre: "Full Body con Máquinas (Volumen Moderado)", diaSemanaComparable: 6, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
-                { tipo: "Principal", ejercicios: [ // Menor volumen, más repeticiones, o cardio
-                    { id_ejercicio: "ej_M_PI_001", series: 2, reps: "15-20" }, 
-                    { id_ejercicio: "ej_M_P_001", series: 2, reps: "15-20" },  
-                    { id_ejercicio: "ej_M_E_001", series: 2, reps: "15-20" },  
-                    { id_ejercicio: "ej_M_H_001", series: 2, reps: "15-20" },  
-                    { id_ejercicio: "ej_A_001", series: 3, reps: "AMRAP" }   
+                { tipo: "Principal", ejercicios: [ 
+                    { id_ejercicio: "ej_M_PI_001", series: 3, reps: "10-12" }, 
+                    { id_ejercicio: "ej_M_P_001", series: 3, reps: "10-12" },  
+                    { id_ejercicio: "ej_M_E_001", series: 3, reps: "10-12" },  
+                    { id_ejercicio: "ej_M_H_001", series: 2, reps: "12-15" },  
+                    { id_ejercicio: "ej_M_B_002", series: 2, reps: "12-15" },  
+                    { id_ejercicio: "ej_M_T_001", series: 2, reps: "12-15" }   
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
@@ -297,13 +298,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- ELEMENTOS DEL DOM ---
+    // (Sin cambios desde la versión anterior)
     const cronometroEntrenamientoGeneralDisplay = document.getElementById('cronometro-entrenamiento-general');
     const cronometroEjercicioActualDisplay = document.getElementById('cronometro-ejercicio-actual');
     const selectDiasEntrenamiento = document.getElementById('select-dias-entrenamiento');
     const inputUserName = document.getElementById('input-user-name');
     const diasMetaSemanaDisplay = document.getElementById('dias-meta-semana');
     const btnCerrarModalBiblioteca = document.getElementById('btn-cerrar-modal-biblioteca');
-    // const btnSeleccionarEjercicioModal = document.getElementById('btn-seleccionar-ejercicio-modal'); // Se elimina, la selección es por item
+    //const btnSeleccionarEjercicioModal = document.getElementById('btn-seleccionar-ejercicio-modal'); // No se usa
     const headerTitle = document.getElementById('header-title');
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -350,7 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardarAjustes = document.getElementById('btn-guardar-ajustes');
     const btnRestablecerProgresoTotal = document.getElementById('btn-restablecer-progreso-total');
 
-    // --- FUNCIONES ---
+
+    // --- FUNCIONES (Lógica principal sin cambios mayores, adaptaciones en renderizado y manejo de estado para nuevas features) ---
     function guardarEstado() {
         localStorage.setItem('entrenadorFitnessAppState_v8_hipertrofiaMaquinas', JSON.stringify(appState));
     }
@@ -476,8 +479,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (planDelDia && planDelDia.componentes && planDelDia.componentes.length > 0 && planDelDia.nombre !== "Descanso") {
-            const idOriginalParaCompletado = planDelDiaPredeterminado.id; 
+            // Usar el ID original del plan predeterminado para chequear si está completado.
+            // Las rutinas personalizadas heredan el ID del plan original (ej. "gym_lun")
+            // pero el estado de completado se guarda contra el ID del plan original.
+            const idOriginalParaCompletado = planDelDiaPredeterminado?.id || planDelDia.id;
             const completado = appState.entrenamientosCompletados[idOriginalParaCompletado];
+
             entrenamientoHoyContainer.innerHTML = `
                 <h3>Tu Entrenamiento: ${planDelDia.nombre} (${appState.planActivoGeneral === 'casa' ? 'Casa' : 'Gym'})</h3>
                 <p>${completado ? "¡Completado! 🎉" : "Pendiente"}</p>
@@ -530,10 +537,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 calendarioRutinasContainer.appendChild(diaDiv);
                 continue; 
             }
-            if (i >= appState.diasEntrenamiento) { // Si ya mostramos los días de entrenamiento configurados, no mostrar más
+            if (i >= appState.diasEntrenamiento) {
                  continue;
             }
-
 
             const rutinaId = `${appState.planActivoGeneral}_${diaNombre.substring(0,3)}`;
             const rutinaPredeterminada = planesEntrenamiento[appState.planActivoGeneral]?.[diaNombre];
@@ -597,7 +603,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ejercicioData) {
                     const li = document.createElement('li');
                     li.classList.add('ejercicio-item');
-                    // Hacer el nombre del ejercicio clickeable
                     li.innerHTML = `
                         <div class="ejercicio-item-info">
                             <strong class="ejercicio-nombre-link" data-ejercicio-id="${ejercicioData.id}" title="Ver detalles del ejercicio">${ejercicioData.nombre}</strong>
@@ -623,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
             listaEjerciciosDiaContainer.appendChild(compDiv);
         });
         
-        asignarListenersBotonesEdicionYVista(); // Asignar todos los listeners necesarios
+        asignarListenersBotonesEdicionYVista();
         
         btnRestablecerRutinaDefault.style.display = rutinaPersonalizada ? 'inline-block' : 'none';
         const completado = appState.entrenamientosCompletados[rutinaPredeterminada.id];
@@ -631,12 +636,12 @@ document.addEventListener('DOMContentLoaded', () => {
         btnComenzarEntrenamientoDia.className = completado ? 'btn btn-secondary' : 'btn btn-start-workout';
         cambiarPestana('detalles-entrenamiento-dia-section');
     }
-    
+
     function asignarListenersBotonesEdicionYVista() {
         listaEjerciciosDiaContainer.querySelectorAll('.ejercicio-nombre-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 const ejercicioId = e.currentTarget.dataset.ejercicioId;
-                appState.modificandoEjercicio.activo = false; // No estamos en modo edición para este click
+                appState.modificandoEjercicio.activo = false;
                 appState.modificandoEjercicio.idEjercicioAbiertoEnModal = ejercicioId;
                 mostrarDetalleEjercicioBiblioteca(ejercicioId);
             });
@@ -705,7 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const commonA = a.musculosTrabajados.filter(m => musculosTarget.includes(m)).length;
             const commonB = b.musculosTrabajados.filter(m => musculosTarget.includes(m)).length;
             if (commonB !== commonA) return commonB - commonA;
-            // Como desempate, preferir los que tienen equipamiento (no solo peso corporal) si el original no era peso corporal
             if (!equipamientoActualArray.includes("Peso Corporal")) {
                 const aHasNonBodyweight = (a.equipamiento || []).some(e => e !== "Peso Corporal");
                 const bHasNonBodyweight = (b.equipamiento || []).some(e => e !== "Peso Corporal");
@@ -714,7 +718,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return 0;
         });
-
 
         if (alternativas.length > 0) {
             const nuevoEjercicioData = alternativas[0]; 
@@ -737,7 +740,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const rutinaId = appState.entrenamientoActual.id;
         const rutinaModificadaParaGuardar = {
-            ...appState.entrenamientoActual, // Mantiene nombre, id, plan, dia del original (o personalizado previo)
+            ...appState.entrenamientoActual, 
+            id: rutinaId, // Asegurar que el ID sea el correcto (ej. gym_lun)
+            nombre: appState.entrenamientoActual.nombre, // Mantener el nombre original o el personalizado
+            diaSemanaComparable: appState.entrenamientoActual.diaSemanaComparable,
             componentes: JSON.parse(JSON.stringify(appState.componentesEnEdicion)) 
         };
         
@@ -746,9 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Cambios en la rutina guardados.");
         btnRestablecerRutinaDefault.style.display = 'inline-block';
         renderPantallaRutinas(); 
-        // Actualizar detalle por si el nombre de la rutina personalizada necesita el tag (Personalizada)
         detalleDiaTipoPlan.textContent = `Plan: ${appState.entrenamientoActual.plan === 'casa' ? 'En Casa' : 'De Gimnasio'} (Personalizada)`;
-
     }
 
     function restablecerRutinaActualADefault() {
@@ -782,7 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     li.classList.add('ejercicio-item');
                     li.innerHTML = `
                         <div class="ejercicio-item-info">
-                            <strong class="ejercicio-nombre-link" data-ejercicio-id="${ejercicioData.id}" title="Ver detalles del ejercicio">${ejercicioData.nombre}</strong>
+                             <strong class="ejercicio-nombre-link" data-ejercicio-id="${ejercicioData.id}" title="Ver detalles del ejercicio">${ejercicioData.nombre}</strong>
                             <span>Series: ${ejDef.series || ejercicioData.series}, Reps: ${ejDef.reps || ejercicioData.repeticiones}</span>
                         </div>
                         <div class="ejercicio-item-acciones">
@@ -803,7 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
             compDiv.appendChild(ul);
             listaEjerciciosDiaContainer.appendChild(compDiv);
         });
-        asignarListenersBotonesEdicionYVista(); // Re-asignar todos los listeners
+        asignarListenersBotonesEdicionYVista();
     }
 
     function abrirModalBibliotecaParaModificar(compIndex, ejIndex) { 
@@ -813,7 +817,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderPantallaBiblioteca(true); 
         detalleEjercicioModal.style.display = 'block';
-        // btnSeleccionarEjercicioModal no se usa, la selección es directa en los items
+        //btnSeleccionarEjercicioModal.style.display = 'block'; 
         
         modalEjercicioNombre.textContent = ejIndex === null ? "Añadir Ejercicio al Componente" : "Cambiar Ejercicio";
         modalEjercicioImagen.style.display = 'none'; 
@@ -857,8 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appState.entrenamientoActualOriginalId = rutinaOriginalPredeterminada.id;
 
         let componentesParaEntrenamiento;
-        if (appState.componentesEnEdicion && appState.componentesEnEdicion.length > 0 &&
-            appState.entrenamientoActual && appState.entrenamientoActual.id === rutinaId) { // Asegurar que los componentes en edición son para la rutina actual
+        if (appState.entrenamientoActual && appState.entrenamientoActual.id === rutinaId && appState.componentesEnEdicion.length > 0) {
             componentesParaEntrenamiento = appState.componentesEnEdicion;
         } else {
             componentesParaEntrenamiento = appState.rutinasPersonalizadas[rutinaId]?.componentes || rutinaOriginalPredeterminada.componentes;
@@ -1175,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ejercicio) return;
 
         appState.modificandoEjercicio.activo = false; 
-        // btnSeleccionarEjercicioModal.style.display = 'none'; // No existe
+        //btnSeleccionarEjercicioModal.style.display = 'none'; 
         modalEjercicioMusculos.parentElement.style.display = 'block';
         modalEjercicioEquipamiento.parentElement.style.display = 'block';
         modalEjercicioDescripcion.parentElement.style.display = 'block';
@@ -1221,7 +1224,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!rutinaOmitidaOriginal || !rutinaOmitidaOriginal.componentes) return;
 
-        // Crear una copia profunda de las rutinas personalizadas para no modificar el estado directamente hasta el final
         let rutinasPersonalizadasCopia = JSON.parse(JSON.stringify(appState.rutinasPersonalizadas));
 
         const ejerciciosPrincipalesOmitidos = rutinaOmitidaOriginal.componentes
@@ -1239,18 +1241,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!ejercicioDataOmitido) continue;
 
             let añadidoEsteEjercicio = false;
+            // Distribuir preferentemente a días que NO entrenen ese músculo principal, o si no, al menos cargado
             for (const diaDestinoNombre of diasRestantes) {
                 if (añadidoEsteEjercicio) break;
 
                 const rutinaIdDestino = `${plan}_${diaDestinoNombre.substring(0,3)}`;
                 const rutinaDestinoPredeterminada = planesEntrenamiento[plan]?.[diaDestinoNombre];
                 
-                // Obtener o inicializar la rutina personalizada para el día destino
                 if (!rutinasPersonalizadasCopia[rutinaIdDestino]) {
                      if (rutinaDestinoPredeterminada) {
                         rutinasPersonalizadasCopia[rutinaIdDestino] = JSON.parse(JSON.stringify(rutinaDestinoPredeterminada));
                     } else {
-                        continue; // No hay rutina base para este día
+                        continue; 
                     }
                 }
                 let componentesDestino = rutinasPersonalizadasCopia[rutinaIdDestino].componentes;
@@ -1261,7 +1263,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     componentesDestino.push(componentePrincipalDestino);
                 }
 
-                // Lógica para no sobrecargar: si el día ya tiene muchos ejercicios o ya se añadió uno de este grupo muscular
                 let conteoMuscularActual = 0;
                 componentePrincipalDestino.ejercicios.forEach(ejExistente => {
                     const ejDataExistente = getEjercicioById(ejExistente.id_ejercicio);
@@ -1270,7 +1271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                if (componentePrincipalDestino.ejercicios.length < 6 && // Límite de ejercicios totales por bloque
+                if (componentePrincipalDestino.ejercicios.length < 7 && // Aumentar un poco el límite para la distribución
                     conteoMuscularActual < MAX_EJERCICIOS_A_DISTRIBUIR_POR_GRUPO_POR_DIA &&
                     !componentePrincipalDestino.ejercicios.find(e => e.id_ejercicio === ejDefOmitido.id_ejercicio)) {
                     
@@ -1282,19 +1283,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Marcar el sábado como descanso en las rutinas personalizadas si se pasa a 5 días
         const rutinaIdSabado = `${plan}_sab`;
         const sabadoPredeterminado = planesEntrenamiento[plan]?.sabado;
         rutinasPersonalizadasCopia[rutinaIdSabado] = {
-            ...(sabadoPredeterminado || { id: rutinaIdSabado, diaSemanaComparable: 6 }), // Mantener ID y otros datos
-            nombre: "Descanso",
+            ...(sabadoPredeterminado || { id: rutinaIdSabado, diaSemanaComparable: 6 }),
+            nombre: "Descanso", // Marcar explícitamente como descanso
             componentes: []
         };
         
-        appState.rutinasPersonalizadas = rutinasPersonalizadasCopia; // Aplicar todos los cambios al estado
+        appState.rutinasPersonalizadas = rutinasPersonalizadasCopia;
 
         if (ejerciciosAnadidosCount > 0) {
             alert(`${ejerciciosAnadidosCount} ejercicio(s) del sábado se han intentado distribuir. Revisa y ajusta tus rutinas.`);
+        } else if (ejerciciosPrincipalesOmitidos.length > 0) {
+            alert("No se pudieron distribuir automáticamente los ejercicios del sábado. Considera añadirlos manualmente a otros días o ajustar tus rutinas.");
         }
         guardarEstado();
     }
@@ -1332,7 +1334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     selectFiltroGrupoMuscular.addEventListener('change', () => filtrarYRenderizarBiblioteca(appState.modificandoEjercicio.activo));
     selectFiltroEquipamiento.addEventListener('change', () => filtrarYRenderizarBiblioteca(appState.modificandoEjercicio.activo));
     btnCerrarModalBiblioteca.addEventListener('click', cerrarModalBiblioteca);
-        
+    
     // Ajustes
     btnGuardarAjustes.addEventListener('click', () => {
         const diasEntrenamientoAnteriores = appState.diasEntrenamiento;
@@ -1348,10 +1350,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (diasEntrenamientoAnteriores === 5 && appState.diasEntrenamiento === 6) {
             const plan = appState.planActivoGeneral;
             const rutinaIdSabado = `${plan}_sab`;
-            // Si el sábado estaba personalizado como "Descanso", eliminar esa personalización
-            // para que se cargue la rutina predeterminada del sábado.
             if (appState.rutinasPersonalizadas[rutinaIdSabado] && appState.rutinasPersonalizadas[rutinaIdSabado].nombre === "Descanso") {
-                delete appState.rutinasPersonalizadas[rutinaIdSabado];
+                delete appState.rutinasPersonalizadas[rutinaIdSabado]; // Vuelve a tomar el default de planesEntrenamiento
             }
         }
 
