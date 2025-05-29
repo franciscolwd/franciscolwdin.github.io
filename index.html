@@ -42,9 +42,9 @@
 
             <section id="detalles-entrenamiento-dia-section" class="tab-content">
                 <button id="btn-volver-a-rutinas" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Volver a Rutinas</button>
-                <h2 id="detalle-dia-nombre-rutina">Nombre de la Rutina</h2>
+                <h2 id="detalle-dia-nombre-rutina">Nombre de la Rutina del Día</h2>
                 <p id="detalle-dia-tipo-plan">Plan: </p>
-                <p class="info-text">Puedes modificar los ejercicios para esta sesión. <br>¡No olvides guardar los cambios si quieres que persistan para futuras sesiones!</p>
+                <p class="info-text">Puedes modificar los ejercicios para esta sesión. <br>¡Guarda los cambios si quieres que persistan para futuras sesiones!</p>
                 
                 <div class="acciones-rutina-dia">
                     <button id="btn-guardar-cambios-rutina" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Guardar Cambios en esta Rutina</button>
@@ -59,7 +59,8 @@
             <section id="entrenamiento-en-progreso-section" class="tab-content">
                 <div class="cronometros-container">
                     <div id="cronometro-entrenamiento-general" class="cronometro-display">Total: 00:00:00</div>
-                    <div id="cronometro-ejercicio-actual" class="cronometro-display">Ejercicio: 00:00</div> </div>
+                    <div id="cronometro-ejercicio-actual" class="cronometro-display">Ejercicio: 00:00</div> 
+                </div>
                 <h2 id="ejercicio-actual-nombre">Nombre del Ejercicio</h2>
                 <div class="ejercicio-media">
                     <img id="ejercicio-actual-imagen" src="https://placehold.co/300x200/2c3e50/ecf0f1?text=Ejercicio" alt="Imagen del ejercicio">
@@ -106,8 +107,7 @@
                     <p><strong>Equipamiento:</strong> <span id="modal-ejercicio-equipamiento"></span></p>
                     <p><strong>Descripción:</strong></p>
                     <div id="modal-ejercicio-descripcion" class="ejercicio-descripcion-modal"></div>
-                    <button id="btn-seleccionar-ejercicio-modal" class="btn btn-primary" style="display:none;">Seleccionar este Ejercicio</button>
-                </div>
+                    </div>
             </div>
 
             <section id="ajustes-section" class="tab-content">
@@ -135,7 +135,7 @@
                     </select>
                 </div>
                 <button id="btn-guardar-ajustes" class="btn">Guardar Ajustes</button>
-                <button id="btn-restablecer-progreso-total" class="btn btn-danger">Restablecer Progreso</button>
+                <button id="btn-restablecer-progreso-total" class="btn btn-danger">Restablecer Progreso y Rutinas</button>
             </section>
         </main>
 

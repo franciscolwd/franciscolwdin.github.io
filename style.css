@@ -10,6 +10,7 @@
     --danger-color: #dc3545;
     --success-color: #198754;
     --warning-color: #ffc107;
+    --info-color: #0dcaf0; /* Color para botones de información/reemplazo */
     --border-radius: 8px; /* Un poco más redondeado */
     --box-shadow: 0 6px 18px rgba(0,0,0,0.4); /* Sombra más pronunciada */
     --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -144,11 +145,15 @@ nav#app-tab-bar {
 .btn-secondary:hover { background-color: #5A6268; }
 .btn-danger { background-color: var(--danger-color); }
 .btn-danger:hover { background-color: #C82333; }
+.btn-success { background-color: var(--success-color); }
+.btn-success:hover { background-color: #146c43; }
 .btn-start-workout { background-color: var(--success-color); }
 .btn-start-workout:hover { background-color: #157347; }
 .btn-warning { background-color: var(--warning-color); color: var(--dark-color); }
 .btn-warning:hover { background-color: #FFB300; }
-.btn-sm { padding: 8px 12px; font-size: 0.85em; } /* Botón más pequeño */
+.btn-info { background-color: var(--info-color); color: var(--dark-color); }
+.btn-info:hover { background-color: #0AAAB9; }
+.btn-sm { padding: 8px 12px; font-size: 0.85em; } 
 
 
 .plan-selector { display: flex; margin-bottom: 20px; gap: 10px; }
@@ -215,21 +220,24 @@ nav#app-tab-bar {
 }
 .ejercicio-item-acciones {
     display: flex;
-    gap: 8px;
-    margin-left: 15px; /* Espacio entre info y acciones */
+    flex-direction: row; /* Asegurar que los botones estén en fila */
+    gap: 6px; /* Espacio reducido entre botones de acción */
+    margin-left: 10px; 
 }
-.ejercicio-item-acciones .btn { /* Estilo para botones de acción dentro del item */
+.ejercicio-item-acciones .btn { 
     padding: 6px 10px;
     font-size: 0.8em;
     width: auto;
     margin-top: 0;
-    min-width: 40px; /* Para que los iconos no se vean apretados */
-    line-height: 1; /* Ajuste para iconos */
+    min-width: 38px; 
+    line-height: 1; 
 }
 .btn-anadir-al-componente {
     margin-top: 15px;
     background-color: var(--secondary-color);
     opacity: 0.8;
+    font-size: 0.9em; /* Ajustar tamaño */
+    padding: 8px 12px;
 }
 .btn-anadir-al-componente:hover {
     opacity: 1;
@@ -244,8 +252,8 @@ nav#app-tab-bar {
 .ejercicio-descripcion {
     background-color: var(--card-bg); padding: 15px; border-radius: var(--border-radius);
     margin-bottom: 20px; font-size: 0.95em; color: #ced4da; border: 1px solid var(--border-color);
-    max-height: 150px; /* Límite de altura para descripción en progreso */
-    overflow-y: auto; /* Scroll si es muy larga */
+    max-height: 150px; 
+    overflow-y: auto; 
 }
 #ejercicio-actual-series-reps {
     font-size: 1.4em; font-weight: bold; text-align: center;
@@ -265,27 +273,27 @@ nav#app-tab-bar {
 
 /* Modal */
 .modal {
-    display: none; position: fixed; z-index: 1000; /* Alto z-index */
+    display: none; position: fixed; z-index: 1000; 
     left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
-    background-color: rgba(0,0,0,0.85); /* Más oscuro */
+    background-color: rgba(0,0,0,0.85); 
 }
 .modal-content {
-    background-color: var(--card-bg); margin: 8% auto; /* Menos margen superior */
+    background-color: var(--card-bg); margin: 8% auto; 
     padding: 25px; border: 1px solid var(--border-color); width: 90%;
     max-width: 580px; border-radius: var(--border-radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative;
     animation: slideInModal 0.3s ease-out; color: var(--text-color);
-    display: flex; /* Para layout interno */
+    display: flex; 
     flex-direction: column;
 }
 @keyframes slideInModal { from { transform: translateY(-50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
 .close-button {
-    color: #aaa; position: absolute; top: 15px; right: 20px; /* Posicionamiento absoluto */
+    color: #aaa; position: absolute; top: 15px; right: 20px; 
     font-size: 32px; font-weight: bold; line-height: 1;
 }
 .close-button:hover, .close-button:focus { color: var(--light-color); text-decoration: none; cursor: pointer; }
 #modal-ejercicio-imagen {
-    width: 100%; max-width: 300px; margin: 0 auto 20px auto; /* Centrar imagen */
+    width: 100%; max-width: 300px; margin: 0 auto 20px auto; 
     display: block; border-radius: var(--border-radius); border: 1px solid var(--border-color);
 }
 .modal-content h3 { color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 18px; }
@@ -295,20 +303,29 @@ nav#app-tab-bar {
     max-height: 150px; 
     overflow-y: auto; 
     padding-right: 10px; 
-    margin-bottom: 15px; /* Espacio antes del botón */
-    flex-grow: 1; /* Para que ocupe espacio si el contenido es corto */
+    margin-bottom: 15px; 
+    flex-grow: 1; 
 }
-#btn-seleccionar-ejercicio-modal { 
-    margin-top: auto; /* Empujar al final si el contenido es corto */
-    background-color: var(--success-color);
+/* Estilo para los items de la biblioteca cuando se muestran en el modal para selección */
+.ejercicio-item-biblioteca-seleccion {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
-#btn-seleccionar-ejercicio-modal:hover {
-    background-color: #146C43;
+.ejercicio-item-biblioteca-seleccion:hover {
+    background-color: #3e444a;
+}
+.ejercicio-item-biblioteca-seleccion strong {
+    color: var(--light-color);
+}
+.ejercicio-item-biblioteca-seleccion small {
+    color: #adb5bd;
 }
 
 
 #rutinas-plan-title { text-align: center; font-size: 1.3em; margin-bottom: 18px; color: var(--warning-color); font-weight: 500; }
-.card-container { display: grid; gap: 15px; }
+.card-container { display: grid; gap: 15px; } 
 @media (min-width: 480px) { 
     .card-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 }
@@ -317,32 +334,6 @@ nav#app-tab-bar {
 .rutina-dia-item.rutina-descanso p { font-style: italic; }
 .quick-actions .btn { margin-bottom: 12px; }
 .quick-actions .btn:last-child { margin-bottom: 0; }
-
-main#app-main-content::-webkit-scrollbar { width: 10px; }
-main#app-main-content::-webkit-scrollbar-track { background: var(--dark-color); }
-main#app-main-content::-webkit-scrollbar-thumb { background-color: var(--secondary-color); border-radius: 5px; border: 2px solid var(--dark-color); }
-
-@media (min-width: 601px) { .app-container { height: 95vh; max-height: 900px; } }
-
-/* Estilos para la lista de ejercicios en el componente durante la edición */
-.componente-dia {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #282c30; /* Ligeramente diferente para destacar el componente */
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-}
-.componente-dia h3 { /* Cambiado de h4 a h3 para más jerarquía */
-    color: var(--warning-color);
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #444;
-    font-size: 1.2em;
-}
-.lista-ejercicios-componente {
-    list-style: none;
-    padding-left: 0;
-}/* ... (todos los estilos anteriores) ... */
 
 .info-text {
     font-size: 0.9em;
@@ -366,10 +357,37 @@ main#app-main-content::-webkit-scrollbar-thumb { background-color: var(--seconda
     padding: 10px 15px; /* Ajustar padding si es necesario */
 }
 
-#btn-restablecer-rutina-default {
+#btn-restablecer-rutina-default { /* Ya estaba, solo para confirmar */
     background-color: var(--warning-color);
     color: var(--dark-color);
 }
 #btn-restablecer-rutina-default:hover {
     background-color: #FFB300;
+}
+
+
+main#app-main-content::-webkit-scrollbar { width: 10px; }
+main#app-main-content::-webkit-scrollbar-track { background: var(--dark-color); }
+main#app-main-content::-webkit-scrollbar-thumb { background-color: var(--secondary-color); border-radius: 5px; border: 2px solid var(--dark-color); }
+
+@media (min-width: 601px) { .app-container { height: 95vh; max-height: 900px; } }
+
+.componente-dia {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #282c30; 
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+.componente-dia h3 { 
+    color: var(--warning-color);
+    margin-top:0;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #444;
+    font-size: 1.2em;
+}
+.lista-ejercicios-componente {
+    list-style: none;
+    padding-left: 0;
 }
