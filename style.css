@@ -50,7 +50,7 @@ body {
 header#app-header {
     background-color: #16191c; 
     color: var(--light-color);
-    padding: 15px 20px; /* Reducido ligeramente para móvil */
+    padding: 18px 20px; /* Un poco más de padding */
     text-align: center;
     box-shadow: 0 3px 6px rgba(0,0,0,0.5);
     z-index: 10;
@@ -60,7 +60,7 @@ header#app-header {
 
 header#app-header h1 {
     margin: 0;
-    font-size: 1.5em; /* Ajustado para móvil */
+    font-size: 1.7em;
     font-weight: 700; 
 }
 
@@ -76,7 +76,7 @@ nav#app-tab-bar {
     justify-content: space-around;
     background-color: #16191c;
     border-top: 1px solid var(--border-color);
-    padding: 8px 0; 
+    padding: 10px 0; 
     box-shadow: 0 -3px 6px rgba(0,0,0,0.4);
     flex-shrink: 0; /* Para que la tab bar no se encoja */
 }
@@ -85,10 +85,10 @@ nav#app-tab-bar {
     background: none;
     border: none;
     color: #868e96; 
-    font-size: 0.75em; 
+    font-size: 0.8em; 
     text-align: center;
     cursor: pointer;
-    padding: 5px; /* Ajustado */
+    padding: 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,37 +96,37 @@ nav#app-tab-bar {
     transition: color 0.2s ease, transform 0.2s ease;
 }
 .tab-button i {
-    font-size: 1.5em; /* Ajustado para móvil */
-    margin-bottom: 3px;
+    font-size: 1.7em; 
+    margin-bottom: 4px;
 }
 .tab-button.active {
     color: var(--primary-color);
-    transform: scale(1.05); /* Efecto más sutil */
+    transform: scale(1.1); 
 }
 .tab-button:hover:not(.active) {
     color: var(--light-color);
 }
 
 .tab-content { display: none; }
-.tab-content.active-tab { display: block; animation: fadeIn 0.3s ease-in-out; } /* Animación más rápida */
-@keyframes fadeIn { from { opacity: 0; /* transform: translateY(5px); */ } to { opacity: 1; /* transform: translateY(0); */ } }
+.tab-content.active-tab { display: block; animation: fadeIn 0.3s ease-in-out; } 
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 15px; /* Reducido para móvil */
-    margin-bottom: 18px; /* Reducido */
+    padding: 20px; 
+    margin-bottom: 22px; 
     box-shadow: var(--box-shadow);
     border: 1px solid var(--border-color);
 }
 .card h2, .card h3 {
     margin-top: 0;
     color: var(--primary-color);
-    font-weight: 500; /* Ligeramente menos bold para h3 */
+    font-weight: 700; 
     border-bottom: 1px solid #3e444a; 
-    padding-bottom: 8px;
-    margin-bottom: 12px;
-    font-size: 1.3em; /* Ajustar tamaño de encabezados en cards */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.3em; 
 }
 .card h3 { font-size: 1.15em; }
 .card p { color: #adb5bd; font-size: 0.95em; }
@@ -135,23 +135,24 @@ nav#app-tab-bar {
     display: inline-block;
     background-color: var(--primary-color);
     color: white;
-    padding: 10px 15px; /* Padding ajustado para móvil */
+    padding: 12px 20px; 
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     text-decoration: none;
-    font-size: 0.95em; /* Tamaño de fuente ajustado */
-    font-weight: 500; /* Menos bold que antes */
+    font-size: 1.05em; 
+    font-weight: 700; 
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    margin-top: 10px;
+    margin-top: 12px;
     width: 100%;
+    box-sizing: border-box;
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.5px; 
+    letter-spacing: 0.8px; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.btn:hover { background-color: #0B5ED7; transform: translateY(-1px); box-shadow: 0 3px 6px rgba(0,0,0,0.25); }
-.btn:active { transform: translateY(0px); box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.btn:hover { background-color: #0B5ED7; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+.btn:active { transform: translateY(0px); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
 .btn-secondary { background-color: var(--secondary-color); }
 .btn-secondary:hover { background-color: #5A6268; }
@@ -168,26 +169,26 @@ nav#app-tab-bar {
 .btn-sm { padding: 8px 10px; font-size: 0.8em; } 
 
 
-.plan-selector { display: flex; margin-bottom: 15px; gap: 8px; }
+.plan-selector { display: flex; margin-bottom: 20px; gap: 8px; }
 .btn-plan { margin: 0; width: auto; flex-grow: 1; text-transform: none; letter-spacing: normal; font-size: 0.9em; padding: 8px 10px;}
 .btn-plan.active { background-color: var(--primary-color); color: white; border: 1px solid var(--primary-color); }
 .btn-plan:not(.active) { background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); }
 .btn-plan:not(.active):hover { background-color: #3e444a; }
 
-.form-group { margin-bottom: 18px; }
-.form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: #adb5bd; font-size: 0.9em;}
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #adb5bd; font-size: 0.9em;}
 .form-group input[type="text"], .form-group select, .search-input {
-    width: 100%; padding: 10px; border: 1px solid var(--border-color);
+    width: 100%; padding: 10px; border: 1px solid var(--border-color); /* Reducido padding para móvil */
     border-radius: var(--border-radius); font-size: 0.95em;
     background-color: #2c3034; color: var(--text-color); 
 }
 .form-group input[type="text"]:focus, .form-group select:focus, .search-input:focus {
     outline: none; border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25); /* Sombra de foco más sutil */
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25); 
 }
 .search-input { margin-bottom: 15px; }
-.filtros-biblioteca { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; } /* Apilados en móvil */
-.filtros-biblioteca select { width: 100%; }
+.filtros-biblioteca { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; } 
+.filtros-biblioteca select { width: 100%; font-size: 0.9em;}
 
 /* Detalles Entrenamiento y En Progreso */
 .cronometros-container {
@@ -201,36 +202,36 @@ nav#app-tab-bar {
     border: 1px solid var(--border-color);
 }
 .cronometro-display {
-    font-size: 1em; /* Ligeramente más pequeño */
+    font-size: 1em; 
     font-weight: 700;
     color: var(--warning-color);
-    padding: 5px; /* Añadir padding interno */
+    padding: 5px; 
 }
 #cronometro-ejercicio-actual { color: var(--primary-color); }
 
 
 #lista-ejercicios-dia-container .ejercicio-item {
     background-color: #2c3034; 
-    padding: 12px; /* Reducido */
-    margin-bottom: 10px;
+    padding: 12px; 
+    margin-bottom: 10px; /* Reducido */
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Permitir que los botones pasen abajo si no hay espacio */
+    flex-wrap: wrap; 
 }
 #lista-ejercicios-dia-container .ejercicio-item-info {
     flex-grow: 1;
-    margin-right: 10px; /* Espacio antes de los botones */
-    min-width: 150px; /* Para que el texto no se comprima demasiado */
+    margin-right: 8px; /* Reducido */
+    min-width: 120px; /* Ajustar para móvil */
 }
 #lista-ejercicios-dia-container .ejercicio-item-info strong {
     color: var(--light-color);
     font-weight: 500;
-    font-size: 1em; /* Reducido */
+    font-size: 1em; 
 }
-#lista-ejercicios-dia-container .ejercicio-item-info strong.ejercicio-nombre-link { /* Estilo para nombre clickeable */
+#lista-ejercicios-dia-container .ejercicio-item-info strong.ejercicio-nombre-link { 
     cursor: pointer;
     text-decoration: none; 
     transition: color 0.2s ease;
@@ -240,18 +241,29 @@ nav#app-tab-bar {
     text-decoration: underline; 
 }
 #lista-ejercicios-dia-container .ejercicio-item-info span {
-    font-size: 0.85em; /* Reducido */
+    font-size: 0.85em; 
     color: #adb5bd;
     display: block; 
 }
 .ejercicio-item-acciones {
     display: flex;
-    gap: 5px; /* Espacio reducido */
-    flex-shrink: 0; /* Evitar que los botones se encojan demasiado */
+    gap: 5px; 
+    flex-shrink: 0; 
+    margin-top: 5px; /* Espacio si los botones se van abajo */
+    width: 100%; /* Ocupar ancho si se envuelven */
+    justify-content: flex-end; /* Alinear botones a la derecha si se envuelven */
 }
+@media (min-width: 380px) { /* En pantallas un poco más anchas, mantener en línea */
+    .ejercicio-item-acciones {
+        width: auto;
+        margin-top: 0;
+        justify-content: initial;
+    }
+}
+
 .ejercicio-item-acciones .btn { 
-    padding: 5px 8px; /* Reducido */
-    font-size: 0.75em; /* Reducido */
+    padding: 5px 8px; 
+    font-size: 0.75em; 
     width: auto;
     margin-top: 0;
     min-width: 36px; 
@@ -269,8 +281,8 @@ nav#app-tab-bar {
 
 .ejercicio-media img {
     max-width: 100%; 
-    max-height: 200px; /* Limitar altura en móvil */
-    object-fit: contain; /* Para que la imagen no se deforme */
+    max-height: 180px; 
+    object-fit: contain; 
     height: auto; border-radius: var(--border-radius);
     margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;
     border: 2px solid var(--border-color);
@@ -278,7 +290,7 @@ nav#app-tab-bar {
 .ejercicio-descripcion {
     background-color: var(--card-bg); padding: 12px; border-radius: var(--border-radius);
     margin-bottom: 15px; font-size: 0.9em; color: #ced4da; border: 1px solid var(--border-color);
-    max-height: 120px; /* Reducir altura para descripción en progreso */
+    max-height: 100px; /* Reducido para móvil */
     overflow-y: auto; 
 }
 #ejercicio-actual-series-reps {
@@ -292,7 +304,7 @@ nav#app-tab-bar {
 #temporizador-descanso-container h3 { color: var(--warning-color); border-bottom: none; padding-bottom: 0; margin-bottom: 6px; font-size: 1.1em;}
 #temporizador-display { font-size: 2.8em; font-weight: bold; color: var(--light-color); }
 
-.controles-entrenamiento { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
+.controles-entrenamiento { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 15px; }
 .controles-entrenamiento .btn { flex-grow: 1; padding: 10px 12px; font-size: 0.9em;}
 .controles-entrenamiento #btn-marcar-serie-completada { background-color: var(--success-color); }
 .controles-entrenamiento #btn-marcar-serie-completada:hover { background-color: #146C43; }
@@ -301,19 +313,19 @@ nav#app-tab-bar {
 .modal {
     display: none; position: fixed; z-index: 1000; 
     left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
-    background-color: rgba(0,0,0,0.9); /* Aún más oscuro para el overlay */
+    background-color: rgba(0,0,0,0.9); 
 }
 .modal-content {
     background-color: var(--card-bg); 
-    margin: 5vh auto; /* Margen vertical relativo a la altura de la ventana */
-    padding: 20px; border: 1px solid var(--border-color); width: 90%;
-    max-width: 500px; /* Ligeramente más pequeño para móvil */
+    margin: 5vh auto; 
+    padding: 20px; border: 1px solid var(--border-color); width: 90%; /* Un poco más angosto */
+    max-width: 450px; /* Máximo para móviles */
     border-radius: var(--border-radius);
     box-shadow: 0 8px 25px rgba(0,0,0,0.6); position: relative;
     animation: slideInModal 0.25s ease-out; color: var(--text-color);
     display: flex; 
     flex-direction: column;
-    max-height: 90vh; /* Asegurar que el modal no sea más alto que la pantalla */
+    max-height: 90vh; 
 }
 @keyframes slideInModal { from { transform: translateY(-40px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
 .close-button {
@@ -322,19 +334,19 @@ nav#app-tab-bar {
 }
 .close-button:hover, .close-button:focus { color: var(--light-color); text-decoration: none; cursor: pointer; }
 #modal-ejercicio-imagen {
-    width: 100%; max-width: 250px; margin: 0 auto 15px auto; /* Reducir imagen */
+    width: 100%; max-width: 220px; margin: 0 auto 15px auto; /* Reducir imagen */
     display: block; border-radius: var(--border-radius); border: 1px solid var(--border-color);
 }
-.modal-content h3 { color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; font-size: 1.3em;}
+.modal-content h3 { color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; font-size: 1.2em;}
 .modal-content p { color: #ced4da; margin-bottom: 10px; font-size: 0.9em;}
 .modal-content p strong { color: var(--light-color); }
 .ejercicio-descripcion-modal { 
-    max-height: 120px; /* Reducido */
+    max-height: 100px; 
     overflow-y: auto; 
     padding-right: 8px; 
     margin-bottom: 12px; 
     flex-grow: 1; 
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 .ejercicio-item-biblioteca-seleccion {
     padding: 10px;
@@ -348,9 +360,12 @@ nav#app-tab-bar {
 
 
 #rutinas-plan-title { text-align: center; font-size: 1.2em; margin-bottom: 15px; color: var(--warning-color); font-weight: 500; }
-.card-container { display: grid; gap: 12px; } /* Reducido gap */
-/* Para pantallas pequeñas (móviles), una columna por defecto */
-.card-container { grid-template-columns: 1fr; } 
+.card-container { display: grid; gap: 12px; } 
+.card-container { grid-template-columns: 1fr; } /* Siempre una columna en móvil por defecto */
+@media (min-width: 500px) { /* Dos columnas si hay un poco más de espacio */
+    .card-container { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+}
+
 
 .rutina-dia-item.rutina-descanso { background-color: #212529; text-align: center; padding: 20px; color: var(--secondary-color); }
 .rutina-dia-item.rutina-descanso p { font-style: italic; }
@@ -363,7 +378,7 @@ nav#app-tab-bar {
     border-left: 3px solid var(--primary-color);
 }
 .acciones-rutina-dia { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
-.acciones-rutina-dia .btn { flex-grow: 1; width: auto; padding: 8px 12px; font-size: 0.85em; min-width: 120px; /* Para que no se encojan demasiado */}
+.acciones-rutina-dia .btn { flex-grow: 1; width: auto; padding: 8px 12px; font-size: 0.85em; min-width: 120px; }
 
 #btn-restablecer-rutina-default { background-color: var(--warning-color); color: var(--dark-color); }
 #btn-restablecer-rutina-default:hover { background-color: #FFB300; }
@@ -384,86 +399,83 @@ main#app-main-content::-webkit-scrollbar-thumb { background-color: var(--seconda
 
 
 /* Media Query Específica para mejorar en pantallas tipo iPhone 13 Pro Max y similares */
-@media (max-width: 480px) {
+/* La mayoría de los ajustes ya se hicieron pensando en móvil primero, pero aquí ajustes finos */
+@media (max-width: 430px) { /* Ligeramente por encima de 428px para cubrir bien */
     body {
-        font-size: 15px; /* Reducir ligeramente la base de fuente */
+        font-size: 14px; /* Base de fuente aún más pequeña si es necesario */
     }
     header#app-header h1 {
-        font-size: 1.4em;
+        font-size: 1.3em;
     }
     main#app-main-content {
-        padding: 12px;
+        padding: 10px; /* Menos padding general */
     }
     .card {
-        padding: 12px;
-        margin-bottom: 15px;
+        padding: 10px;
+        margin-bottom: 12px;
     }
     .card h2, .card h3 {
-        font-size: 1.2em;
-        padding-bottom: 6px;
-        margin-bottom: 10px;
+        font-size: 1.1em;
+        padding-bottom: 5px;
+        margin-bottom: 8px;
     }
-    .card h3 { font-size: 1.1em; }
-    .card p { font-size: 0.9em; }
+    .card h3 { font-size: 1em; }
+    .card p { font-size: 0.85em; }
 
     .btn {
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
-    .btn-sm {
-        padding: 6px 8px;
-        font-size: 0.75em;
-    }
-    .ejercicio-item-acciones .btn {
-        min-width: 32px; /* Aún más pequeño para iconos solos */
-    }
-     .ejercicio-item-acciones {
-        flex-direction: row; /* Mantener en fila si es posible */
-        flex-wrap: nowrap; /* Evitar que se envuelvan si no es necesario */
-    }
-
-
-    .filtros-biblioteca {
-        flex-direction: column; /* Apilar filtros en vertical */
-        gap: 10px;
-    }
-    .filtros-biblioteca select {
-        font-size: 0.9em; /* Reducir tamaño de fuente en selects */
-    }
-
-    .cronometros-container {
-        flex-direction: column;
-        gap: 5px;
-        padding: 6px;
-    }
-    .cronometro-display {
-        font-size: 1em;
-    }
-    #ejercicio-actual-series-reps {
-        font-size: 1.2em;
-    }
-    #temporizador-display { 
-        font-size: 2.5em; /* Reducir temporizador de descanso */
-    }
-    .modal-content {
-        margin: 5vh auto; /* Menos margen vertical */
-        padding: 15px;
-        width: 95%; /* Más ancho en móvil */
-    }
-    .modal-content h3 {
-        font-size: 1.2em;
-    }
-    .ejercicio-descripcion-modal {
-        max-height: 100px; /* Ajustar según sea necesario */
+        padding: 10px 12px; /* Ajustar botones principales */
         font-size: 0.85em;
     }
+    .btn-sm, .ejercicio-item-acciones .btn {
+        padding: 5px 8px; /* Ajustar botones pequeños */
+        font-size: 0.7em;
+        min-width: 30px;
+    }
+    .ejercicio-item-acciones {
+        gap: 4px; /* Menos espacio entre botones de acción */
+    }
+    
+    .filtros-biblioteca select {
+        font-size: 0.85em; 
+        padding: 8px; /* Menos padding en selects */
+    }
+    .form-group input[type="text"], .form-group select, .search-input {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+
+    .cronometro-display {
+        font-size: 0.9em;
+    }
+    #ejercicio-actual-series-reps {
+        font-size: 1.1em;
+    }
+    #temporizador-display { 
+        font-size: 2.2em; 
+    }
+    .modal-content {
+        padding: 15px;
+        margin: 2vh auto; /* Menos margen vertical para el modal */
+        max-height: 95vh; /* Asegurar que quepa bien */
+    }
+    .modal-content h3 {
+        font-size: 1.1em;
+    }
+    .ejercicio-descripcion-modal {
+        font-size: 0.8em;
+    }
     #app-tab-bar {
-        padding: 6px 0;
+        padding: 5px 0;
     }
     .tab-button i {
-        font-size: 1.4em;
+        font-size: 1.3em;
     }
     .tab-button span {
-        font-size: 0.7em; /* Texto de tab bar más pequeño */
+        font-size: 0.65em; 
+    }
+    .acciones-rutina-dia .btn {
+        font-size: 0.8em;
+        padding: 8px 10px;
     }
 }

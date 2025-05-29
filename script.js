@@ -26,142 +26,211 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- BIBLIOTECA DE EJERCICIOS AMPLIADA (MÁQUINAS Y ENFOQUE HIPERTROFIA) ---
     const bibliotecaEjercicios = [
-        // Pecho Máquinas
+        // Pecho Máquinas y Poleas
         {
             id: "ej_M_P_001", nombre: "Press de Pecho en Máquina Convergente",
-            musculosTrabajados: ["Pecho", "Hombros (Anterior)", "Tríceps"], equipamiento: ["Máquina Press Pecho"],
-            descripcion: "1. Ajuste: Altura del asiento para que los agarres queden a la altura media del pecho.\n2. Movimiento: Empuja los agarres hacia adelante y ligeramente hacia adentro (si es convergente), contrayendo el pecho. Controla la fase excéntrica (vuelta).\n3. Respiración: Exhala al empujar, inhala al regresar.\n4. Hipertrofia: Enfócate en la contracción y el rango completo. Mantén la tensión.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Chest+Press", series: 3, repeticiones: "8-12", descanso: 75
+            musculosTrabajados: ["Pecho (General)", "Hombros (Anterior)", "Tríceps"], equipamiento: ["Máquina Press Pecho Convergente"],
+            descripcion: "1. Ajuste: Altura del asiento para que los agarres queden a la altura media del pecho.\n2. Movimiento: Empuja los agarres hacia adelante y hacia el centro, contrayendo fuertemente el pecho. Controla la fase excéntrica (vuelta) durante 2-3 segundos.\n3. Respiración: Exhala al empujar, inhala al regresar.\n4. Hipertrofia: La convergencia permite una gran contracción del pectoral. Busca el fallo muscular o RIR 1-2 en el rango de repeticiones.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Convergent+Chest+Press", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_M_P_002", nombre: "Contractora de Pectoral (Peck Deck)",
-            musculosTrabajados: ["Pecho (Interno)"], equipamiento: ["Máquina Peck Deck"],
-            descripcion: "1. Ajuste: Asiento para que los hombros estén alineados con los pivotes de los brazos de la máquina.\n2. Movimiento: Junta los brazos de la máquina al frente, apretando los pectorales. Mantén una ligera flexión en los codos.\n3. Retorno: Abre lentamente sintiendo el estiramiento.\n4. Hipertrofia: Contracción máxima en el punto de unión. Movimiento controlado.",
+            id: "ej_M_P_002", nombre: "Contractora de Pectoral (Peck Deck / Butterfly)",
+            musculosTrabajados: ["Pecho (Interno, Aducción)"], equipamiento: ["Máquina Peck Deck"],
+            descripcion: "1. Ajuste: Asiento para que los hombros estén alineados con los pivotes. Codos ligeramente flexionados.\n2. Movimiento: Junta los brazos de la máquina al frente, apretando los pectorales al máximo durante 1-2 segundos.\n3. Retorno: Abre lentamente sintiendo el estiramiento en el pecho.\n4. Hipertrofia: Ideal para aislar y conseguir un 'apretón' en el pecho. Conexión mente-músculo crucial.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Peck+Deck+Fly", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
             id: "ej_M_P_003", nombre: "Press Inclinado en Máquina (Smith o Selectorizada)",
             musculosTrabajados: ["Pecho Superior", "Hombros (Anterior)", "Tríceps"], equipamiento: ["Máquina Press Inclinado", "Máquina Smith"],
-            descripcion: "1. Ajuste: Similar al press inclinado con mancuernas, enfocado en el haz clavicular del pectoral.\n2. Movimiento: Empuja los agarres o la barra hacia arriba y adelante. Controla la bajada.\n3. Hipertrofia: Permite cargar más peso de forma segura que con peso libre a veces. Siente el trabajo en el pecho superior.",
+            descripcion: "1. Ajuste: Banco inclinado a 30-45°. Agarre ligeramente más cerrado que en press plano.\n2. Movimiento: Empuja hacia arriba y ligeramente hacia atrás (siguiendo el plano de la máquina). Controla la bajada hasta sentir un buen estiramiento en el pecho superior.\n3. Hipertrofia: Enfócate en la porción clavicular del pectoral. La máquina ofrece estabilidad para concentrarse en la contracción.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Incline+Machine+Press", series: 3, repeticiones: "8-12", descanso: 75
         },
+        {
+            id: "ej_M_P_004", nombre: "Cruce de Poleas (Cable Crossover) - Alto a Bajo",
+            musculosTrabajados: ["Pecho (Inferior)", "Hombros (Anterior)"], equipamiento: ["Máquina Poleas (Crossover)"],
+            descripcion: "1. Posición: Poleas en la posición más alta. Da un paso adelante.\n2. Movimiento: Con los codos ligeramente flexionados, lleva los agarres hacia abajo y adelante, cruzándolos frente a tu pelvis. Aprieta el pecho inferior.\n3. Retorno: Controla el movimiento de vuelta, sintiendo el estiramiento.\n4. Hipertrofia: Excelente para la parte inferior y externa del pecho.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=High+Cable+Crossover", series: 3, repeticiones: "10-15", descanso: 60
+        },
 
-        // Espalda Máquinas
+        // Espalda Máquinas y Poleas
         {
-            id: "ej_M_E_001", nombre: "Jalón Dorsal al Frente (Polea Alta)",
-            musculosTrabajados: ["Espalda (Dorsales)", "Bíceps"], equipamiento: ["Máquina Poleas (Jalón)"],
-            descripcion: "1. Agarre: Ancho, prono (palmas hacia afuera).\n2. Movimiento: Tira de la barra hacia la parte superior del pecho, llevando los codos hacia abajo y atrás. Contrae la espalda.\n3. Retorno: Controla la subida de la barra, extendiendo completamente los dorsales.\n4. Hipertrofia: Enfócate en la retracción escapular y en 'tirar con los codos'.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Lat+Pulldown+Front", series: 4, repeticiones: "8-12", descanso: 75
+            id: "ej_M_E_001", nombre: "Jalón Dorsal al Frente en Polea Alta (Agarre Ancho)",
+            musculosTrabajados: ["Espalda (Dorsales - Amplitud)", "Bíceps"], equipamiento: ["Máquina Poleas (Jalón)"],
+            descripcion: "1. Agarre: Prono (palmas hacia afuera), más ancho que los hombros.\n2. Movimiento: Tira de la barra hacia la parte superior del pecho, llevando los codos hacia abajo y atrás. Contrae la espalda fuertemente, especialmente los dorsales.\n3. Retorno: Controla la subida de la barra, permitiendo un estiramiento completo de los dorsales.\n4. Hipertrofia: Fundamental para la amplitud de la espalda. Concéntrate en 'tirar con los codos'.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Wide+Grip+Lat+Pulldown", series: 4, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_M_E_002", nombre: "Remo Sentado en Máquina (con apoyo pectoral)",
-            musculosTrabajados: ["Espalda (Media, Romboides, Dorsales)", "Bíceps"], equipamiento: ["Máquina Remo Sentado"],
-            descripcion: "1. Ajuste: Asiento para que el apoyo pectoral permita un rango completo. Agarra los manerales (varios agarres posibles).\n2. Movimiento: Tira de los manerales hacia tu cuerpo, juntando los omóplatos. Mantén el pecho apoyado.\n3. Hipertrofia: Contracción fuerte en la espalda. Varía los agarres para diferentes estímulos.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Seated+Row", series: 3, repeticiones: "10-12", descanso: 60
+            id: "ej_M_E_002", nombre: "Remo Sentado en Máquina con Apoyo Pectoral",
+            musculosTrabajados: ["Espalda (Media, Romboides, Dorsales)", "Bíceps"], equipamiento: ["Máquina Remo Sentado (con apoyo)"],
+            descripcion: "1. Ajuste: Asiento para que el apoyo pectoral te permita un rango completo. Utiliza un agarre neutro o prono.\n2. Movimiento: Tira de los manerales hacia tu abdomen, juntando los omóplatos con fuerza. Mantén el pecho apoyado y la espalda recta.\n3. Retorno: Extiende los brazos lentamente, sintiendo el estiramiento en la espalda media.\n4. Hipertrofia: Ideal para la densidad de la espalda. Contracción máxima.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Chest+Supported+Machine+Row", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_M_E_003", nombre: "Pullover en Máquina o con Polea Alta",
-            musculosTrabajados: ["Espalda (Dorsales)", "Pecho (Serrato)"], equipamiento: ["Máquina Pullover", "Máquina Poleas"],
-            descripcion: "1. Movimiento: Con brazos casi rectos, lleva la barra o agarre desde arriba de la cabeza hacia abajo en un arco, contrayendo los dorsales.\n2. Hipertrofia: Excelente para aislar los dorsales y trabajar el serrato. Movimiento controlado.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Pullover", series: 3, repeticiones: "12-15", descanso: 60
+            id: "ej_M_E_003", nombre: "Pullover con Cuerda en Polea Alta",
+            musculosTrabajados: ["Espalda (Dorsales)", "Pecho (Serrato)"], equipamiento: ["Máquina Poleas", "Cuerda"],
+            descripcion: "1. Posición: De pie, ligeramente inclinado hacia adelante, brazos casi rectos sosteniendo la cuerda.\n2. Movimiento: Lleva la cuerda hacia abajo en un arco amplio, manteniendo los brazos extendidos, hasta que tus manos lleguen cerca de tus muslos. Contrae los dorsales.\n3. Retorno: Controla el movimiento de vuelta, sintiendo el estiramiento en los dorsales.\n4. Hipertrofia: Aísla los dorsales y promueve la 'conexión V'.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Pullover+Rope", series: 3, repeticiones: "12-15", descanso: 60
+        },
+        {
+            id: "ej_M_E_004", nombre: "Remo en T con Barra (o Máquina Remo en T)",
+            musculosTrabajados: ["Espalda (Media, Dorsales)", "Bíceps", "Trapecio"], equipamiento: ["Barra T", "Máquina Remo en T"],
+            descripcion: "1. Posición: Si es con barra, un extremo en una esquina, agarra el otro con un maneral V. Inclina el torso.\n2. Movimiento: Tira de la barra/maneral hacia tu pecho bajo, contrayendo la espalda.\n3. Hipertrofia: Gran constructor de masa para la espalda. Mantén la espalda recta.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=T-Bar+Row", series: 3, repeticiones: "8-10", descanso: 90
         },
 
         // Piernas Máquinas
         {
             id: "ej_M_PI_001", nombre: "Prensa de Piernas Inclinada (45 Grados)",
             musculosTrabajados: ["Cuádriceps", "Glúteos", "Isquiotibiales"], equipamiento: ["Máquina Prensa Piernas"],
-            descripcion: "1. Posición Pies: Varía para enfocar músculos (altos y anchos para glúteos/isquios; bajos y juntos para cuádriceps).\n2. Movimiento: Baja la plataforma controladamente hasta una buena profundidad. Empuja sin bloquear rodillas.\n3. Hipertrofia: Permite mover mucho peso. Controla la fase excéntrica.",
+            descripcion: "1. Posición Pies: Ancho de hombros para trabajo general. Más altos para glúteos/isquios; más bajos para cuádriceps.\n2. Movimiento: Baja la plataforma controladamente (fase excéntrica de 3 seg) hasta que las rodillas formen un ángulo de 90° o menos si la movilidad lo permite. Empuja explosivamente sin bloquear las rodillas.\n3. Hipertrofia: Permite una sobrecarga progresiva segura. Varía la posición de los pies para estimular diferentes áreas.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Leg+Press+45", series: 4, repeticiones: "10-15", descanso: 90
         },
         {
             id: "ej_M_PI_002", nombre: "Extensiones de Cuádriceps en Máquina",
             musculosTrabajados: ["Cuádriceps"], equipamiento: ["Máquina Extensiones Cuádriceps"],
-            descripcion: "1. Movimiento: Extiende las piernas completamente, apretando los cuádriceps en la cima (isométrica de 1-2 seg).\n2. Retorno: Baja lentamente.\n3. Hipertrofia: Aislamiento puro del cuádriceps. No uses impulso.",
+            descripcion: "1. Ajuste: Rodilla alineada con el eje de rotación de la máquina. Almohadilla sobre los tobillos.\n2. Movimiento: Extiende las piernas completamente, apretando los cuádriceps en la cima durante 1-2 segundos.\n3. Retorno: Baja lentamente (3 seg) resistiendo el peso.\n4. Hipertrofia: Excelente para aislar el cuádriceps y conseguir un 'bombeo' intenso.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Leg+Extensions", series: 3, repeticiones: "12-15", descanso: 60
         },
         {
-            id: "ej_M_PI_003", nombre: "Curl Femoral Tumbado o Sentado en Máquina",
-            musculosTrabajados: ["Isquiotibiales"], equipamiento: ["Máquina Curl Femoral"],
-            descripcion: "1. Movimiento: Flexiona las rodillas, llevando los talones hacia los glúteos. Contrae los isquios.\n2. Retorno: Extiende lentamente.\n3. Hipertrofia: Siente la contracción en los isquiotibiales. Evita levantar la cadera.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Leg+Curls+Machine", series: 3, repeticiones: "10-15", descanso: 60
+            id: "ej_M_PI_003", nombre: "Curl Femoral Tumbado en Máquina",
+            musculosTrabajados: ["Isquiotibiales"], equipamiento: ["Máquina Curl Femoral Tumbado"],
+            descripcion: "1. Posición: Acostado boca abajo, rodillas justo fuera del borde del banco, almohadilla sobre los tendones de Aquiles.\n2. Movimiento: Flexiona las rodillas llevando los talones hacia los glúteos. Contrae los isquios con fuerza.\n3. Retorno: Extiende las piernas lentamente, manteniendo la tensión.\n4. Hipertrofia: Aísla los isquiotibiales. Evita levantar la cadera del banco.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Lying+Leg+Curl", series: 3, repeticiones: "10-15", descanso: 60
+        },
+         {
+            id: "ej_M_PI_006", nombre: "Curl Femoral Sentado en Máquina", 
+            musculosTrabajados: ["Isquiotibiales"], equipamiento: ["Máquina Curl Femoral Sentado"],
+            descripcion: "1. Ajuste: Espalda bien apoyada, rodillas alineadas con el eje de la máquina.\n2. Movimiento: Flexiona las rodillas llevando las almohadillas hacia abajo y atrás. Contrae los isquios.\n3. Hipertrofia: Ofrece una curva de resistencia diferente al curl tumbado.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Seated+Leg+Curl", series: 3, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_M_PI_004", nombre: "Máquina de Gemelos (Sentado o De pie)",
-            musculosTrabajados: ["Gemelos (Sóleo, Gastrocnemio)"], equipamiento: ["Máquina Gemelos"],
-            descripcion: "1. Movimiento: Elévate sobre las puntas de los pies lo más alto posible. Pausa en la cima.\n2. Retorno: Baja lentamente sintiendo el estiramiento.\n3. Hipertrofia: Rango completo y contracción máxima. Varía entre sentado (sóleo) y de pie (gastrocnemio).",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Calf+Raise+Machine", series: 4, repeticiones: "15-25", descanso: 45
+            id: "ej_M_PI_004", nombre: "Máquina de Gemelos de Pie (Standing Calf Raise Machine)",
+            musculosTrabajados: ["Gemelos (Gastrocnemio)"], equipamiento: ["Máquina Gemelos de Pie"],
+            descripcion: "1. Posición: Hombros bajo las almohadillas, puntas de los pies en la plataforma, talones colgando.\n2. Movimiento: Elévate sobre las puntas de los pies lo más alto posible, contrayendo los gemelos. Pausa en la cima.\n3. Retorno: Baja lentamente hasta sentir un buen estiramiento.\n4. Hipertrofia: Rango completo y contracción máxima.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Standing+Calf+Machine", series: 4, repeticiones: "10-15 (pesado)", descanso: 60
+        },
+         {
+            id: "ej_M_PI_007", nombre: "Máquina de Gemelos Sentado (Seated Calf Raise Machine)", 
+            musculosTrabajados: ["Gemelos (Sóleo)"], equipamiento: ["Máquina Gemelos Sentado"],
+            descripcion: "1. Posición: Rodillas bajo las almohadillas, puntas de los pies en la plataforma.\n2. Movimiento: Similar al de pie, pero enfocado en el sóleo debido a la flexión de rodilla.\n3. Hipertrofia: Importante para un desarrollo completo de la pantorrilla.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Seated+Calf+Machine", series: 3, repeticiones: "15-25", descanso: 45
         },
         {
             id: "ej_M_PI_005", nombre: "Hack Squat en Máquina",
             musculosTrabajados: ["Cuádriceps", "Glúteos"], equipamiento: ["Máquina Hack Squat"],
-            descripcion: "1. Posición: Espalda bien apoyada, pies en la plataforma (varía posición para énfasis).\n2. Movimiento: Baja controladamente hasta una buena profundidad. Empuja a través de toda la planta del pie.\n3. Hipertrofia: Excelente para cuádriceps con menos estrés en la espalda baja que la sentadilla libre.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Hack+Squat", series: 3, repeticiones: "8-12", descanso: 90
+            descripcion: "1. Posición: Espalda y hombros bien apoyados, pies en la plataforma (varía posición para énfasis en diferentes partes del cuádriceps).\n2. Movimiento: Baja controladamente hasta una buena profundidad (muslos paralelos o más abajo). Empuja a través de toda la planta del pie.\n3. Hipertrofia: Gran constructor de cuádriceps. Mantén el control y evita que las rodillas se vayan hacia adentro.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Hack+Squat+Machine", series: 3, repeticiones: "8-12", descanso: 90
+        },
+        {
+            id: "ej_M_PI_009", nombre: "Máquina de Abductores",
+            musculosTrabajados: ["Glúteos (Medio, Menor)", "Tensor Fascia Lata"], equipamiento: ["Máquina Abductores"],
+            descripcion: "1. Movimiento: Separa las piernas contra la resistencia de la máquina. Controla el movimiento de vuelta.\n2. Hipertrofia: Ayuda a redondear y fortalecer la parte externa de los glúteos y cadera.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Abductor+Machine", series: 3, repeticiones: "15-20", descanso: 45
+        },
+        {
+            id: "ej_M_PI_010", nombre: "Máquina de Aductores",
+            musculosTrabajados: ["Aductores (Interna del Muslo)"], equipamiento: ["Máquina Aductores"],
+            descripcion: "1. Movimiento: Junta las piernas contra la resistencia de la máquina. Aprieta en el punto de máxima contracción.\n2. Hipertrofia: Fortalece la parte interna de los muslos.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Adductor+Machine", series: 3, repeticiones: "15-20", descanso: 45
+        },
+         {
+            id: "ej_M_PI_011", nombre: "Hip Thrust en Máquina (Glute Drive)",
+            musculosTrabajados: ["Glúteos", "Isquiotibiales"], equipamiento: ["Máquina Hip Thrust", "Máquina Glute Drive"],
+            descripcion: "1. Posición: Espalda alta apoyada, cinturón sobre la cadera.\n2. Movimiento: Empuja las caderas hacia arriba hasta la extensión completa, contrayendo los glúteos fuertemente. Mantén 1-2 segundos.\n3. Hipertrofia: Uno de los mejores ejercicios para el desarrollo de los glúteos.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Hip+Thrust", series: 4, repeticiones: "8-15", descanso: 75
         },
 
-        // Hombros Máquinas
+
+        // Hombros Máquinas y Poleas
         {
-            id: "ej_M_H_001", nombre: "Press de Hombros en Máquina (Shoulder Press Machine)",
-            musculosTrabajados: ["Hombros (Deltoides)", "Tríceps"], equipamiento: ["Máquina Press Hombros"],
-            descripcion: "1. Ajuste: Asiento para que los agarres estén a la altura de los hombros.\n2. Movimiento: Empuja los agarres hacia arriba hasta casi la extensión completa. Controla la bajada.\n3. Hipertrofia: Movimiento estable que permite concentrarse en los deltoides.",
+            id: "ej_M_H_001", nombre: "Press de Hombros en Máquina (Agarre Neutro/Prono)",
+            musculosTrabajados: ["Hombros (Deltoides Anterior y Medial)", "Tríceps"], equipamiento: ["Máquina Press Hombros"],
+            descripcion: "1. Ajuste: Asiento para que los agarres inicien a la altura de los hombros o ligeramente por debajo.\n2. Movimiento: Empuja los agarres hacia arriba hasta casi la extensión completa de los codos. Controla la bajada (fase excéntrica de 2-3 seg).\n3. Hipertrofia: Permite enfocarse en la contracción del deltoides con estabilidad.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Shoulder+Press+Machine", series: 3, repeticiones: "8-12", descanso: 75
         },
         {
-            id: "ej_M_H_002", nombre: "Elevaciones Laterales en Máquina o Polea Baja",
-            musculosTrabajados: ["Hombros (Deltoides Lateral)"], equipamiento: ["Máquina Elev. Laterales", "Máquina Poleas"],
-            descripcion: "1. Movimiento: Con la máquina, eleva los brazos/almohadillas lateralmente. Con polea, usa un agarre individual y eleva el brazo lateralmente.\n2. Hipertrofia: Tensión constante en el deltoides lateral. Movimiento controlado, sin impulso.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Lateral+Raise", series: 3, repeticiones: "12-15", descanso: 60
+            id: "ej_M_H_002", nombre: "Elevaciones Laterales con Cable (Polea Baja)",
+            musculosTrabajados: ["Hombros (Deltoides Lateral)"], equipamiento: ["Máquina Poleas", "Agarre individual (estribo)"],
+            descripcion: "1. Posición: De lado a la polea, agarra el estribo con la mano más alejada. El cable debe cruzar por delante de tu cuerpo.\n2. Movimiento: Eleva el brazo lateralmente hasta la altura del hombro, manteniendo el codo ligeramente flexionado. Controla la bajada.\n3. Hipertrofia: La polea ofrece tensión constante, ideal para el deltoides medial.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Lateral+Raise", series: 3, repeticiones: "12-15 c/brazo", descanso: 60
         },
         {
             id: "ej_M_H_003", nombre: "Pájaros en Máquina Contractora Inversa (Reverse Peck Deck)",
-            musculosTrabajados: ["Hombros (Deltoides Posterior)", "Trapecio Medio"], equipamiento: ["Máquina Peck Deck (inversa)"],
-            descripcion: "1. Ajuste: Siéntate de cara a la máquina. Agarra los manerales con agarre neutro o prono.\n2. Movimiento: Abre los brazos hacia atrás, juntando los omóplatos. Enfócate en los deltoides posteriores.\n3. Hipertrofia: Aislamiento efectivo para la parte trasera del hombro.",
+            musculosTrabajados: ["Hombros (Deltoides Posterior)", "Trapecio Medio", "Romboides"], equipamiento: ["Máquina Peck Deck (inversa)"],
+            descripcion: "1. Ajuste: Siéntate de cara a la máquina. Agarra los manerales con agarre neutro o prono.\n2. Movimiento: Abre los brazos hacia atrás en un arco amplio, juntando los omóplatos. Enfócate en la contracción de los deltoides posteriores.\n3. Hipertrofia: Excelente para aislar la parte trasera del hombro, a menudo descuidada.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Reverse+Peck+Deck", series: 3, repeticiones: "12-15", descanso: 60
+        },
+        {
+            id: "ej_M_H_004", nombre: "Elevaciones Frontales con Cable (Polea Baja)",
+            musculosTrabajados: ["Hombros (Deltoides Anterior)"], equipamiento: ["Máquina Poleas", "Barra recta o cuerda"],
+            descripcion: "1. Posición: De espaldas a la polea baja, sostén la barra o cuerda con agarre prono.\n2. Movimiento: Eleva los brazos rectos hacia el frente hasta la altura de los hombros. Controla la bajada.\n3. Hipertrofia: Tensión constante para el deltoides anterior.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Front+Raise", series: 3, repeticiones: "10-15", descanso: 60
         },
 
         // Bíceps Máquinas/Poleas
         {
-            id: "ej_M_B_001", nombre: "Curl de Bíceps en Máquina (Predicador o Selectorizada)",
-            musculosTrabajados: ["Bíceps"], equipamiento: ["Máquina Curl Bíceps"],
-            descripcion: "1. Ajuste: Asiento para que los brazos estén bien apoyados en el cojín (si es predicador).\n2. Movimiento: Flexiona los brazos, contrayendo los bíceps al máximo. Baja controladamente.\n3. Hipertrofia: Aísla bien el bíceps.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Bicep+Curl", series: 3, repeticiones: "10-12", descanso: 60
+            id: "ej_M_B_001", nombre: "Curl de Bíceps en Máquina Predicador",
+            musculosTrabajados: ["Bíceps (Cabeza Corta)"], equipamiento: ["Máquina Curl Bíceps (Predicador)"],
+            descripcion: "1. Ajuste: Asiento para que la parte superior de tus brazos descanse cómodamente sobre el cojín inclinado.\n2. Movimiento: Flexiona los brazos, llevando los agarres hacia tus hombros. Contrae los bíceps al máximo en la cima.\n3. Retorno: Baja lentamente hasta casi la extensión completa, manteniendo la tensión.\n4. Hipertrofia: Aísla el bíceps y minimiza el uso de impulso.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Preacher+Curl", series: 3, repeticiones: "8-12", descanso: 60
         },
         {
             id: "ej_M_B_002", nombre: "Curl de Bíceps con Barra en Polea Baja",
-            musculosTrabajados: ["Bíceps"], equipamiento: ["Máquina Poleas", "Barra Recta o EZ"],
-            descripcion: "1. Movimiento: Similar al curl con barra libre, pero la polea ofrece tensión constante.\n2. Hipertrofia: Excelente para mantener tensión durante todo el rango de movimiento.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Bicep+Curl", series: 3, repeticiones: "10-15", descanso: 60
+            musculosTrabajados: ["Bíceps (General)"], equipamiento: ["Máquina Poleas", "Barra Recta o EZ"],
+            descripcion: "1. Posición: De pie frente a la polea baja, agarra la barra con las palmas hacia arriba.\n2. Movimiento: Flexiona los codos, llevando la barra hacia tus hombros. Mantén los codos fijos a los costados.\n3. Retorno: Baja la barra lentamente, resistiendo la tensión de la polea.\n4. Hipertrofia: Tensión constante durante todo el movimiento, diferente a los pesos libres.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Bar+Bicep+Curl", series: 3, repeticiones: "10-15", descanso: 60
         },
+         {
+            id: "ej_M_B_003", nombre: "Curl de Bíceps Concentrado con Polea Baja (Unilateral)",
+            musculosTrabajados: ["Bíceps (Pico)"], equipamiento: ["Máquina Poleas", "Agarre individual (estribo)"],
+            descripcion: "1. Posición: Sentado o inclinado, apoya el codo en la parte interna del muslo.\n2. Movimiento: Flexiona el brazo llevando el agarre hacia tu hombro. Enfócate en la contracción máxima del bíceps.\n3. Hipertrofia: Gran aislamiento para trabajar el 'pico' del bíceps.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Concentration+Curl", series: 3, repeticiones: "10-12 c/brazo", descanso: 60
+        },
+
 
         // Tríceps Máquinas/Poleas
         {
-            id: "ej_M_T_001", nombre: "Extensiones de Tríceps en Polea Alta (Pushdown con Barra o Cuerda)",
-            musculosTrabajados: ["Tríceps"], equipamiento: ["Máquina Poleas", "Barra Recta/V/Cuerda"],
-            descripcion: "1. Movimiento: Mantén los codos pegados al cuerpo y extiende los brazos completamente hacia abajo. Aprieta los tríceps.\n2. Retorno: Controla la subida.\n3. Hipertrofia: Varía los agarres para estimular diferentes cabezas del tríceps (cuerda para cabeza lateral/larga, barra V para medial).",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Cable+Tricep+Pushdown", series: 4, repeticiones: "10-15", descanso: 60
+            id: "ej_M_T_001", nombre: "Extensiones de Tríceps en Polea Alta con Cuerda",
+            musculosTrabajados: ["Tríceps (Cabeza Lateral y Medial)"], equipamiento: ["Máquina Poleas", "Cuerda"],
+            descripcion: "1. Posición: De pie frente a la polea alta, agarra la cuerda con agarre neutro.\n2. Movimiento: Extiende los brazos hacia abajo, separando los extremos de la cuerda al final del movimiento para una mayor contracción. Mantén los codos pegados al cuerpo.\n3. Retorno: Controla la subida, permitiendo un buen estiramiento.\n4. Hipertrofia: La cuerda permite un mayor rango de movimiento y contracción del tríceps.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Rope+Tricep+Pushdown", series: 4, repeticiones: "10-15", descanso: 60
         },
         {
-            id: "ej_M_T_002", nombre: "Press Francés en Máquina o Polea Baja (Extensión sobre cabeza)",
-            musculosTrabajados: ["Tríceps (Cabeza Larga)"], equipamiento: ["Máquina específica", "Máquina Poleas", "Cuerda"],
-            descripcion: "1. Movimiento: Con polea baja y cuerda, de espaldas a la máquina, extiende los brazos sobre la cabeza. Si es máquina, sigue su recorrido.\n2. Hipertrofia: Gran estiramiento y trabajo para la cabeza larga del tríceps.",
-            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Overhead+Cable+Tricep", series: 3, repeticiones: "10-12", descanso: 75
+            id: "ej_M_T_002", nombre: "Extensiones de Tríceps sobre Cabeza con Cuerda en Polea Baja",
+            musculosTrabajados: ["Tríceps (Cabeza Larga)"], equipamiento: ["Máquina Poleas", "Cuerda"],
+            descripcion: "1. Posición: De espaldas a la polea baja, sostén la cuerda con ambas manos por encima y detrás de tu cabeza.\n2. Movimiento: Extiende los brazos hacia arriba y ligeramente adelante, contrayendo los tríceps. Mantén los codos relativamente fijos.\n3. Retorno: Baja lentamente la cuerda detrás de tu cabeza.\n4. Hipertrofia: Excelente para la cabeza larga del tríceps debido al estiramiento.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Overhead+Cable+Rope+Extension", series: 3, repeticiones: "10-12", descanso: 75
+        },
+        {
+            id: "ej_M_T_003", nombre: "Fondos en Máquina (Seated Dip Machine)",
+            musculosTrabajados: ["Tríceps", "Pecho Inferior", "Hombros (Anterior)"], equipamiento: ["Máquina Fondos Sentado"],
+            descripcion: "1. Ajuste: Asiento para que los agarres estén a una altura cómoda y permitan un rango completo.\n2. Movimiento: Empuja los agarres hacia abajo hasta la extensión completa de los brazos. Contrae los tríceps.\n3. Retorno: Sube controladamente.\n4. Hipertrofia: Alternativa segura a los fondos en paralelas, permite ajustar la carga.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Seated+Dip+Machine", series: 3, repeticiones: "8-12", descanso: 75
         },
 
         // Abdominales Máquinas
         {
-            id: "ej_M_A_001", nombre: "Encogimientos (Crunches) en Máquina Abdominal",
+            id: "ej_M_A_001", nombre: "Encogimientos en Máquina Abdominal (Ab Crunch Machine)",
             musculosTrabajados: ["Abdominales (Recto Abdominal)"], equipamiento: ["Máquina Abdominales"],
-            descripcion: "1. Ajuste: Configura la máquina según tu altura.\n2. Movimiento: Flexiona el torso contrayendo los abdominales. Exhala al contraer.\n3. Hipertrofia: Permite añadir carga progresiva a los encogimientos.",
+            descripcion: "1. Ajuste: Configura la máquina para que el pivote esté alineado con tu torso y las almohadillas estén cómodas.\n2. Movimiento: Flexiona el torso contrayendo los abdominales con fuerza. Exhala durante la contracción.\n3. Retorno: Vuelve lentamente a la posición inicial, manteniendo la tensión.\n4. Hipertrofia: Permite sobrecarga progresiva. Enfócate en la calidad de la contracción.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Machine+Ab+Crunch", series: 3, repeticiones: "12-20", descanso: 45
         },
         {
             id: "ej_M_A_002", nombre: "Rotaciones de Torso en Máquina (Rotary Torso)",
             musculosTrabajados: ["Abdominales (Oblicuos)"], equipamiento: ["Máquina Rotary Torso"],
-            descripcion: "1. Movimiento: Gira el torso controladamente hacia un lado, contrayendo los oblicuos. Regresa lentamente y repite al otro lado.\n2. Hipertrofia: Trabaja los oblicuos de forma aislada.",
+            descripcion: "1. Ajuste: Configura el asiento y las almohadillas para un movimiento cómodo y seguro.\n2. Movimiento: Gira el torso controladamente hacia un lado, contrayendo los oblicuos. Regresa lentamente y repite al otro lado.\n3. Hipertrofia: Aísla los oblicuos. Evita movimientos bruscos o con impulso.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Rotary+Torso+Machine", series: 3, repeticiones: "10-15 c/lado", descanso: 45
         },
-        // Ejercicios de Peso Libre y Cuerpo que ya estaban (ajustados para hipertrofia)
         {
-            id: "ej_P_001_H", nombre: "Flexiones (Push-ups)", 
+            id: "ej_A_003_H", nombre: "Elevaciones de Piernas Colgado (con énfasis en contracción)", 
+            musculosTrabajados: ["Abdominales Inferiores", "Flexores de Cadera"], equipamiento: ["Barra de Dominadas", "Soportes para brazos (opcional)"],
+            descripcion: "1. Posición: Colgado de la barra, core apretado.\n2. Movimiento: Levanta las piernas (rectas para más difícil, rodillas flexionadas para más fácil) lo más alto posible, intentando llevar las rodillas al pecho o más. Contrae los abdominales inferiores.\n3. Retorno: Baja las piernas lentamente y de forma controlada.\n4. Hipertrofia: Evita el balanceo. Concéntrate en la calidad de la contracción abdominal.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Hanging+Leg+Raise+H", series: 3, repeticiones: "AMRAP (hasta 15-20 con buena forma)", descanso: 60
+        },
+
+        // Ejercicios de Peso Libre y Cuerpo que ya estaban (asegurar parámetros de hipertrofia)
+        {
+            id: "ej_P_001_H", nombre: "Flexiones (Push-ups) - Hipertrofia", 
             musculosTrabajados: ["Pecho", "Hombros", "Tríceps"], equipamiento: ["Peso Corporal", "Colchoneta"],
             descripcion: "1. Posición: Manos ligeramente más anchas que los hombros. Cuerpo recto.\n2. Movimiento: Baja controladamente (2-3 seg) hasta que el pecho casi toque el suelo. Siente la tensión en el pecho.\n3. Retorno: Empuja explosivamente hacia arriba.\n4. Respiración: Inhala al bajar, exhala al subir.\n5. Clave Hipertrofia: Concéntrate en la contracción del pectoral. Considera añadir lastre si se vuelven muy fáciles para el rango de 8-15 reps.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Flexiones+Hipertrofia", series: 3, repeticiones: "8-15 (al fallo o RIR 1-2)", descanso: 60
@@ -172,23 +241,35 @@ document.addEventListener('DOMContentLoaded', () => {
             descripcion: "1. Movimiento: Comienza con agarre neutro (palmas enfrentadas) y supina (gira las palmas hacia arriba) mientras subes la mancuerna. Contrae el bíceps.\n2. Retorno: Baja lentamente, revirtiendo el movimiento.\n3. Clave Hipertrofia: La supinación activa más el pico del bíceps.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Curl+Biceps+Manc+Sup+H", series: 3, repeticiones: "8-12 c/brazo", descanso: 60
         },
-        {
+        { // Ejercicios de calentamiento/enfriamiento generales
             id: "ej_C_005", nombre: "Bicicleta Estática (Calentamiento)", 
             musculosTrabajados: ["Cardio", "Piernas"], equipamiento: ["Bicicleta Estática"],
-            descripcion: "Mantén un ritmo constante y moderado. Ideal para calentamiento.",
+            descripcion: "Mantén un ritmo constante y moderado. Ideal para calentar las articulaciones y elevar la temperatura corporal antes del entrenamiento de fuerza.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Bicicleta+Estatica", series: 1, repeticiones: "10 min", descanso: 0
         },
         {
             id: "ej_C_003", nombre: "Estiramientos Dinámicos", 
             musculosTrabajados: ["Movilidad Articular"], equipamiento: ["Peso Corporal"],
-            descripcion: "Círculos de brazos, balanceos de piernas, rotaciones de torso.",
+            descripcion: "Realiza movimientos controlados que lleven tus articulaciones a través de su rango de movimiento. Ejemplos: círculos de brazos, balanceos de piernas, rotaciones de torso. Prepara el cuerpo para los ejercicios principales.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Estiramientos+Dinamicos", series: 1, repeticiones: "5 min", descanso: 0
         },
         {
             id: "ej_C_004", nombre: "Estiramientos Estáticos", 
             musculosTrabajados: ["Flexibilidad"], equipamiento: ["Peso Corporal", "Colchoneta"],
-            descripcion: "Mantén cada estiramiento por 20-30 segundos para los músculos trabajados.",
+            descripcion: "Mantén cada estiramiento por 20-30 segundos sin rebotar. Enfócate en los músculos trabajados durante la sesión para ayudar a la recuperación y mantener la flexibilidad.",
             imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Estiramientos+Estaticos", series: 1, repeticiones: "5-7 min", descanso: 0
+        },
+        { // Otros ejercicios que estaban en la lista anterior y pueden ser útiles
+            id: "ej_E_005", nombre: "Remo Invertido con TRX (o barra baja)",
+            musculosTrabajados: ["Espalda", "Bíceps", "Core"], equipamiento: ["TRX", "Barra baja", "Peso Corporal"],
+            descripcion: "1. Posición: Cuerpo recto, colgado del TRX o barra. Cuanto más horizontal, más difícil.\n2. Movimiento: Tira del pecho hacia las manos, contrayendo la espalda.\n3. Retorno: Baja controladamente.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Remo+TRX", series: 3, repeticiones: "8-15", descanso: 60
+        },
+        {
+            id: "ej_PI_008", nombre: "Sentadilla Goblet",
+            musculosTrabajados: ["Cuádriceps", "Glúteos", "Core"], equipamiento: ["Mancuerna", "Kettlebell"],
+            descripcion: "1. Posición: Sostén una mancuerna o kettlebell verticalmente contra tu pecho.\n2. Movimiento: Realiza una sentadilla profunda, manteniendo el torso erguido.\n3. Puntos clave: Excelente para aprender la forma de la sentadilla y trabajar el core.",
+            imagenUrl: "https://placehold.co/300x200/1A1A2D/E0E0E0?text=Sentadilla+Goblet+H", series: 3, repeticiones: "10-15", descanso: 60
         },
     ];
 
@@ -212,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ]},
             jueves: { id: "casa_jue", nombre: "Hombros y Abdominales Casa", diaSemanaComparable: 4, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_001", reps: "3 min"}, { id_ejercicio: "ej_C_003", reps: "3 min"}] },
-                { tipo: "Principal", ejercicios: [ { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (con peso improvisado)" }, { id_ejercicio: "ej_H_003", series: 3, reps: "12-15" }, { id_ejercicio: "ej_A_001", series: 3, reps: "45-60s" }, { id_ejercicio: "ej_A_003", series: 3, reps: "12-15" } ]},
+                { tipo: "Principal", ejercicios: [ { id_ejercicio: "ej_H_002", series: 3, reps: "10-15 (con peso improvisado)" }, { id_ejercicio: "ej_H_003", series: 3, reps: "12-15" }, { id_ejercicio: "ej_A_001", series: 3, reps: "45-60s" }, { id_ejercicio: "ej_A_003_H", series: 3, reps: "12-15" } ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5 min"}] }
             ]},
             viernes: { id: "casa_vie", nombre: "Full Body Casa (Variado)", diaSemanaComparable: 5, componentes: [ 
@@ -227,70 +308,73 @@ document.addEventListener('DOMContentLoaded', () => {
             ]},
         },
         gimnasio: { 
-            lunes: { id: "gym_lun", nombre: "Pecho y Hombro (Anterior/Medial) - Máquinas", diaSemanaComparable: 1, componentes: [
+            lunes: { id: "gym_lun", nombre: "Pecho y Hombro (Anterior/Medial)", diaSemanaComparable: 1, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_P_001", series: 4, reps: "8-12" },    
-                    { id_ejercicio: "ej_M_P_003", series: 3, reps: "10-12" },   
-                    { id_ejercicio: "ej_M_P_002", series: 3, reps: "10-15" },   
-                    { id_ejercicio: "ej_M_H_001", series: 3, reps: "8-12" },   
-                    { id_ejercicio: "ej_M_H_002", series: 4, reps: "12-15" }    
+                    { id_ejercicio: "ej_M_P_001", series: 3, reps: "8-12" },    // Press Pecho Máquina Convergente
+                    { id_ejercicio: "ej_M_P_003", series: 3, reps: "8-12" },   // Press Inclinado Máquina
+                    { id_ejercicio: "ej_M_P_002", series: 3, reps: "10-15" },   // Peck Deck
+                    { id_ejercicio: "ej_M_H_001", series: 3, reps: "8-12" },   // Press Hombros Máquina
+                    { id_ejercicio: "ej_M_H_002", series: 3, reps: "12-15" }    // Elev. Laterales Polea
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            martes: { id: "gym_mar", nombre: "Espalda (Ancho y Densidad) - Máquinas", diaSemanaComparable: 2, componentes: [
+            martes: { id: "gym_mar", nombre: "Espalda (Ancho y Densidad)", diaSemanaComparable: 2, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_E_001", series: 4, reps: "8-12 (variar agarre)" }, 
-                    { id_ejercicio: "ej_E_002", series: 3, reps: "6-10 (si hay barra T o normal)" }, 
-                    { id_ejercicio: "ej_M_E_002", series: 3, reps: "10-12 (agarre neutro o prono)" }, 
-                    { id_ejercicio: "ej_M_E_003", series: 3, reps: "12-15" }    
+                    { id_ejercicio: "ej_M_E_001", series: 4, reps: "8-12" }, // Jalón Dorsal Polea
+                    { id_ejercicio: "ej_M_E_002", series: 3, reps: "8-10" }, // Remo Sentado Máquina
+                    { id_ejercicio: "ej_M_E_004", series: 3, reps: "10-12 (Remo en T si hay, sino otro remo en polea)" }, 
+                    { id_ejercicio: "ej_M_E_003", series: 3, reps: "12-15" }    // Pullover Polea
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            miercoles: { id: "gym_mie", nombre: "Piernas (Completo) - Máquinas", diaSemanaComparable: 3, componentes: [
+            miercoles: { id: "gym_mie", nombre: "Piernas (Énfasis Cuádriceps y Glúteos)", diaSemanaComparable: 3, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_PI_008", reps: "10-12 (ligero)"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_PI_001", series: 4, reps: "8-12 (pesado)" }, 
-                    { id_ejercicio: "ej_M_PI_005", series: 3, reps: "10-12" }, 
-                    { id_ejercicio: "ej_M_PI_002", series: 3, reps: "12-15" }, 
-                    { id_ejercicio: "ej_M_PI_003", series: 3, reps: "10-15" }, 
-                    { id_ejercicio: "ej_M_PI_004", series: 4, reps: "12-20" }  
+                    { id_ejercicio: "ej_M_PI_005", series: 4, reps: "8-12" }, // Hack Squat Máquina
+                    { id_ejercicio: "ej_M_PI_001", series: 3, reps: "10-15 (pies bajos para cuáds)" }, // Prensa
+                    { id_ejercicio: "ej_M_PI_002", series: 3, reps: "12-15" }, // Ext. Cuádriceps
+                    { id_ejercicio: "ej_M_PI_011", series: 3, reps: "10-15" }, // Hip Thrust Máquina
+                    { id_ejercicio: "ej_M_PI_004", series: 4, reps: "12-15 (de pie)" }  // Gemelos Máquina
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            jueves: { id: "gym_jue", nombre: "Brazos (Bíceps y Tríceps) - Poleas/Máquinas", diaSemanaComparable: 4, componentes: [ 
-                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min (enfocar brazos)"}] },
+            jueves: { id: "gym_jue", nombre: "Brazos (Bíceps y Tríceps) y Hombro Posterior", diaSemanaComparable: 4, componentes: [ 
+                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min (enfocar brazos y hombros)"}] },
                 { tipo: "Principal", ejercicios: [
                     { id_ejercicio: "ej_M_B_001", series: 3, reps: "8-12" },   
-                    { id_ejercicio: "ej_M_B_002", series: 3, reps: "10-12 (con barra recta)" }, 
-                    { id_ejercicio: "ej_B_002_H", series: 3, reps: "10-12 c/b (curl mancuerna inclinado)"}, 
-                    { id_ejercicio: "ej_M_T_001", series: 4, reps: "8-12 (con barra V)" },    
-                    { id_ejercicio: "ej_M_T_002", series: 3, reps: "10-15 (ext. sobre cabeza con cuerda)" }, 
+                    { id_ejercicio: "ej_M_B_002", series: 3, reps: "10-12 (con barra EZ)" }, 
+                    { id_ejercicio: "ej_M_B_003", series: 3, reps: "10-12 c/brazo"}, 
+                    { id_ejercicio: "ej_M_T_001", series: 3, reps: "8-12 (con barra V)" },    
+                    { id_ejercicio: "ej_M_T_002", series: 3, reps: "10-15" }, 
+                    { id_ejercicio: "ej_M_T_003", series: 3, reps: "10-12 (Fondos en máquina)"},
+                    { id_ejercicio: "ej_M_H_003", series: 4, reps: "12-15" }   // Reverse Peck Deck
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            viernes: { id: "gym_vie", nombre: "Hombros (Completo) y Abdominales - Máquinas", diaSemanaComparable: 5, componentes: [ 
-                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min (enfocar hombros)"}] },
+            viernes: { id: "gym_vie", nombre: "Piernas (Énfasis Isquios y Glúteos) y Abs", diaSemanaComparable: 5, componentes: [ 
+                { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_PI_008", reps: "10-12 (ligero)"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [
-                    { id_ejercicio: "ej_M_H_001", series: 4, reps: "8-10" },    
-                    { id_ejercicio: "ej_M_H_002", series: 3, reps: "12-15" },   
-                    { id_ejercicio: "ej_M_H_003", series: 3, reps: "12-15" },   
-                    { id_ejercicio: "ej_H_004", series: 3, reps: "10-12 (elev. frontales con disco o mancuerna)" }, 
+                    { id_ejercicio: "ej_PI_002", series: 4, reps: "8-12 (RDL con barra o mancuernas si no hay máquina específica)" }, 
+                    { id_ejercicio: "ej_M_PI_003", series: 3, reps: "10-15 (Curl femoral tumbado)" }, 
+                    { id_ejercicio: "ej_M_PI_006", series: 3, reps: "10-15 (Curl femoral sentado)" }, 
+                    { id_ejercicio: "ej_M_PI_011", series: 4, reps: "10-15 (Hip Thrust en máquina)" },
+                    { id_ejercicio: "ej_M_PI_009", series: 3, reps: "15-20 (Abductores)"},
                     { id_ejercicio: "ej_M_A_001", series: 3, reps: "12-15" },   
-                    { id_ejercicio: "ej_M_A_002", series: 3, reps: "10-12 c/lado" } 
+                    { id_ejercicio: "ej_A_003_H", series: 3, reps: "AMRAP" } 
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
-            sabado: { id: "gym_sab", nombre: "Full Body con Máquinas (Volumen Moderado)", diaSemanaComparable: 6, componentes: [
+            sabado: { id: "gym_sab", nombre: "Torso Completo (Volumen) - Máquinas/Poleas", diaSemanaComparable: 6, componentes: [
                 { tipo: "Calentamiento", ejercicios: [{ id_ejercicio: "ej_C_005", reps: "10 min"}, { id_ejercicio: "ej_C_003", reps: "5 min"}] },
                 { tipo: "Principal", ejercicios: [ 
-                    { id_ejercicio: "ej_M_PI_001", series: 3, reps: "10-12" }, 
-                    { id_ejercicio: "ej_M_P_001", series: 3, reps: "10-12" },  
+                    { id_ejercicio: "ej_M_P_001", series: 3, reps: "10-12" }, 
                     { id_ejercicio: "ej_M_E_001", series: 3, reps: "10-12" },  
-                    { id_ejercicio: "ej_M_H_001", series: 2, reps: "12-15" },  
+                    { id_ejercicio: "ej_M_H_001", series: 3, reps: "10-12" },  
                     { id_ejercicio: "ej_M_B_002", series: 2, reps: "12-15" },  
-                    { id_ejercicio: "ej_M_T_001", series: 2, reps: "12-15" }   
+                    { id_ejercicio: "ej_M_T_001", series: 2, reps: "12-15" },
+                    { id_ejercicio: "ej_M_A_002", series: 3, reps: "12-15 c/lado" }   
                 ]},
                 { tipo: "Enfriamiento", ejercicios: [{ id_ejercicio: "ej_C_004", reps: "5-7 min"}] }
             ]},
@@ -298,14 +382,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- ELEMENTOS DEL DOM ---
-    // (Sin cambios desde la versión anterior)
+    // (Sin cambios, ya definidos)
     const cronometroEntrenamientoGeneralDisplay = document.getElementById('cronometro-entrenamiento-general');
     const cronometroEjercicioActualDisplay = document.getElementById('cronometro-ejercicio-actual');
     const selectDiasEntrenamiento = document.getElementById('select-dias-entrenamiento');
     const inputUserName = document.getElementById('input-user-name');
     const diasMetaSemanaDisplay = document.getElementById('dias-meta-semana');
     const btnCerrarModalBiblioteca = document.getElementById('btn-cerrar-modal-biblioteca');
-    //const btnSeleccionarEjercicioModal = document.getElementById('btn-seleccionar-ejercicio-modal'); // No se usa
+    //const btnSeleccionarEjercicioModal = document.getElementById('btn-seleccionar-ejercicio-modal');
     const headerTitle = document.getElementById('header-title');
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -352,14 +436,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardarAjustes = document.getElementById('btn-guardar-ajustes');
     const btnRestablecerProgresoTotal = document.getElementById('btn-restablecer-progreso-total');
 
-
-    // --- FUNCIONES (Lógica principal sin cambios mayores, adaptaciones en renderizado y manejo de estado para nuevas features) ---
+    // --- FUNCIONES (con adaptaciones para nueva lógica) ---
     function guardarEstado() {
-        localStorage.setItem('entrenadorFitnessAppState_v8_hipertrofiaMaquinas', JSON.stringify(appState));
+        localStorage.setItem('entrenadorFitnessAppState_v9_maquinasFull', JSON.stringify(appState));
     }
 
     function cargarEstado() {
-        const estadoGuardado = localStorage.getItem('entrenadorFitnessAppState_v8_hipertrofiaMaquinas');
+        const estadoGuardado = localStorage.getItem('entrenadorFitnessAppState_v9_maquinasFull');
         const estadoPorDefecto = {
             nombreUsuario: "Atleta Máquina", appName: "Gym Máster Pro", unidadesPeso: "kg",
             planActivoGeneral: "gimnasio", diasEntrenamiento: 6, entrenamientosCompletados: {},
@@ -479,9 +562,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (planDelDia && planDelDia.componentes && planDelDia.componentes.length > 0 && planDelDia.nombre !== "Descanso") {
-            // Usar el ID original del plan predeterminado para chequear si está completado.
-            // Las rutinas personalizadas heredan el ID del plan original (ej. "gym_lun")
-            // pero el estado de completado se guarda contra el ID del plan original.
             const idOriginalParaCompletado = planDelDiaPredeterminado?.id || planDelDia.id;
             const completado = appState.entrenamientosCompletados[idOriginalParaCompletado];
 
@@ -676,7 +756,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     function quitarEjercicioDeComponentesEnEdicion(compIndex, ejIndex) {
         if (appState.componentesEnEdicion?.[compIndex]?.ejercicios) {
             appState.componentesEnEdicion[compIndex].ejercicios.splice(ejIndex, 1);
@@ -692,7 +771,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ejercicioActualData) return;
 
         const musculosTarget = ejercicioActualData.musculosTrabajados;
-        const equipamientoActualArray = Array.isArray(ejercicioActualData.equipamiento) ? ejercicioActualData.equipamiento : [ejercicioActualData.equipamiento];
+        // Asegurarse de que equipamientoActualArray es un array, incluso si el ejercicio no tiene equipamiento definido
+        const equipamientoActualArray = Array.isArray(ejercicioActualData.equipamiento) ? ejercicioActualData.equipamiento : (ejercicioActualData.equipamiento ? [ejercicioActualData.equipamiento] : []);
+
 
         let alternativas = bibliotecaEjercicios.filter(ej => {
             return ej.id !== ejercicioActualData.id && 
@@ -741,8 +822,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const rutinaId = appState.entrenamientoActual.id;
         const rutinaModificadaParaGuardar = {
             ...appState.entrenamientoActual, 
-            id: rutinaId, // Asegurar que el ID sea el correcto (ej. gym_lun)
-            nombre: appState.entrenamientoActual.nombre, // Mantener el nombre original o el personalizado
+            id: rutinaId, 
+            nombre: appState.entrenamientoActual.nombre, 
             diaSemanaComparable: appState.entrenamientoActual.diaSemanaComparable,
             componentes: JSON.parse(JSON.stringify(appState.componentesEnEdicion)) 
         };
@@ -817,7 +898,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderPantallaBiblioteca(true); 
         detalleEjercicioModal.style.display = 'block';
-        //btnSeleccionarEjercicioModal.style.display = 'block'; 
+        //btnSeleccionarEjercicioModal.style.display = 'block'; // No es necesario, la selección es por item
         
         modalEjercicioNombre.textContent = ejIndex === null ? "Añadir Ejercicio al Componente" : "Cambiar Ejercicio";
         modalEjercicioImagen.style.display = 'none'; 
@@ -1097,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetContainer = paraSeleccion ? modalEjercicioDescripcion : listaBibliotecaEjerciciosContainer;
 
         if (!paraSeleccion) { 
-            //btnSeleccionarEjercicioModal.style.display = 'none'; 
+            // btnSeleccionarEjercicioModal.style.display = 'none'; // Botón ya no existe hardcodeado
             modalEjercicioMusculos.parentElement.style.display = 'block';
             modalEjercicioEquipamiento.parentElement.style.display = 'block';
             modalEjercicioDescripcion.parentElement.style.display = 'block';
@@ -1106,7 +1187,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalEjercicioDescripcion.style.maxHeight = '150px';
             modalEjercicioDescripcion.style.overflowY = 'auto';
         } else { 
-            //btnSeleccionarEjercicioModal.style.display = 'none'; 
+            // btnSeleccionarEjercicioModal.style.display = 'none'; // Botón ya no existe hardcodeado
             modalEjercicioMusculos.parentElement.style.display = 'none';
             modalEjercicioEquipamiento.parentElement.style.display = 'none';
             modalEjercicioImagen.style.display = 'none';
@@ -1241,7 +1322,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!ejercicioDataOmitido) continue;
 
             let añadidoEsteEjercicio = false;
-            // Distribuir preferentemente a días que NO entrenen ese músculo principal, o si no, al menos cargado
             for (const diaDestinoNombre of diasRestantes) {
                 if (añadidoEsteEjercicio) break;
 
@@ -1271,7 +1351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                if (componentePrincipalDestino.ejercicios.length < 7 && // Aumentar un poco el límite para la distribución
+                if (componentePrincipalDestino.ejercicios.length < 7 && 
                     conteoMuscularActual < MAX_EJERCICIOS_A_DISTRIBUIR_POR_GRUPO_POR_DIA &&
                     !componentePrincipalDestino.ejercicios.find(e => e.id_ejercicio === ejDefOmitido.id_ejercicio)) {
                     
@@ -1287,7 +1367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sabadoPredeterminado = planesEntrenamiento[plan]?.sabado;
         rutinasPersonalizadasCopia[rutinaIdSabado] = {
             ...(sabadoPredeterminado || { id: rutinaIdSabado, diaSemanaComparable: 6 }),
-            nombre: "Descanso", // Marcar explícitamente como descanso
+            nombre: "Descanso", 
             componentes: []
         };
         
@@ -1351,7 +1431,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const plan = appState.planActivoGeneral;
             const rutinaIdSabado = `${plan}_sab`;
             if (appState.rutinasPersonalizadas[rutinaIdSabado] && appState.rutinasPersonalizadas[rutinaIdSabado].nombre === "Descanso") {
-                delete appState.rutinasPersonalizadas[rutinaIdSabado]; // Vuelve a tomar el default de planesEntrenamiento
+                delete appState.rutinasPersonalizadas[rutinaIdSabado]; 
             }
         }
 
